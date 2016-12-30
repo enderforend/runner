@@ -1,143 +1,6418 @@
-function PointJS(ac,aa,ba,Ya,oc){this._logo="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABcCAYAAACYyxCUAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAA10RVh0YXV0aG9yAFNrYW5lcrXlqu8AAAfJSURBVHic7Z1PaBRXHMe/M278GxW6CnalhEQMIlqUgiE2DUguha6g12Ih4sVrD70VevKUiwoKq8XFeOjBgxZ68aAXDYEKhUKpoMiaSCTR4EaINjtJ5vWQmXXcnTfz/r/ZzX7gHZKZ9/v93vvN7/ebNzM7A3To0KE9+A0AEWzfWLC37Wia2IWFBcJLtVqNc9Ata6NqMeqTVigUuCeflT179kSd84vVETfg2DYAwNcAHgGA4zjwfd+octd1QQgJ/7Q+H65F3eNYO0IfeZ4HQohxZwCA7/sghKBWqwEfo8Yato4IAiB6ZGYKx6lPi/H5MR0hBAAhhEg5o1QqwXVdOI4T21zXRalUEjfyo33WI0YXBAApl8vcBbivr0/0VLep7du3j1v/tWvXwv67TUyUiZDkTk+RlKEVQZu0GqczZf0IgIyMjDANvFKp1FOOKUJ9U1NTqfsSQjA8PAy0aAoLa0UqV65cUZaSZFupVGKyGRqdouNwZEpRvu9jw4YNGtTL4/t+aqQG25XPn2qBTM4wmZZkYByHC4URo7KGpDrj3r17LeMMYG3C79+/T90ejNUHMKZMpyI5qc5oJUfEwTC2AQB/yupRMUtt74wQhjFKD1Q2ZT0G1oczgOSxkI8rezkdkv3JenFGFJ2RIhMhZGRkhLqRxxnLy8vK2/T0NK5fv47+/n6JIfKPbWhoCLCweExc+CFh8RXXTFMsFpUsJGnAhkNonDlzJvMOicJra7SdO3cuTa4RyIkTJ2KNmJ+fV3qkmUTEbgCkWq3GyhscHBRyCm/xWQXgEkpREy3iNHmmUW2/SIHnLerKnZElRA8M2tiJwKkwj0Oogm3cC9eF7WjlihCasVm9amsSVVHC6hCqwKtXr7LqahlEo6RcLkvrZk38xPM8dHV1NQtQUDtsp4k4VBb4Wq2GzZs3AwzzzRIhowBinVGpVBi6ry9mZmaa/rdp0yalOsjx48eVnrs3Np1rB1GmpqaUjufo0aMEwK9pk80Sl8HYYzorOtWlyU+DRf+BAwfw5MkTbfLjSJmvRKFpGhcBbItToHLdodMhJuSz6mRxSFoN2VYoFISN6vAp+XweAH5I2iftENCergIlQv1aLUIiMqmCbT793iGGJIf00Ta0w3Ur3YjOUVIvQvsBjWqHtGPKoumVSlnValXKoA7NzM3NAcAXtO2JEWKioAeKhPq1YoQEcj0Ascv3TlG3w0baBm6HrKysyJnSIRFuh1y8eFGHHW3J5cuXuftwO+Tu3bvcStYrd+7c4e7D7ZCnT59yK7HJli1brOl+9uwZd5+2L+ofPnwQ6jc9Pa3YEjZyvB36+/vx5s0bHbZwE1ysa6KrqwvPnz/H1q1bhWX39PQI9w3Zv38/dx9uh5w6dQoTExPcinQwPz9v24RETp8+zd2He2G4srISeztXBtGFm050PiuQdPmEu4bkctxB1XLYvHja9kWdl/fv31vVn+iQhYUFU3Zkhu7ubq3yg4uL39O2t/Tld9WYGJfM5fefsjJRusnlcpm56dbS99RVoMsRnXvqHBSLReMvumEl9Ry2UCjg1atXJmzRgud52Lt3byYWkcGVhb+T9klNWUBicVKCrTt6OtH1oBy183op+CLIzA1TDRkcHBRWYAMSvDOREILDhw/bNgcAcOTIEWWyFkF5ortSqWTu6fcLFy4w7aerzczMJNmaCvMPdmq1GjZubL43b/MHOyk/IwMAvHjxAr29vULyRYgby9LSUnijTFnRox7JpVIpUxFis928eVMqOnjRNjGqHZK0n+d5sbJu376tbRw8DuEJIRJ4pXkDIXBd8TVmnEwWWFJWdL+kdylqfCgOAD4HMMsih2cWqRZneT0QhWan53m6VTM5AxC4dMJ6VGad7u5uOI6DfD4v/aPMlOjQ+moNB0D4QuEm3r59yynOHouLi9i5c6e0ze/evYv9/7Fjx6Tk8vAtEgrY2bNnM1vUfd+PldPb2ytUxM+fP59mmzFYzioy5xAA5PXr17GyTp48qfqs6jO9LmiGDA8Pc08Wz8DSYJUXt09ctKiweWBgwHh0hEwmGcY7QJWNZsfk5CTZsWNH/e/R0VEhexnGLIz0W0mxZiFdgYVT4kZ7QhuS7IzuxyM7pn8XAOHfbMjeMXQihsSSNglZ4dat9C/pMTjjMSScoRLWULaWssbGxqi2ra6uqkhTmTvyUg1/8OCB1RoSbfl8nmzfvj1V1sOHD406oy0/V9GoX9fLOQO5/wEQf8y+AdVPnaTWFADRr6ApI/xApAq5LHKCMf4Dhc4A9DwGxOQUYG3gN27c0GBCxBiO6BgfH2dyaCBzEUA27g8zQgCQoaGhxBwc8vLlS6m64bouU+2Ia7Tbro1EFn1f6po03YuEPwB8B/Cd/orkfMdxuNOVoE1a50z3k4tFRFIY6xtMwxxOCMHBgweZ+6Rx6NChT2SzcOnSJaufYtXJMhhOjVkol8skl8tRU1AulxP6qmgjEZnGsOHx+gBZj1LTRCIiD8DoTR4bD1s7iKQxx3HCT2dbZWlpKfoA9n9Ys9H4Hbcs5MR6mGTgA/d/AfjKqAENZOHnCGHETBBC6kfprl27tCnM5/N1PYEz3MAGq87IMrHFem5ujrswz87O0or/z5bG1haouOj4u3GrBchCDZFlN4AerBXif5HBy+AdWpj/AazZcTP7IXuyAAAAAElFTkSuQmCC";
-var g=window,W=this,va=!0,Za=!0,vb=!1,fa=!1,Fa=!0,p=aa,q=ba,L=p/2,M=q/2,f={x:0,y:0},t={fillStyle:"black",strokeStyle:"black",globalAlpha:1,font:"sans-serif",textBaseline:"top"},C=function(a){console.log("[PointJS] : ",a)},Ga=function(a){var b=decodeURI(a.stack.toString().replace(/(@|[\(\)]|[\w]+:\/\/)/g,"")),b=b.split(/\n/),b=(""==b[2]?b[0]:b[1]).split("/"),b=b[b.length-1].split(":");console.log('ERROR "'+a.toString()+'" \n in      '+b[0]+" \n line :   "+b[1]+" \n symbol : "+b[2])},wb=function(a,
-b){C('function "'+a+'" is DEPRECATED, use a "'+b+'"')};this.game={};this.camera={};this.keyControl={};this.mouseControl={};this.touchControl={};this.system={};this.vector={};this.math={};this.colors={};this.brush={};this.audio={};this.wAudio={};this.dialogs={};this.resources={};this.tiles={};this.OOP={};this.GUI={};this.GL={};this.memory={};this.system.log=C;this.system.consoleLog=function(a){this.log=!0===a?console.log:C};this.system.setSettings=function(a){va=r(a.isShowError)?a.isShowError:!0;Za=
-r(a.isStopForError)?a.isStopForError:!0;vb=r(a.isAutoClear)?a.isAutoClear:!1;r(a.isZBuffer)};this.system.setDefaultSettings=function(a){for(var b in a)t[b]=a[b];h.save()};this.system.setSmoothing=function(a){Fa=a;xb()};var bc={name:"PointJS",desc:"HTML5 2D Game Engine for JavaScript",author:"Skaner (skaner0@yandex.ru)",version:"0.0.7.1"};this.system.getInfo=function(){return bc};var yb="",zb="",Ab=function(a,b){var c=k.createShader(a);k.shaderSource(c,b);k.compileShader(c);return k.getShaderParameter(c,
-k.COMPILE_STATUS)?c:(C("Error shader compilation : "+k.getShaderInfoLog(c)),k.deleteShader(c),null)},Q,k=!1,u=!1,cc=function(){u=g.document.createElement("canvas");u.width=l.width;u.height=l.height;u.style.position="fixed";u.style.left=0;u.style.top=0;u.style.zIndex=l.style.zIndex+1;u.id="PointJS-canvas_1";u.style.backgroundColor="black";m.attach(u);m.addEvent("onload","hideSourceCanvas",function(){l.style.display="none"});k=u.getContext("webgl")||u.getContext("experimental-webgl");k.viewport(0,0,
-p,q);k.clearColor(0,0,0,1);k.clear(k.COLOR_BUFFER_BIT)},$a,ab,Bb,Cb,bb,cb,dc=function(){var a=k.createBuffer();k.bindBuffer(k.ARRAY_BUFFER,a);k.bufferData(k.ARRAY_BUFFER,new Float32Array([0,0,p,0,0,q,0,q,p,0,p,q]),k.STATIC_DRAW);ab=k.getAttribLocation(Q,"aPosition");Bb=k.getUniformLocation(Q,"uResolution");$a=k.getAttribLocation(Q,"aTextCoord");bb=k.getUniformLocation(Q,"uInversion");cb=k.getUniformLocation(Q,"uMirrorX");k.uniform2f(Bb,p,q);k.enableVertexAttribArray(ab);k.vertexAttribPointer(ab,2,
-k.FLOAT,!1,0,0);a=k.createBuffer();k.bindBuffer(k.ARRAY_BUFFER,a);k.bufferData(k.ARRAY_BUFFER,new Float32Array([0,0,1,0,0,1,0,1,1,0,1,1]),k.STATIC_DRAW);k.enableVertexAttribArray($a);k.vertexAttribPointer($a,2,k.FLOAT,!1,0,0);Cb=k.createTexture();k.bindTexture(k.TEXTURE_2D,Cb);k.texParameteri(k.TEXTURE_2D,k.TEXTURE_WRAP_S,k.CLAMP_TO_EDGE);k.texParameteri(k.TEXTURE_2D,k.TEXTURE_WRAP_T,k.CLAMP_TO_EDGE);k.texParameteri(k.TEXTURE_2D,k.TEXTURE_MIN_FILTER,k.NEAREST);k.texParameteri(k.TEXTURE_2D,k.TEXTURE_MAG_FILTER,
-k.NEAREST)};this.GL.filter=function(a,b){if(!k)return C("GL is not inited. Use a initGL() function.");"inversion"==a&&k.uniform1i(bb,1);"mirror-x"==a&&k.uniform1i(cb,1)};var e=function(a,b){return{x:a,y:b}},y=function(a,b){return{w:a,h:b}},oa=function(a,b){return{x:a.x+b.x,y:a.y+b.y}},db=function(a,b){return{x:a.x-b.x,y:a.y-b.y}},I=function(a,b,c){if(0!=c){var d=w(c);c=a.x-b.x;a=a.y-b.y;var ca=Math.cos(d),d=Math.sin(d);return e(c*ca-a*d+b.x,c*d+a*ca+b.y)}return e(a.x,a.y)},eb=function(a,b){return 180/
-Math.PI*Math.atan2(b.y-a.y,b.x-a.x)},ga=function(a,b){if(3>b.length)return!1;var c=0,d=b.length-1,e=b[d].y<a.y,f,h;f=0;for(h=b.length;f<h;++f){var g=b[f].y<a.y,d=db(b[d],a),k=db(b[f],a),d=d.x*(k.y-d.y)-d.y*(k.x-d.x);g&&!e&&0<d&&(c+=1);!g&&e&&0>d&&(c+=1);d=f;e=g}return 0!=(c&1)};this.vector.point=e;this.vector.v2d=e;this.vector.size=y;this.vector.w2h=y;this.vector.getPointAngle=I;this.vector.isPointIn=ga;this.vector.pointMinus=db;this.vector.pointPlus=oa;this.vector.pointInc=function(a,b){return{x:a.x*
-b.x,y:a.y*b.y}};this.vector.pointDiv=function(a,b){return{x:a.x/(0!=b.x?b.x:1),y:a.y/(0!=b.y?b.y:1)}};this.vector.pointAbs=function(a){return{x:Math.abs(a.x),y:Math.abs(a.y)}};this.vector.getMidPoint=function(a,b){return r(b)?e((a.x+b.x)/2,(a.y+b.y)/2):0};this.vector.getDistance=function(a,b){return Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2))};this.vector.isSame=function(a,b){return r(b)?a.x==b.x&&a.y==b.y:!1};this.vector.getAngle2Points=eb;this.vector.newStaticBox=function(a,b,c,d){return{x:a,
-y:b,w:a+c,h:b+d}};this.vector.newDynamicBoxRect=function(a,b,c,d){return[e(a,b),e(a+c,b),e(a+c,b+d),e(a,b+d)]};var w=function(a){return Math.PI/180*a},X=function(a,b,c){var d=Math.floor(Math.random()*(b-a+1)+a);return c&&0==d?X(a,b,c):d},fb=function(a){return 0>a?-1:1};this.math.limit=function(a,b){a=Math.abs(a);b=Math.abs(b);return a<b?a*fb(a):b*fb(b)};this.math.sign=fb;this.math.a2r=w;this.math.random=X;this.math.toInt=function(a){return a>>0};var ec=0,m={loaded:!1,events:{onload:[],preLoop:[],
-postLoop:[],gameBlur:[],gameFocus:[],gameResize:[]},addEvent:function(a,b,c){"onload"==a&&m.loaded?c():m.events[a].push({id:b,func:c})},delEvent:function(a,b){x(m.events[a],function(a,d,e){a.id==b&&e.splice(d,1)})},runEvent:function(a){x(m.events[a],function(a){"function"==typeof a.func&&a.func()})},attach:function(a){var b=function(){g.document.body.appendChild(a)};m.loaded?b():m.addEvent("onload","attachElement_PointJS"+ec++,b)},getWH:function(){return{w:parseInt(g.document.documentElement.clientWidth||
-g.innerWidth||g.document.body.clientWidth),h:parseInt(g.document.documentElement.clientHeight||g.innerHeight||g.document.body.clientHeight)}}};this.system.delEvent=function(a,b){m.delEvent(a,b)};this.system.addEvent=function(a,b,c){m.addEvent(a,b,c)};this.system.attachDOM=function(a){m.attach(a)};this.system.newDOM=function(a){a=g.document.createElement(a);a.style.position="fixed";a.style.left=0;a.style.top=0;a.style.zIndex=l.style.zIndex+1;a.style.border="none";m.attach(a);return a};var l=g.document.createElement("canvas");
-l.crossOrigin="anonymous";l.width=parseInt(aa);l.height=parseInt(ba);l.style.position="fixed";l.style.left=0;l.style.top=0;l.style.zIndex=1E3;l.id="PointJS-canvas_0";l.style.backgroundColor="black";if("object"==typeof Ya)for(var gb in Ya)gb.match(/margin|padding|position/)||(l.style[gb]=Ya[gb]);m.addEvent("onload","Window_Hide_Scroll",function(){g.document.body.style.overflow="hidden";hb={x:parseInt(l.style.left),y:parseInt(l.style.top)}});var hb=e(0,0),h=null,k=null,Y=!1,h=l.getContext("2d");"GL2D"==
-ac?(cc(),zb="attribute vec2 aPosition; attribute vec2 aTextCoord; uniform vec2 uResolution; uniform int uMirrorX; varying vec2 vTextureCoord; void main() {    vec2 zeroToOne = aPosition / uResolution;    vec2 zeroToTwo = zeroToOne * 2.0;    vec2 clipSpace = zeroToTwo - 1.0;    gl_Position = vec4(clipSpace * vec2((uMirrorX == 1 ? -1 : 1), -1), 0, 1);    vTextureCoord = aTextCoord; }",yb="precision mediump float; uniform sampler2D texture; varying vec2 vTextureCoord; uniform int uInversion; void main() { \tvec4 texColor = texture2D(texture,vTextureCoord.xy); \tvec4 finalColor; \tfinalColor = texColor; \tif (uInversion == 1) \t\tfinalColor = 1.0 - finalColor; \tgl_FragColor = finalColor; }",
-Q=k.createProgram(),k.attachShader(Q,Ab(k.VERTEX_SHADER,zb)),k.attachShader(Q,Ab(k.FRAGMENT_SHADER,yb)),k.linkProgram(Q),k.getProgramParameter(Q,k.LINK_STATUS)||C("Can't install shader"),k.useProgram(Q),dc(),Y=!0,m.addEvent("postLoop","drawGL",function(){k?(k.texImage2D(k.TEXTURE_2D,0,k.RGBA,k.RGBA,k.UNSIGNED_BYTE,l),k.drawArrays(k.TRIANGLES,0,6),k.uniform1i(bb,0),k.uniform1i(cb,0)):C("GL is not inited. Use a initGL() function.")})):(m.attach(l),h.textBaseline=t.textBaseline);this.system.setStyle=
-function(a){if("object"==typeof a)for(var b in a)l.style[b]=a[b]};this.system.getContext=function(){return h};this.system.resize=function(a,b){p=a||aa;q=b||ba;L=p/2;M=q/2;l.width=p;l.height=q;Y&&(u.width=l.width,u.height=l.height,k.viewport(0,0,p,q))};this.system.initFullPage=function(){m.addEvent("gameResize","PointJS_resizeGame",function(){p=m.getWH().w;q=m.getWH().h;L=p/2;M=q/2;l.width=p;l.height=q;Y&&(u.width=l.width,u.height=l.height,k.viewport(0,0,p,q))});m.runEvent("gameResize","PointJS_resizeGame")};
-var R=!1,fc=function(){R||(this.requestFullscreen?(this.requestFullscreen(),R=!0):this.mozRequestFullScreen?(this.mozRequestFullScreen(),R=!0):this.webkitRequestFullscreen&&(this.webkitRequestFullscreen(),R=!0),p=m.getWH().w,q=m.getWH().h,L=p/2,M=q/2,l.width=p,l.height=q,Y&&(u.width=l.width,u.height=l.height,k.viewport(0,0,p,q)))},ib=function(a){R=Db(g.document.fullscreenElement||g.document.mozFullScreenElement||g.document.webkitFullscreenElement)};g.document.addEventListener("webkitfullscreenchange",
-ib);g.document.addEventListener("mozfullscreenchange",ib);g.document.addEventListener("fullscreenchange",ib);this.system.initFullScreen=function(){R||(g.document.documentElement.onclick=fc,wa||(m.addEvent("gameResize","PointJS_initFullScreen",function(){p=m.getWH().w;q=m.getWH().h;L=p/2;M=q/2;l.width=p;l.height=q;Y&&(u.width=l.width,u.height=l.height,k.viewport(0,0,p,q))}),m.runEvent("gameResize","PointJS_initFullScreen")))};this.system.exitFullScreen=function(){R&&(m.delEvent("gameResize","PointJS_initFullScreen"),
-g.document.exitFullscreen?(g.document.exitFullscreen(),R=!1):g.document.mozCancelFullScreen?(g.document.mozCancelFullScreen(),R=!1):g.document.webkitExitFullscreen&&(g.document.webkitExitFullscreen(),R=!1),p=aa,q=ba,L=p/2,M=q/2,l.width=p,l.height=q,Y&&(u.width=l.width,u.height=l.height,k.viewport(0,0,p,q)),g.document.documentElement.onclick=function(){})};this.system.isFullScreen=function(){return R};this.system.exitFullPage=function(){p=aa;q=ba;L=p/2;M=q/2;l.width=p;l.height=q;Y&&(u.width=l.width,
-u.height=l.height,k.viewport(0,0,p,q))};var T=!1,wa=!1,Eb=aa,Fb=ba,Gb=!1;this.system.initFullScale=function(a){wa||(a&&(Gb=!0),m.addEvent("gameResize","PointJS_initFullScale",function(){var a=Eb,c=Fb,d=m.getWH();Gb?(a=d.w,c=d.h):d.w<d.h?(c=d.w/p,a=d.w,c*=q):d.h<d.w&&(a=d.h/q,c=d.h,a*=p);Eb=a;Fb=c;T={w:a/p,h:c/q};l.style.width=a+"px";l.style.height=c+"px";Y&&(u.style.width=l.style.width,u.style.height=l.style.height,k.viewport(0,0,p,q))}),m.runEvent("gameResize","PointJS_initFullScale"),wa=!0)};this.system.exitFullScale=
-function(){wa&&(wa=!1,m.delEvent("gameResize","PointJS_initFullScale"),l.style.width=aa+"px",l.style.height=ba+"px",Y&&(u.style.width=l.style.width,u.style.height=l.style.height,k.viewport(0,0,p,q)))};this.system.getWH=function(){return m.getWH()};var gc=[],hc=0,pa=function(a,b){var c=g.document.createElement(a);c.style.position="fixed";c.style.zIndex=l.style.zIndex+1;c.style.outline="none";c.style.left=b.x?b.x+"px":0;c.style.top=b.y?b.y+"px":0;b.w&&(c.style.width=b.w+"px");b.h&&(c.style.height=b.h+
-"px");c.style.backgroundColor=b.fillColor?b.fillColor:"";c.style.color=b.color?b.color:"black";c.style.border=(b.strokeWidth||0)+"px solid "+(b.strokeColor||"");c.onmousedown=c.onmouseup=c.onmousemove=c.onclick=c.onkeydown=c.onkeypress=c.onkeyup=function(a){a.stopPropagation()};c.oncontextmenu=c.onselectstart=c.ondragstart=function(a){a.stopPropagation();return!1};this.w=b.w||0;this.h=b.h||0;this.el=c;this.id=hc++;this.visible=!0;if(b.events)this.onEvents(b.events);b.style&&this.setStyle(b.style);
-gc.push(this)};pa.prototype={onEvents:function(a){"function"==typeof a.keyPress&&(this.el.onkeypress=function(b){b.stopPropagation();var c=!1;0!=b.which&&0!=b.charCode&&32<=b.which&&(c=String.fromCharCode(b.which));return a.keyPress(c)});"function"==typeof a.change&&(this.el.oninput=function(b){b.stopPropagation();a.change()});"function"==typeof a.mouseOver&&(this.el.onmouseover=function(b){b.stopPropagation();a.mouseOver()});"function"==typeof a.mouseOut&&(this.el.onmouseleave=function(b){b.stopPropagation();
-a.mouseOut()});"function"==typeof a.click&&(this.el.onclick=function(b){b.stopPropagation();a.click()});"function"==typeof a.mousePress&&(this.el.onmousedown=function(b){b.stopPropagation();a.mousePress()});"function"==typeof a.mouseUp&&(this.el.onmouseup=function(b){b.stopPropagation();a.mouseUp()})},getID:function(){return this.id},move:function(a){this.el.style.left=parseInt(this.el.style.left)+a.x+"px";this.el.style.top=parseInt(this.el.style.top)+a.y+"px"},setPosition:function(a){this.el.style.left=
-a.x+"px";this.el.style.top=a.y+"px"},setPositionC:function(a){this.el.style.left=a.x-this.w/2+"px";this.el.style.top=a.y-this.h/2+"px"},getPosition:function(){return e(parseInt(this.el.style.left),parseInt(this.el.style.top))},getPositionC:function(){return e(parseInt(this.el.style.left)+this.w/2,parseInt(this.el.style.top)+this.h/2)},setSize:function(a){this.w=a.w;this.h=a.h;this.el.style.width=a.w+"px";this.el.style.height=a.h+"px"},getSize:function(){return y(this.w,this.h)},setStyle:function(a){for(var b in a)this.el.style[b]=
-a[b]},setVisible:function(a){if(this.visible=a)return this.el.style.display="block";this.el.style.display="none"},isVisible:function(){return this.visible},setEnabled:function(a){this.enabled=a;this.el.disabled=!a},setText:function(a){this.el.innerHTML&&(this.el.innerHTML=a,this.w=parseInt(this.el.offsetWidth),this.h=parseInt(this.el.offsetHeight));this.el.value&&(this.el.value=a)},getText:function(){if(this.el.innerHTML)return this.el.innerHTML;this.el.value&&(this.el.value=text)}};this.GUI.newButton=
-function(a){var b=new pa("input",a);b.el.type="button";b.el.value=a.text?a.text:"Button "+b.id;m.attach(b.el);return b};this.GUI.newInput=function(a){var b=new pa("input",a);b.el.type="text";b.el.value=a.text?a.text:"Button "+b.id;b.el.oncontextmenu=b.el.onselectstart=b.el.ondragstart=function(a){};m.attach(b.el);return b};this.GUI.newPanel=function(a){var b=new pa("div",a);b.el.innerHTML=a.text?a.text:"Panel "+b.id;m.attach(b.el);return b};this.GUI.newImage=function(a){var b=new pa("img",a);if(!a.file)return C("error in GUI.newImage : Where image file?");
-b.el.src=a.file;m.attach(b.el);b.el.onload=function(){b.w||(b.w=parseInt(this.width));b.h||(b.h=parseInt(this.height))};return b};this.GUI.newHTML=function(a){var b=new pa("div",a);b.el.innerHTML=a.text?a.text.toString():"Your HTML Text";m.attach(b.el);m.addEvent("onload","getWH_HTMLPanel"+b.id,function(){b.w||(b.w=parseInt(b.el.offsetWidth));b.h||(b.h=parseInt(b.el.offsetHeight))});return b};var Ha={LEFT:37,RIGHT:39,UP:38,DOWN:40,SPACE:32,CTRL:17,SHIFT:16,ALT:18,ESC:27,ENTER:13,MINUS:189,PLUS:187,
-CAPS_LOCK:20,BACKSPACE:8,TAB:9,Q:81,W:87,E:69,R:82,T:84,Y:89,U:85,I:73,O:79,P:80,A:65,S:83,D:68,F:70,G:71,H:72,J:74,K:75,L:76,Z:90,X:88,V:86,B:66,N:78,M:77,0:48,1:49,2:50,3:51,4:52,5:53,6:54,7:55,8:56,C:67,9:57,F1:112,F2:113,F3:114,F4:115,F5:116,F6:117,F7:118,F8:119,F9:120,F10:121,F11:122,F12:123},ic={37:"LEFT",39:"RIGHT",38:"UP",40:"DOWN",32:"SPACE",17:"CTRL",16:"SHIFT",18:"ALT",27:"ESC",13:"ENTER",189:"MINUS",187:"PLUS",20:"CAPS_LOCK",8:"BACKSPACE",9:"TAB",81:"Q",87:"W",69:"E",82:"R",84:"T",89:"Y",
-85:"U",73:"I",79:"O",80:"P",65:"A",83:"S",68:"D",70:"F",71:"G",72:"H",74:"J",75:"K",76:"L",90:"Z",88:"X",86:"V",66:"B",78:"N",77:"M",48:"0",49:"1",50:"2",51:"3",52:"4",53:"5",54:"6",55:"7",56:"8",67:"C",57:"9",112:"F1",113:"F2",114:"F3",115:"F4",116:"F5",117:"F6",118:"F7",119:"F8",120:"F9",121:"F10",122:"F11",123:"F12"},jc={8:!0,9:!0,13:!0,18:!0,16:!0,17:!0,27:!0,112:!0,113:!0,114:!0,115:!0,116:!0,117:!0,118:!0,119:!0,120:!0,121:!0,122:!0,123:!0};this.keyControl.getKeyList=function(){var a,b=[];for(a in Ha)b.push(a);
-return b};var qa={},xa={},ha={},ya=!1,za=!1,Ia=!1,kc=function(a){ia(ha,function(a,c,d){1==a&&(d[c]=2)})};this.keyControl.isDown=function(a){return 1==qa[Ha[a]]};this.keyControl.isUp=function(a){return 1==xa[Ha[a]]};this.keyControl.isPress=function(a){return 1==ha[Ha[a]]};this.keyControl.getInputChar=function(){return ya};this.keyControl.getInputKey=function(){return ic[za]};this.keyControl.setInputMode=function(a){Ia=a};this.keyControl.isInputMode=function(){return Ia};this.keyControl.exitKeyControl=
-function(){g.onkeydown=function(){};g.onkeypress=function(){};g.onkeyup=function(){};m.delEvent("postLoop","PointJS_clearAllKeyUp");qa={};xa={};ha={};Ia=za=ya=!1};this.keyControl.initKeyControl=function(){g.onkeydown=function(a){if(Ia)return za=a.keyCode,jc[a.keyCode]?(a.preventDefault(),!1):!0;a.preventDefault();2!=ha[a.keyCode]&&(ha[a.keyCode]=1);qa[a.keyCode]=!0;return!1};g.onkeypress=function(a){var b=!1;0!=a.which&&0!=a.charCode&&32<=a.which&&(b=String.fromCharCode(a.which));ya=b};g.onkeyup=
-function(a){a.preventDefault();1==qa[a.keyCode]&&(xa[a.keyCode]=!0);qa[a.keyCode]=!1;delete ha[a.keyCode];return!1};m.addEvent("postLoop","PointJS_clearAllKeyUp",function(){xa={};kc();za=ya=!1});return this};var B=e(0,0),Ja=e(0,0);e(0,0);var Aa=!0,jb="",Ka=!1,ja=e(0,0),La=!1,kb={LEFT:1,RIGHT:3,MIDDLE:2},Ma={},Na={},Ba={},Ca=0,Hb=function(){Ma={};Na={};Ba={};Ca=0;La=!1},lc=function(){ia(Ba,function(a,b,c){1==a&&(c[b]=2)})},Oa=function(a){var b=0,c=0;a&&(b=f.x,c=f.y);return e(b+B.x,c+B.y)};this.mouseControl.getPosition=
-function(){return Oa(1)};this.mouseControl.getPositionS=function(){return Oa()};this.mouseControl.setCursorImage=function(a){jb='url("'+a+'"), auto';g.document.body.style.cursor=jb};this.mouseControl.setVisible=function(a){!Aa&&!a||Aa&&a||(Aa=1==a,g.document.body.style.cursor=Aa?jb:"none")};this.mouseControl.isVisible=function(){return Aa};this.mouseControl.isDown=function(a){return Ma[kb[a]]};this.mouseControl.isUp=function(a){return Na[kb[a]]};this.mouseControl.isPress=function(a){return 1==Ba[kb[a]]};
-this.mouseControl.isMove=function(){return La};this.mouseControl.isInStatic=function(a){var b=Oa(1);return b.x>=a.x&&b.x<=a.x+a.w&&b.y>=a.y&&b.y<=a.y+a.h};this.mouseControl.isInDynamic=function(a){return ga(Oa(1),a)};this.mouseControl.isInObject=function(a){return a.visible?a.angle?this.isInDynamic(a.getDynamicBox()):this.isInStatic(a.getStaticBox()):!1};this.mouseControl.isWheel=function(a){return"UP"==a&&0<Ca||"DOWN"==a&&0>Ca};var Ib=function(a){a.preventDefault();Ca=a.wheelDelta?a.wheelDelta:-a.detail;
-return!1},Pa=!1,Jb=function(){Pa&&(Ka=r(g.document.pointerLockElement)||r(g.document.mozPointerLockElement)?!0:!1)};this.mouseControl.initMouseLock=function(){m.addEvent("onload","initPointerLock",function(){Pa=l.requestPointerLock||l.mozRequestPointerLock||!1;g.document.exitPointerLock=g.document.exitPointerLock||g.document.mozExitPointerLock||!1;"onpointerlockchange"in g.document?g.document.addEventListener("pointerlockchange",Jb,!1):"onmozpointerlockchange"in g.document&&g.document.addEventListener("mozpointerlockchange",
-Jb,!1);if(!Pa)return C("error in initMouseLock : not supported");Ka||(l.onclick=Pa)})};this.mouseControl.exitMouseLock=function(){g.document.exitPointerLock();l.onclick=function(){};ja=e(0,0)};this.mouseControl.unlockMouse=function(){ja=e(0,0);g.document.exitPointerLock()};this.mouseControl.isMouseLock=function(){return Ka};this.mouseControl.getSpeed=function(){return e(ja.x,ja.y)};this.mouseControl.isPeekStatic=function(a,b){return this.isPress(a)?this.isInStatic(b):!1};this.mouseControl.isPeekDynamic=
-function(a,b){return this.isPress(a)?this.isInDynamic(b):!1};this.mouseControl.isPeekObject=function(a,b){return this.isPress(a)&&b.visible?this.isInDynamic(b.getDynamicBox()):!1};this.mouseControl.initMouseControl=function(){g.onmousemove=function(a){a.preventDefault();a.stopPropagation();if(Ka){var b=a.movementY||a.mozMovementY||0;B.x+=a.movementX||a.mozMovementX||0;B.y+=b;return!1}B.x=a.pageX-hb.x;B.y=a.pageY-hb.y;T&&(B.x/=T.w,B.y/=T.h);ja.x=B.x-Ja.x;ja.y=B.y-Ja.y;Ja.x=B.x;Ja.y=B.y;La=!0;return!1};
-g.onmousedown=function(a){a.preventDefault();a.stopPropagation();!a.which&&a.button&&(a.button&1?a.which=1:a.button&4?a.which=2:a.button&2&&(a.which=3));Ma[a.which]=!0;Ba[a.which]=1};g.onmouseup=function(a){a.preventDefault();a.stopPropagation();!a.which&&a.button&&(a.button&1?a.which=1:a.button&4?a.which=2:a.button&2&&(a.which=3));Ma[a.which]=!1;Na[a.which]=!0;delete Ba[a.which]};g.oncontextmenu=g.onselectstart=g.ondragstart=function(){return!1};g.onmousewheel=Ib;g.addEventListener("DOMMouseScroll",
-Ib,!1);m.addEvent("postLoop","PointJS_clearAllMouseUp",function(){Na={};lc();Ca=0;La=!1;ja=e(0,0)});return this};this.mouseControl.exitMouseControl=function(){g.onmousemove=g.onmousedown=g.onmouseup=g.oncontextmenu=g.onselectstart=g.ondragstart=g.onmousewheel=function(){};m.delEvent("postLoop","PointJS_clearAllMouseUp");Hb()};var Qa=!1,Ra=0,Sa=0,D=0,E=0,v=e(0,0),Da=e(0,0),Ta=e(0,0);this.touchControl.isTouchSupported=function(){return!!("ontouchstart"in window)};this.touchControl.isMobileDevice=function(){return/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(g.navigator.userAgent)};
-var Kb=function(){Qa=!1;Sa=Ra=0;v=e(0,0);E=D=0};this.touchControl.getFixPositionS=function(){return v.x||v.y?e(v.x,v.y):!1};this.touchControl.getFixPosition=function(){return v.x||v.y?e(v.x+f.x,v.y+f.y):!1};this.touchControl.getRun=function(){var a=0,b=0;v.x&&v.x!=D&&(a=D-v.x);v.y&&v.y!=E&&(b=E-v.y);return e(a,b)};this.touchControl.getVector=function(){var a=0,b=0;v.x&&v.x!=D&&(a=D>v.x?1:-1);v.y&&v.y!=E&&(b=E>v.y?1:-1);return e(a,b)};this.touchControl.getSpeed=function(){return e(Da.x,Da.y)};this.touchControl.isDown=
-function(){return Qa};this.touchControl.isPress=function(){return 1==Ra};this.touchControl.isUp=function(){return 1==Sa};this.touchControl.getPosition=function(){return e(D+f.x,E+f.y)};this.touchControl.getPositionS=function(){return e(D,E)};this.touchControl.isPeekStatic=function(a){return this.isPress()?this.isInStatic(a):!1};this.touchControl.isPeekDynamic=function(a){return this.isPress()?this.isInDynamic(a):!1};this.touchControl.isPeekObject=function(a){return this.isPress()&&a.visible?this.isInDynamic(a.getDynamicBox()):
-!1};this.touchControl.isInStatic=function(a){var b=this.getPosition();return b.x>=a.x&&b.x<=a.x+a.w&&b.y>=a.y&&b.y<=a.y+a.h};this.touchControl.isInDynamic=function(a){return ga(this.getPosition(),a)};this.touchControl.isInObject=function(a){return a.visible?a.angle?this.isInDynamic(a.getDynamicBox()):this.isInStatic(a.getStaticBox()):!1};this.touchControl.getTouches=function(){wb("getTouches","isPress, isUp, isDown")};this.touchControl.initTouchControl=function(){g.addEventListener("touchstart",function(a){a.preventDefault();
-D=a.targetTouches[0].pageX;E=a.targetTouches[0].pageY;T&&(D/=T.w,E/=T.h);v.x=D;v.y=E;Qa=!0;Ra=1;return!1},!1);g.addEventListener("touchmove",function(a){a.preventDefault();D=a.targetTouches[0].pageX;E=a.targetTouches[0].pageY;T&&(D/=T.w,E/=T.h);Da.x=D-Ta.x;Da.y=E-Ta.y;return!1},!1);g.addEventListener("touchend",function(a){a.preventDefault();v.x=0;v.y=0;Qa=!1;Sa=1;return!1},!1);W.touchControl.vibrate=function(a){if(g.navigator.vibrate)return g.navigator.vibrate(a);if(g.navigator.oVibrate)return g.navigator.oVibrate(a);
-if(g.navigator.mozVibrate)return g.navigator.mozVibrate(a);if(g.navigator.webkitVibrate)return g.navigator.webkitVibrate(a)};m.addEvent("postLoop","PointJS_touchStopPress",function(){Sa=Ra=0;Ta.x=D;Ta.y=E;Da=e(0,0)});return this};this.touchControl.exitTouchControl=function(){g.ontouchstart=g.ontouchmove=g.ontouchend=function(a){};m.delEvent("postLoop","PointJS_touchStopPress");Kb()};var Ua=function(a,b,c,d){return"rgba("+a+", "+b+", "+c+", "+(d?d:1)+")"},Lb=function(a,b){a="#"==a[0]?a.substr(1,6):
-a;var c=parseInt(a.substr(0,2),16),d=parseInt(a.substr(2,2),16),e=parseInt(a.substr(4,2),16);return Ua(c,d,e,b)};this.colors.rgb=function(a,b,c){return Ua(a,b,c,1)};this.colors.rgba=function(a,b,c,d){return Ua(a,b,c,d)};this.colors.hex2rgb=function(a){return Lb(a,1)};this.colors.hex2rgba=function(a,b){return Lb(a,b)};this.colors.randomColor=function(a,b,c){return Ua(X(a,b),X(a,b),X(a,b),c||1)};var r=function(a){return"undefined"==typeof a||null==a?!1:!0},Db=function(a){return r(a)&&""!==a&&0!==a?
-!0:!1},ia=function(a,b){for(var c in a)a[c]&&b(a[c],c,a)},x=function(a,b){if(0!=a.length){var c,d;c=0;for(d=a.length;c<d;c++)a[c]&&b(a[c],c,a)}};this.OOP.insertArrElement=function(a,b){var c=a[b];a.splice(b,1);return c};this.OOP.insertRandArrElement=function(a){var b=X(0,a.length-1),c=a[b];a.splice(b,1);return c};this.OOP.drawArr=function(a){var b,c;b=0;for(c=a.length;b<c;b++)a[b].isInCamera&&a[b].draw&&a[b].isInCamera()&&a[b].draw()};this.OOP.readJSON=function(a,b){var c={},d=new XMLHttpRequest;
-d.open("GET",a,!0);z.add();d.onreadystatechange=function(){4==d.readyState&&(c=d.responseText,c=JSON.parse(c),z.load(),b(c))};d.send()};this.OOP.toString=function(a,b){var c,d=0,e,f="[";for(c in a)e=a[c],"number"==typeof e&&b&&(e=parseInt(e)),f+=(0<d?", ":"")+c+" : "+e,d++;return f+"]"};this.OOP.sendGET=function(a,b,c){var d=new XMLHttpRequest,e="?";ia(b,function(a,b){e+=b+"="+encodeURIComponent(a)+"&"});d.open("GET",a+e,!0);d.onreadystatechange=function(){4==d.readyState&&c(d.responseText)};d.send()};
-this.OOP.sendPOST=function(a,b,c){var d=new XMLHttpRequest,e="";ia(b,function(a,b){e+=b+"="+encodeURIComponent(a)+"&"});d.open("POST",a,!0);d.setRequestHeader("Content-Type","application/x-www-form-urlencoded");d.onreadystatechange=function(){4==d.readyState&&c(d.responseText)};d.send(e)};this.OOP.sendPOSTScreen=function(a,b,c){var d=new XMLHttpRequest;b=b+"="+l.toDataURL("image/png");d.open("POST",a,!0);d.setRequestHeader("Content-Type","application/x-www-form-urlencoded");d.onreadystatechange=function(){4==
-d.readyState&&c(d.responseText)};d.send(b)};this.OOP.isDef=r;this.OOP.isSet=Db;this.OOP.forEach=ia;this.OOP.forInt=function(a,b){var c;for(c=0;c<a;c++)b(c)};this.OOP.forXY=function(a,b,c){var d,e;for(e=0;e<b;e++)for(d=0;d<a;d++)c(d,e)};this.OOP.forArr=x;this.OOP.clearArr=function(a){a.length=0};this.OOP.fillArr=function(a,b,c){a.length=0;var d;for(d=0;d<b;d++)a.push(c(d,0<d?a[d-1]:!1));return a};this.OOP.randArrElement=function(a){return a[X(0,a.length-1)]};this.OOP.readJSONSync=function(a){var b=
-new XMLHttpRequest;b.open("GET",a,!1);b.send();a=b.responseText;return a=JSON.parse(a)};this.OOP.sendGETSync=function(a,b){var c=new XMLHttpRequest,d="?";ia(b,function(a,b){d+=b+"="+encodeURIComponent(a)+"&"});c.open("GET",a+d,!1);c.send();return c.responseText};this.OOP.sendPOSTSync=function(a,b){var c=new XMLHttpRequest,d="";ia(b,function(a,b){d+=b+"="+encodeURIComponent(a)+"&"});c.open("POST",a,!1);c.setRequestHeader("Content-Type","application/x-www-form-urlencoded");c.send(d);return c.responseText};
-this.OOP.runCode=function(a){(new Function("",a))()};var F={};this.OOP.includeSync=function(a,b){if(F[a])F[a].loaded&&!b&&F[a].code();else{F[a]={loaded:!1,code:function(){console.log(a+" is loading")}};var c=new XMLHttpRequest;c.open("GET",a,!1);c.send();F[a].code=new Function("",c.responseText);F[a].loaded=!0;F[a].code()}};this.OOP.include=function(a,b,c){if(F[a])F[a].loaded&&!c&&F[a].code(),b&&b();else{F[a]={loaded:!1,code:function(){console.log(a+" is loading")}};var d=new XMLHttpRequest;d.open("GET",
-a,!0);d.onreadystatechange=function(){4==d.readyState&&(F[a].code=new Function("",d.responseText),F[a].loaded=!0,F[a].code(),b&&b())};d.send()}};var ka=60,G=Date.now(),Va=0,Wa=-1,Mb=G,la={};this.game.setFPS=function(a){ka=0<a?a:60};this.game.getFPS=function(){return ka};this.game.getDT=function(a){a||(a=1E3);return Va/a};this.game.getTime=function(){return G};var Nb=function(){return g.requestAnimationFrame||g.webkitRequestAnimationFrame||g.mozRequestAnimationFrame||g.oRequestAnimationFrame||g.msRequestAnimationFrame||
-function(a){g.setTimeout(a,1E3/ka)}},Ea=Nb(),Ob=function(){G=Date.now();if(vb){var a=e(0,0),b=e(p,q);h.clearRect(a.x,a.y,b.x,b.y)}m.runEvent("preLoop")},Pb=function(){m.runEvent("postLoop");-1!=Wa&&(Va=G-Wa);Wa=G},J={func:function(){console.log('please, use a "setLoop" function.');Ea=function(){}},start:!1,end:!1,audio:!1,fps:!1},Qb=function(){J.audio&&x(J.audio,function(a){a.stop()})};this.game.newLoop=function(a,b,c,d){"function"==typeof b?la[a]={func:b,start:c||!1,end:d||!1,audio:!1,fps:!1}:da("error in newLoop : "+
-b+" is not a function")};this.game.newLoopFromClassObject=function(a,b){if(!b.update)return da('error in newLoopFromClassObject : function "update" not found');la[a]={func:b.update,start:b.entry||!1,end:b.exit||!1,audio:!1,fps:!1}};this.game.setLoopSound=function(a,b){var c;la[a].audio||(la[a].audio=[]);for(c=0;c<b.length;c++)b[c].setNextPlay(b[c+1==b.length?0:c+1]),la[a].audio.push(b[c])};this.game.setLoop=function(a){if(!la[a])return da("setLoop : "+a+" is no a Loop");Qb();Hb();qa={};xa={};ha={};
-za=ya=!1;Kb();lb(e(0,0));J.end&&J.end();J=la[a];J.start&&J.start();J.audio&&J.audio[0].play()};var Rb=function(){if(60>ka){var a=1E3/ka;try{G=Date.now(),G-Mb>a&&(Ob(),J.func(Va),Mb=G,Pb())}catch(b){va&&Ga(b),Za&&(va||Ga(b),da())}}else try{Ob(),J.func(Va),Pb()}catch(b){va&&Ga(b),Za&&(va||Ga(b),da())}Ea(Rb)},Sb=function(a){fa||(fa=!0,ka=a||60,Ea(Rb))},da=function(a){if(!fa)return C(r(a)?a:"game is stop");fa=!1;Qb();Ea=function(){C(r(a)?a:"game is stop")}};this.game.getWH=function(){return{w:p,h:q,w2:L,
-h2:M}};this.game.getResolution=function(){var a=m.getWH();return Math.min(a.w/aa,a.h/ba)};this.game.startLoop=function(a,b){this.setLoop(a);this.start(b)};this.game.start=Sb;this.game.stop=da;this.game.resume=function(a){fa||(J.audio&&J.audio[0].play(),C(a||"game is run"),Ea=Nb(),Wa=-1,Sb(ka))};var mc=[],nc=0,ea=function(a,b){b.prototype=Object.create(a.prototype);b.prototype.constructor=b},A=function(a){this.type="BaseObject";this.id=nc++;this.x=a.x||0;this.y=a.y||0;this.w=a.w||1;this.h=a.h||1;this.ondraw=
-a.ondraw?a.ondraw:!1;this.parent=!1;this.children=[];this.fillColor=a.fillColor||!1;this.strokeColor=a.strokeColor||t.strokeStyle;this.strokeWidth=a.strokeWidth||0;this.angle=a.angle||0;this.alpha=r(a.alpha)?a.alpha:1;this.center=e(0,0);this.box={x:0,y:0,w:0,h:0};this.visible=r(a.visible)?a.visible:!0;this.flip=e(0,0);this.setShadow(a);a.userData&&this.setUserData(a.userData);a.center&&this.setCenter(a.center);a.box&&this.setBox(a.box);a.size&&this.setSize(a.size);a.sizeC&&this.setSizeC(a.sizeC);
-a.position&&this.setPosition(a.position);a.positionC&&this.setPositionC(a.positionC);mc.push(this)};A.prototype={getID:function(){return this.id},getType:function(){return this.type},getParent:function(){return this.parent},addChild:function(a){a&&a.id!=this.id&&(a.parent=this,this.children.push(a),a.move(this.getPosition()),a.setPositionC(I(a.getPositionC(),this.getPositionC(),this.angle)),a.turn(this.angle))},delChild:function(a){a.parent=!1;var b,c;b=0;for(c=this.children.length;b<c;b+=1)if(this.children[b].id==
-a.id){this.children.splice(b,1);break}},delParent:function(){this.parent.delChild(this)},setBox:function(a){a.offset&&(this.box.x=a.offset.x||0,this.box.y=a.offset.y||0);a.size&&(this.box.w=a.size.w||0,this.box.h=a.size.h||0)},isArrIntersect:function(a){var b,c;b=0;for(c=a.length;b<c;b++)if(a[b].id!=this.id&&this.isIntersect(a[b]))return a[b];return!1},isArrInside:function(a){var b,c;b=0;for(c=a.length;b<c;b++)if(this.isDynamicInside(a[b].getDynamicBox()))return a[b];return!1},getNearest:function(a){var b,
-c=0,d=!1,e;b=0;for(e=a.length;b<e;b++)if(this.id!=a[b].id){!1===d&&(d=this.getDistanceC(a[b].getPositionC()),c=b);var f=this.getDistanceC(a[b].getPositionC());f<d&&(d=f,c=b)}return a[c]},setFlip:function(a,b){r(a)&&this.flip.x!=a&&(this.flip.x=a);r(b)&&this.flip.y!=b&&(this.flip.y=b)},setUserData:function(a){for(var b in a)r(this[b])||(this[b]=a[b])},setShadow:function(a){this.shadowColor=a.shadowColor||!1;this.shadowBlur=r(a.shadowBlur)?a.shadowBlur:3;this.shadowX=a.shadowX||0;this.shadowY=a.shadowY||
-0},getDynamicBox:function(){var a=this.getPosition(1);return 0==this.angle?[e(this.x+this.box.x,this.y+this.box.y),e(this.x+this.box.x+this.w+this.box.w,this.y+this.box.y),e(this.x+this.box.x+this.w+this.box.w,this.y+this.box.y+this.h+this.box.h),e(this.x+this.box.x,this.y+this.box.y+this.h+this.box.h)]:[I(e(this.x+this.box.x,this.y+this.box.y),a,this.getAngle()),I(e(this.x+this.box.x+this.w+this.box.w,this.y+this.box.y),a,this.getAngle()),I(e(this.x+this.box.x+this.w+this.box.w,this.y+this.box.y+
-this.h+this.box.h),a,this.getAngle()),I(e(this.x+this.box.x,this.y+this.box.y+this.h+this.box.h),a,this.getAngle())]},isDynamicIntersect:function(a){if(3>a.length)return!1;var b=this.getDynamicBox(),c,d;c=0;for(d=b.length;c<d;c++)if(ga(b[c],a))return!0;c=0;for(d=a.length;c<d;c++)if(ga(a[c],b))return!0;return!1},isIntersect:function(a){return a.visible?this.angle||a.angle?this.isDynamicIntersect(a.getDynamicBox()):this.isStaticIntersect(a.getStaticBox()):!1},isDynamicInside:function(a){if(3>a.length)return!1;
-var b=this.getDynamicBox(),c,d,e=0;c=0;for(d=b.length;c<d;c++)ga(b[c],a)&&e++;return e==b.length?!0:!1},drawDynamicBox:function(a){K(this,1);h.shadowColor="transparent";ra(e(this.x+this.box.x,this.y+this.box.y),y(this.w+this.box.w,this.h+this.box.h),!1,a||"yellow",2);Tb(e(this.x+this.w/2+this.center.x,this.y+this.h/2+this.center.y),10,a||"yellow");H()},drawStaticBox:function(a){h.shadowColor="transparent";ra(e(this.x+this.box.x,this.y+this.box.y),y(this.w+this.box.w,this.h+this.box.h),!1,a||"yellow",
-2);Tb(e(this.x+this.w/2+this.center.x,this.y+this.h/2+this.center.y),10,a||"yellow")},isStaticIntersect:function(a){return this.y+this.box.y+this.h+this.box.h>=a.y&&this.x+this.box.x+this.w+this.box.w>=a.x&&this.x+this.box.x<a.x+a.w&&this.y+this.box.y<a.y+a.h},getStaticBox:function(){return{x:this.x+this.box.x,y:this.y+this.box.y,w:this.w+this.box.w,h:this.h+this.box.h}},setAlpha:function(a){this.alpha!=a&&(this.alpha=0<=a?1>=a?a:1:0)},transparent:function(a){this.setAlpha(this.alpha+a)},getAlpha:function(){return this.alpha},
-rotate:function(a){this.setAngle(Math.atan2(a.y-this.getPosition(1).y,a.x-this.getPosition(1).x)*(180/Math.PI))},setCenter:function(a){this.center=e(a.x,a.y)},nullCenter:function(a){a||(a=e(0,0));this.center=e(-this.w/2+a.x,-this.h/2+a.y)},getCenter:function(){return e(this.center.x,this.center.y)},getBox:function(){return this.box},move:function(a){this.prevPosition=this.getPosition();"none"!=a.x&&(this.x+=a.x);"none"!=a.y&&(this.y+=a.y);if(this.children.length){var b,c;b=0;for(c=this.children.length;b<
-c;b+=1)this.children[b].move(a)}},circling:function(a,b,c){r(this.circlingAnglePointJS)||(this.circlingAnglePointJS=0);this.x=a.x+b*Math.cos(w(this.circlingAnglePointJS));this.y=a.y+b*Math.sin(w(this.circlingAnglePointJS));this.circlingAnglePointJS=360<this.circlingAnglePointJS?0:this.circlingAnglePointJS+c},circlingC:function(a,b,c){r(this.circlingAnglePointJS)||(this.circlingAnglePointJS=0);this.setPositionC(e(a.x+b*Math.cos(w(this.circlingAnglePointJS)),a.y+b*Math.sin(w(this.circlingAnglePointJS))));
-this.circlingAnglePointJS=360<this.circlingAnglePointJS?0:this.circlingAnglePointJS+c},motion:function(a,b,c){r(this.motionPercentPointJS)||(this.motionPercentPointJS=0);this.x=a.x+b.w*Math.cos(w(this.motionPercentPointJS));this.y=a.y+b.h*Math.sin(w(this.motionPercentPointJS));this.motionPercentPointJS=360<this.motionPercentPointJS?0:this.motionPercentPointJS+c},motionC:function(a,b,c){r(this.motionPercentPointJS)||(this.motionPercentPointJS=0);this.setPositionC(e(a.x+b.w*Math.cos(w(this.motionPercentPointJS)),
-a.y+b.h*Math.sin(w(this.motionPercentPointJS))));this.motionPercentPointJS=360<this.motionPercentPointJS?0:this.motionPercentPointJS+c},scale:function(a){"none"!=a.w&&(this.w+=a.w);"none"!=a.h&&(this.h+=a.h)},scaleC:function(a){this.scale(a);this.move(e(-(a.w/2),-(a.h/2)))},getPosition:function(a){return 1==a?e(this.x+(this.w/2+this.center.x),this.y+(this.h/2+this.center.y)):2==a?(a=e(this.x+this.w/2,this.y+this.h/2),this.angle&&(a=I(a,this.getPosition(1),this.angle)),e(a.x,a.y)):e(this.x,this.y)},
-getPositionC:function(){return e(this.x+(this.w/2+this.center.x),this.y+(this.h/2+this.center.y))},getPositionS:function(){return e(this.x+f.x,this.y+f.x)},getPositionCS:function(){return e(this.x+(this.w/2+this.center.x)+f.x,this.y+(this.h/2+this.center.y)+f.y)},setPosition:function(a){var b=this.getPosition();"none"!=a.x&&(this.x=a.x);"none"!=a.y&&(this.y=a.y);if(this.children.length){var c;a=0;for(c=this.children.length;a<c;a+=1)this.children[a].move(e(-b.x+this.x,-b.y+this.y))}},setPositionS:function(a){var b=
-this.getPosition();"none"!=a.x&&(this.x=a.x+f.x);"none"!=a.y&&(this.y=a.y+f.y);if(this.children.length){var c;a=0;for(c=this.children.length;a<c;a+=1)this.children[a].move(e(-b.x+this.x,-b.y+this.y))}},setPositionC:function(a){var b=this.getPosition();"none"!=a.x&&(this.x=-(this.w/2+this.center.x)+a.x);"none"!=a.y&&(this.y=-(this.h/2+this.center.y)+a.y);if(this.children.length){var c;a=0;for(c=this.children.length;a<c;a+=1)this.children[a].move(e(-b.x+this.x,-b.y+this.y))}},setPositionCS:function(a){var b=
-this.getPosition();"none"!=a.x&&(this.x=-(this.w/2+this.center.x)+a.x+f.x);"none"!=a.y&&(this.y=-(this.h/2+this.center.y)+a.y+f.y);if(this.children.length){var c;a=0;for(c=this.children.length;a<c;a+=1)this.children[a].move(e(-b.x+this.x,-b.y+this.y))}},getSize:function(){return y(this.w,this.h)},setSize:function(a){"none"!=a.w&&(this.w=a.w);"none"!=a.h&&(this.h=a.h)},setSizeC:function(a){"none"!=a.w&&(this.w=a.w,this.move(e(-(a.w/2),"none")));"none"!=a.h&&(this.h=a.h,this.move(e("none",-(a.h/2))))},
-turn:function(a){this.angle+=a;if(this.children.length){var b,c;b=0;for(c=this.children.length;b<c;b+=1)this.children[b].turn(a)}},rotateForAngle:function(a,b){var c=Math.abs(a);90>Math.abs(this.angle)||180-c<=2*b&&this.setAngle(a);this.angle<a?this.turn(b):this.turn(-b)},moveTo:function(a,b){var c=w(eb(this.getPosition(),a));this.prevPosition=this.getPosition();this.x+=b*Math.cos(c);this.y+=b*Math.sin(c)},moveToC:function(a,b){var c=w(eb(this.getPositionC(),a));this.prevPosition=this.getPosition();
-this.x+=b*Math.cos(c);this.y+=b*Math.sin(c)},moveAngle:function(a,b){b=w(r(b)?b:this.angle);this.prevPosition=this.getPosition();this.x+=a*Math.cos(b);this.y+=a*Math.sin(b)},moveTime:function(a,b){b=b||1;var c=this.getPosition();this.move(e((a.x-c.x)/b,(a.y-c.y)/b))},moveTimeC:function(a,b){b=b||1;var c=this.getPosition(1);this.move(e((a.x-c.x)/b,(a.y-c.y)/b))},getAngle:function(){return this.angle},setAngle:function(a){this.angle!=a&&(this.angle=a%360);if(this.children.length){var b,c;b=0;for(c=
-this.children.length;b<c;b+=1)this.children[b].turn(a)}},getDistance:function(a){return Math.sqrt(Math.pow(a.x-this.getPosition(2).x,2)+Math.pow(a.y-this.getPosition(2).y,2))},getDistanceC:function(a){return Math.sqrt(Math.pow(a.x-this.getPosition(1).x,2)+Math.pow(a.y-this.getPosition(1).y,2))},setVisible:function(a){this.visible=1==a},isVisible:function(){return this.visible},isInCamera:function(){return this.angle?this.isInCameraDynamic():this.isInCameraStatic()},isInCameraStatic:function(){return this.x+
-this.w<f.x||this.x>f.x+p||this.y+this.h<f.y||this.y>f.y+q?!1:!0},isInCameraDynamic:function(){var a=this.getDynamicBox(),b=[e(f.x,f.y),e(f.x+p,f.y),e(f.x+p,f.y+q),e(f.x,f.y+q)],c,d,h=0;c=0;for(d=a.length;c<d;c++)ga(a[c],b)&&h++;return 0<h},onCollision:function(a){wb("onCollision, onArrCollision","isIntersect, isArrIntersect")},onArrCollision:function(a){var b,c;b=0;for(c=a.length;b<c;b++)if(this.id!=a[b].id)this.onCollision(a[b])},draw:function(){}};this.game.newBaseObject=function(a){return new A(a)};
-var mb=function(a){A.call(this,a);this.type="RectObject"};ea(A,mb);mb.prototype.draw=function(){if(this.visible&&this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),a=!0;ra(e(this.x,this.y),y(this.w,this.h),this.fillColor,this.strokeColor,this.strokeWidth);if(this.ondraw)this.ondraw();a&&H()}};this.game.newRectObject=function(a){return new mb(a)};var nb=function(a){A.call(this,a);this.type="RoundRectObject";this.radius=a.radius||1};ea(A,nb);nb.prototype.draw=function(){if(this.visible&&
-this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),a=!0;ob(e(this.x,this.y),y(this.w,this.h),this.radius,this.fillColor,this.strokeColor,this.strokeWidth);if(this.ondraw)this.ondraw();a&&H()}};this.game.newRoundRectObject=function(a){return new nb(a)};var ma=function(a){A.call(this,a);this.radius=a.radius||5;a.scale&&(this.radius*=a.scale);this.w=2*this.radius;this.h=2*this.radius;this.type="CircleObject";a.positionC&&this.setPositionC(a.positionC)};ea(A,ma);ma.prototype.draw=
-function(){if(this.visible&&this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),a=!0;sa(e(this.x,this.y),this.radius,this.fillColor,this.strokeColor,this.strokeWidth);if(this.ondraw)this.ondraw();a&&H()}};ma.prototype.scale=function(a){this.w+=a||0;this.h+=a||0;this.radius+=a?a/2:0};ma.prototype.scaleC=function(a){this.w+=a||0;this.h+=a||0;this.radius+=a?a/2:0;this.move(e(-(a/2),-(a/2)))};ma.prototype.getRadius=function(){return this.radius};ma.prototype.setRadius=function(a){a&&
-this.radius!=a&&(this.radius=a,this.w=2*a,this.h=2*a)};this.game.newCircleObject=function(a){return new ma(a)};var pb=function(a){this.file=a.file;this.w=a.w;this.h=a.h;this.countX=a.countX;this.countY=a.countY;this.fullW=this.countX*this.w;this.fullH=this.countY*this.h;this.cnv=g.document.createElement("canvas");this.cnv.width=this.w;this.cnv.height=this.h;this.ctx=this.cnv.getContext("2d");this.loaded=!1;this.x=a.x||0;this.y=a.y||0;a=g.document.createElement("img");var b=this;a.onload=function(){b.ctx.drawImage(this,
-0,0,b.w,b.h);b.loaded=!0;z.load()};a.src=this.file;z.add()};pb.prototype.draw=function(){if(this.loaded){var a=-f.x+this.x,b=-f.y+this.y,c,d;for(d=0;d<this.countY;d++)if(!(this.y+d*this.h+this.h<f.y||this.y+d*this.h>f.y+q))for(c=0;c<this.countX;c++)this.x+c*this.w+this.w<f.x||this.x+c*this.w>f.x+p||h.drawImage(this.cnv,a+c*this.w,b+d*this.h,this.w,this.h)}};pb.prototype.getSize=function(){return this.loaded?y(this.fullW,this.fullH):y()};this.game.newBackgroundObject=function(a){return new pb(a)};
-var qb=function(a){A.call(this,a);this.type="EllipsObject"};ea(A,qb);qb.prototype.draw=function(){if(this.visible&&this.alpha){K(this);sa(e(this.x,this.y),this.h/2,this.fillColor,this.strokeColor,this.strokeWidth);if(this.ondraw)this.ondraw();H()}};this.game.newEllipsObject=function(a){return new qb(a)};var U=function(a){A.call(this,a);this.type="TextObject";this.text=a.text||"TextObject";this.color=a.color||"";this.size=a.size||10;a.scale&&(this.size*=a.scale);this.font=a.font||"sans-serif";this.style=
-a.style||"";this.align="left";this.padding=a.padding||2;this.w=rb(this.text,this.style,this.size,this.font)+2*this.padding;this.h=this.size+2*this.padding;this.strokeColorText=a.strokeColorText||!1;this.strokeWidthText=a.strokeWidthText||!1;this.textDY=-this.size/7;a.positionC&&this.setPositionC(a.positionC)};ea(A,U);U.prototype.reStyle=function(a){this.text=a.text||this.text;this.color=a.color||this.color;this.size=a.size||this.size;this.font=a.font||this.font;this.style=a.style||this.style;this.padding=
-a.padding||this.padding;this.w=rb(this.text,this.style,this.size,this.font)+2*this.padding;this.h=this.size+2*this.padding;this.strokeColorText=a.strokeColorText||this.strokeColorText;this.strokeWidthText=a.strokeWidthText||this.strokeWidthText;this.strokeColor=a.strokeColor||this.strokeColor;this.strokeWidth=a.strokeWidth||this.strokeWidth;this.fillColor=a.fillColor||this.fillColor;this.textDY=-this.size/7};U.prototype.setText=function(a){this.text!=a&&this.reStyle({text:a})};U.prototype.getText=
-function(){return this.text};U.prototype.draw=function(){if(this.visible&&this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),a=!0;(this.fillColor||this.strokeColor)&&ra(e(this.x,this.y),y(this.w,this.h),this.fillColor,this.strokeColor,this.strokeWidth);na(e(this.x+this.padding,this.textDY+this.y+this.padding),this.text,this.color,this.size,this.font,this.style,this.align,this.strokeColorText,this.strokeWidthText);if(this.ondraw)this.ondraw();a&&H()}};U.prototype.scale=function(a){this.reStyle({size:this.size+
-a})};U.prototype.scaleC=function(a){this.reStyle({size:this.size+a});this.move(e(-a/2,-a/2))};U.prototype.setSize=function(a){this.size!=a&&this.reStyle({size:a})};U.prototype.setSizeC=function(a){this.size!=a&&(this.reStyle({size:a}),this.move(e(-a/2,-a/2)))};var rb=function(a,b,c,d){var e=g.document.createElement("canvas").getContext("2d");e.font=b+c+"px "+d;return e.measureText(a).width};this.OOP.getTextWidth=function(a){return rb(a.text,a.style||"",a.size||10,a.font||"sans-serif")};this.game.newTextObject=
-function(a){return new U(a)};var N=function(a){A.call(this,a);this.type="PolygonObject";this.points=[];this.dX=this.dY=0;var b=this;a.points&&x(a.points,function(a){b.addPoint(a)});this.pointColor=a.pointColor||!1};ea(A,N);N.prototype.addPoint=function(a){this.dY=this.dX=0;var b=this;this.y+a.y<this.y&&(this.dY=Math.abs(this.y+a.y-this.y),x(this.points,function(a){a.y+=b.dY}));this.x+a.x<this.x&&(this.dX=Math.abs(this.x+a.x-this.x),b=this,x(this.points,function(a){a.x+=b.dX}));this.points.push(e(a.x+
-this.dX,a.y+this.dY));this.h=this.w=0;b=this;x(this.points,function(a){b.h+=b.y+a.y>b.y+b.h?a.y-b.h:0;b.w+=b.x+a.x>b.x+b.w?a.x-b.w:0})};N.prototype.delPoint=function(a){var b,c,d=this.getPoints();this.clearPoints();b=0;for(c=d.length;b<c;b++)b!=a&&this.addPoint(d[b])};N.prototype.clearPoints=function(){this.points=[];this.count=0};N.prototype.getPoints=function(){return this.points};N.prototype.getCount=function(){return this.points.length};N.prototype.getPoint=function(a){return this.points[a]};
-N.prototype.scale=function(a){};N.prototype.drawDynamicBox=function(a){var b=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),b=!0;Ub(this.x,this.y,this.points,this.fillColor,a||"yellow",2,"red");b&&H()};N.prototype.getDynamicBox=function(){var a=[];if(this.angle){var b=this.getPosition(1),c=this;x(this.points,function(d){a.push(I(oa(d,e(c.x,c.y)),b,c.getAngle()))})}else{var c=this;x(this.points,function(b){a.push(oa(b,e(c.x,c.y)))})}return a};N.prototype.draw=function(){if(this.visible&&
-this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),a=!0;Ub(this.x,this.y,this.points,this.fillColor,this.strokeColor,this.strokeWidth,this.pointColor);if(this.ondraw)this.ondraw();a&&H()}};this.game.newPolygonObject=function(a){return new N(a)};var ta=function(a){A.call(this,a);this.type="ImageObject";this.w=a.w||0;this.h=a.h||0;this.loaded=!1;this.file="";this.forOnLoad=a.onload||!1;Vb(a.file,this,a.scale||1)};ea(A,ta);ta.prototype.draw=function(){if(this.visible&&this.alpha&&
-this.loaded){var a=!1;if(this.angle||1!=this.alpha||this.shadowColor||this.flip.x||this.flip.y)K(this),a=!0;Wb(e(this.x,this.y),y(this.w,this.h),this.file);if(this.ondraw)this.ondraw();a&&H()}};ta.prototype.simpleDraw=function(a){if(this.loaded){var b=!1;if(this.angle||1!=this.alpha||this.shadowColor)K(this),b=!0;Wb(e(a.x,a.y),y(this.w,this.h),this.file);b&&H()}};ta.prototype.setImage=function(a,b){this.file!=a&&(r(n[a])?this.file=a:(this.loaded=!1,this.origHeight=this.origWidth=0,Vb(a,this)))};ta.prototype.getImage=
-function(){return this.file};this.game.newImageObject=function(a){return new ta(a)};var S=function(a){A.call(this,a);this.type="AnimationObject";this.frame=0;this.anim=a.animation;this.step=a.delay||10;this.toFrameStep=this.difStep=0;a.scale&&(this.w*=a.scale,this.h*=a.scale)};ea(A,S);S.prototype.draw=function(){if(this.visible&&this.alpha){var a=!1;if(this.angle||1!=this.alpha||this.flip.x||this.flip.y||this.shadowColor)K(this),a=!0;sb(this.anim,e(this.x,this.y),y(this.w,this.h),this.frame);if(this.ondraw)this.ondraw();
-this.difStep>this.step?(this.frame=this.frame<this.anim.r?this.frame+1:0,this.difStep=0):this.difStep++;a&&H()}};S.prototype.drawFrames=function(a,b,c){if(this.visible&&this.alpha){if(this.frame<a||this.frame>b)this.frame=a;c=!1;if(this.angle||1!=this.alpha||this.flip.x||this.flip.y||this.shadowColor)K(this),c=!0;sb(this.anim,e(this.x,this.y),y(this.w,this.h),this.frame);if(this.ondraw)this.ondraw();this.difStep>this.step?(this.frame=this.frame<b?this.frame+1:a,this.difStep=0):this.difStep++;c&&H()}};
-S.prototype.drawFrame=function(a){if(this.visible&&this.alpha){var b=!1;if(this.angle||1!=this.alpha||this.flip.x||this.flip.y||this.shadowColor)K(this),b=!0;sb(this.anim,e(this.x,this.y),y(this.w,this.h),a);if(this.ondraw)this.ondraw();b&&H()}};S.prototype.drawToFrame=function(a){if(this.visible&&this.alpha){if(this.frame<a)this.toFrameStep=1;else if(this.frame>a)this.toFrameStep=-1;else{this.drawFrame(a);return}this.drawFrame(this.frame);if(this.ondraw)this.ondraw();this.difStep>this.step?(this.frame=
-this.frame<this.anim.r?this.frame+this.toFrameStep:0,this.difStep=0):this.difStep++}};S.prototype.drawReverFrames=function(a,b){if(this.visible&&this.alpha){this.drawFrame(this.frame);if(this.ondraw)this.ondraw();this.difStep>this.step?(this.frame<=a?this.toFrameStep=1:this.frame>=b&&(this.toFrameStep=-1),this.frame=this.frame<=this.anim.r?this.frame+this.toFrameStep:0,this.difStep=0):this.difStep++}};S.prototype.setAnimation=function(a){this.anim=a};S.prototype.getAnimation=function(){return this.anim};
-S.prototype.setDelay=function(a){this.step=0<a?a:this.step};S.prototype.getDelay=function(){return this.step};this.game.newAnimationObject=function(a){return new S(a)};var ua=function(a){this.file=a;this.loaded=!1;this.h=this.w=0;this.toLoad=[];var b=g.document.createElement("img"),c=this;b.onload=function(){c.loaded=!0;c.w=this.width;c.h=this.height;c.img=g.document.createElement("canvas");c.img.width=this.width;c.img.height=this.height;c.context=c.img.getContext("2d");c.context.drawImage(this,0,
-0);c.toLoad.length&&x(c.toLoad,function(a){a.func(c.context,a.w,a.h,a.r)});z.load()};b.src=a;z.add()};ua.prototype.onContext=function(a){this.loaded?a(this.context,this.w,this.h,1):this.toLoad.push({w:this.w,h:this.h,r:1,func:a})};ua.prototype.getAnimation=function(a,b,c,d,e){var f=function(a,b,c,d,e,f){this.image=a;this.x=b;this.y=c;this.w=d;this.h=e;this.r=f?f-1:0};f.prototype={onContext:function(a){this.image.loaded?a(this.image.context,this.w,this.h,this.r):this.image.toLoad.push({w:this.w,h:this.h,
-r:this.r,func:a})},getImage:function(){return this.image},getCount:function(){return this.r}};return new f(this,a,b,c,d,e)};var tb=function(a,b){this.loaded=!0;this.w=a;this.h=b;this.img=g.document.createElement("canvas");this.img.width=a;this.img.height=b;this.context=this.img.getContext("2d")};tb.prototype.onContext=ua.prototype.onContext;tb.prototype.getAnimation=ua.prototype.getAnimation;this.tiles.newDrawImage=function(a,b){return new tb(a,b)};this.tiles.newImage=function(a){return new ua(a)};
-this.tiles.newAnimation=function(a,b,c,d){return(new ua(a)).getAnimation(0,0,b,c,d)};var sb=function(a,b,c,d){a.image.loaded&&h.drawImage(a.image.img,a.x+a.w*d,a.y,a.w,a.h,b.x+-f.x,b.y+-f.y,c.w,c.h)},n={},Vb=function(a,b,c){if(r(n[a])){b.loaded=!0;b.file=a;var d,e;if(b.w&&!b.h){var f=b.w/n[a].w;d=b.w;e=n[a].h*f}else!b.w&&b.h?(f=b.h/n[a].h,e=b.h,d=n[a].w*f):b.w&&b.h?(d=b.w,e=b.h):(d=n[a].w,e=n[a].h);c&&(d*=c,e*=c);b.w=d;b.h=e;b.forOnLoad&&b.forOnLoad()}else d=g.document.createElement("img"),d.onload=
-function(){n[a]={};n[a].img=this;n[a].w=this.width;n[a].h=this.height;if(r(b)){b.loaded=!0;var d,e;if(b.w&&!b.h){var f=b.w/n[a].w;d=b.w;e=n[a].h*f}else!b.w&&b.h?(f=b.h/n[a].h,e=b.h,d=n[a].w*f):b.w&&b.h?(d=b.w,e=b.h):(d=n[a].w,e=n[a].h);c&&(d*=c,e*=c);b.w=d;b.h=e;b.file=a;b.forOnLoad&&b.forOnLoad()}z.load()},d.src=a,z.add()},Wb=function(a,b,c){c&&h.drawImage(n[c].img,0,0,n[c].w,n[c].h,a.x+-f.x,a.y+-f.y,b.w,b.h)},Xb=function(a){this.type="Mesh";this.objs=[];this.x=a.x||0;this.y=a.y||0;this.angle=a.angle||
-0;this.count=0;var b=this;a.add&&x(a.add,function(a){b.add(a)});this.angle&&this.setAngle(this.angle)};Xb.prototype={getCount:function(){return this.count},getObjects:function(){return this.objs},add:function(a){this.count++;this.objs.push(a);a.offsetMesh=a.getPosition(1);a.turn(this.angle);a.setPositionC(e(this.x+a.offsetMesh.x,this.y+a.offsetMesh.y))},del:function(a){var b=this;x(this.objs,function(c){c.id==a.id&&(b.objs.splice(void 0,1),b.count--)})},draw:function(a){x(this.objs,function(a){a.draw()})},
-move:function(a){this.x+=a.x||0;this.y+=a.y||0;var b=this;x(this.objs,function(a){a.setPositionC(e(b.x+a.offsetMesh.x,b.y+a.offsetMesh.y))})},turn:function(a){if(0!=a){this.angle%=360;this.angle+=a;var b=e(this.x,this.y),c=this;x(this.objs,function(d){d.turn(a);d.setPositionC(I(e(c.x+d.offsetMesh.x,c.y+d.offsetMesh.y),b,c.angle))})}},setAngle:function(a){if(a!=this.angle){this.angle=a%=360;var b=e(this.x,this.y),c=this;x(this.objs,function(d){d.setAngle(a);d.setPositionC(I(e(c.x+d.offsetMesh.x,c.y+
-d.offsetMesh.y),b,c.angle))})}},setPosition:function(a){if(this.x!=a.x||this.y!=a.y){this.x=a.x||this.x;this.y=a.y||this.y;var b=this;x(this.objs,function(a){b.angle?a.setPositionC(I(e(b.x+a.offsetMesh.x,b.y+a.offsetMesh.y),e(b.x,b.y),b.angle)):a.setPositionC(e(b.x+a.offsetMesh.x,b.y+a.offsetMesh.y))})}},isDynamicIntersect:function(a){if(3>a.length)return!1;var b=!1;x(this.objs,function(c){if(c.isDynamicIntersect(a))return b=c});return b},isStaticIntersect:function(a){var b=!1;x(this.objs,function(c){if(c.isStaticIntersect(a))return b=
-c});return b},isIntersect:function(a){var b=!1;x(this.objs,function(c){if(c.isIntersect(a))return b=c});return b}};this.game.newMesh=function(a){return new Xb(a)};this.camera.circling=function(a,b,c){r(this.circlingAnglePointJS)||(this.circlingAnglePointJS=c);f.x=a.x+b*Math.cos(w(this.circlingAnglePointJS));f.y=a.y+b*Math.sin(w(this.circlingAnglePointJS));this.circlingAnglePointJS=360<=this.circlingAnglePointJS?c:this.circlingAnglePointJS+c};this.camera.circlingC=function(a,b,c){r(this.circlingAnglePointJS)||
-(this.circlingAnglePointJS=c);f.x=-L+a.x+b*Math.cos(w(this.circlingAnglePointJS));f.y=-M+a.y+b*Math.sin(w(this.circlingAnglePointJS));this.circlingAnglePointJS=360<=this.circlingAnglePointJS?c:this.circlingAnglePointJS+c};this.camera.motion=function(a,b,c){r(this.motionPercentPointJS)||(this.motionPercentPointJS=b);f.x=a.x+b.w*Math.cos(w(this.motionPercentPointJS));f.y=a.y+b.h*Math.sin(w(this.motionPercentPointJS));this.motionPercentPointJS=360<=this.motionPercentPointJS?b:this.motionPercentPointJS+
-c};this.camera.motionC=function(a,b,c){r(this.motionPercentPointJS)||(this.motionPercentPointJS=b);this.setPositionC(e(a.x+b.w*Math.cos(w(this.motionPercentPointJS)),a.y+b.h*Math.sin(w(this.motionPercentPointJS))));this.motionPercentPointJS=360<=this.motionPercentPointJS?b:this.motionPercentPointJS+c};this.camera.move=function(a){f.x+=a.x||0;f.y+=a.y||0};this.camera.moveTime=function(a,b){b=b||1;var c=e(f.x,f.y);this.move(e((a.x-c.x)/b,(a.y-c.y)/b))};this.camera.moveTimeC=function(a,b){b=b||1;var c=
-e(f.x+L,f.y+M);this.move(e((a.x-c.x)/b,(a.y-c.y)/b))};this.camera.setPosition=function(a){lb(e("none"!=a.x?a.x:f.x,"none"!=a.y?a.y:f.y))};this.camera.setPositionC=function(a){lb(e("none"!=a.x?a.x-L:f.x,"none"!=a.y?a.y-M:f.y))};this.camera.getPosition=function(a){return a?e(f.x+L,f.y+M):e(f.x,f.y)};this.camera.getPositionC=function(){return e(f.x+L,f.y+M)};this.camera.getStaticBox=function(){return{x:f.x,y:f.y,w:f.x+p,h:f.y+q}};this.camera.getDynamicBox=function(){return[e(f.x,f.y),e(f.x+p,f.y),e(f.x+
-p,f.y+q),e(f.x,f.y+q)]};var lb=function(a){f=e(a.x,a.y)},xb=function(){h.mozImageSmoothingEnabled=Fa;h.msImageSmoothingEnabled=Fa;h.imageSmoothingEnabled=Fa},H=function(a){h.restore();h.globalAlpha=t.globalAlpha;h.fillStyle="black";h.strokeStyle="black";xb()},K=function(a,b){h.save();var c=a.getPositionC();a.angle&&(h.translate(-f.x+c.x,-f.y+c.y),h.rotate(w(a.angle)),h.translate(-c.x+f.x,-c.y+f.y));1!=a.alpha&&(h.globalAlpha=a.alpha);if(a.flip.x||a.flip.y)h.translate(-f.x+c.x,-f.y+c.y),h.scale(a.flip.x?
--1:1,a.flip.y?-1:1),h.translate(-c.x+f.x,-c.y+f.y);a.shadowColor&&(h.shadowBlur=a.shadowBlur,h.shadowColor=a.shadowColor,h.shadowOffsetX=a.shadowX,h.shadowOffsetY=a.shadowY);if("EllipsObject"==a.type&&!b){var c=a.w/2,d=a.h/2,g=e(-f.x+a.x,-f.y+a.y);h.translate(g.x,g.y);h.scale(c/d,1);h.translate(-g.x,-g.y)}};this.system.setContextSettings=function(a){h.save();for(var b in a)h[b]=a[b]};this.system.defaultSettings=function(){H()};this.game.clear=function(){var a=e(0,0),b=e(p,q);h.clearRect(a.x,a.y,b.x,
-b.y)};this.game.fill=function(a){h.fillStyle=a;h.fillRect(0,0,p,q)};var Ub=function(a,b,c,d,g,k,l){if(!(3>c.length)){var ca;if(d&&!(3>c.length)){h.fillStyle=d;d=-f.x+a;ca=-f.y+b;var m;h.beginPath();h.moveTo(d+c[0].x,ca+c[0].y);for(m=1;m<c.length;m++)h.lineTo(d+c[m].x,ca+c[m].y);h.closePath();h.fill()}for(d=0;d<c.length;d++)ca=d+1<c.length?d+1:0,g&&V(oa(c[d],e(a,b)),oa(c[ca],e(a,b)),g,k),l&&Xa(oa(c[d],e(a,b)),l)}};this.brush.drawPolygon=function(a){var b=a.points||[],c=a.fillColor||!1,d=a.strokeColor||
-!1,e=a.strokeWidth||1;a=a.pointColor||!1;if(!(3>b.length)){var g;if(c&&!(3>b.length)){h.fillStyle=c;c=-f.x;g=-f.y;var k;h.beginPath();h.moveTo(c+b[0].x,g+b[0].y);for(k=1;k<b.length;k++)h.lineTo(c+b[k].x,g+b[k].y);h.closePath();h.fill()}for(c=0;c<b.length;c++)g=c+1<b.length?c+1:0,d&&V(b[c],b[g],d,e),a&&Xa(b[c],a)}};var na=function(a,b,c,d,e,g,k,l,m){h.textAlign=k;h.lineWidth=m;h.font=(g?g+" ":"")+d+"px "+e;d=-f.x;e=-f.y;c&&(h.fillStyle=c,h.fillText(b,d+a.x,e+a.y));l&&(h.strokeStyle=l,h.strokeText(b,
-d+a.x,e+a.y))};this.brush.drawMultiText=function(a){var b,c=a.text.split("\n");for(b=0;b<c.length;b++)na(e(a.x,a.y+a.size*b),c[b],a.color||t.fillStyle,a.size||10,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||!1,a.strokeWidth||2)};this.brush.drawMultiTextS=function(a){var b,c=a.text.split("\n"),d=a.size||10;for(b=0;b<c.length;b++)na(e(a.x+f.x,a.y+f.y+d*b),c[b],a.color||t.fillStyle,d,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||!1,a.strokeWidth||2)};this.brush.drawText=function(a){na(e(a.x||
-0,a.y||0),a.text,a.color||!1,a.size||10,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||!1,a.strokeWidth||2)};this.brush.drawTextS=function(a){na(e((a.x||0)+f.x,(a.y||0)+f.y),a.text,a.color||t.fillStyle,a.size||10,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||!1,a.strokeWidth||2)};this.brush.drawTextLines=function(a){if(a.lines){var b,c=a.size||10;for(b=0;b<a.lines.length;b++)na(e(a.x,a.y+c*b),a.lines[b],a.color||t.fillStyle,c,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||
-!1,a.strokeWidth||2)}};this.brush.drawTextLinesS=function(a){if(a.lines){var b,c=a.size||10;for(b=0;b<a.lines.length;b++)na(e(a.x+f.x,a.y+f.y+c*b),a.lines[b],a.color||t.fillStyle,c,a.font||t.font,a.style||!1,a.align||"left",a.strokeColor||!1,a.strokeWidth||2)}};var Tb=function(a,b,c){V(e(a.x-b,a.y),e(a.x+b,a.y),c,2);V(e(a.x,a.y-b),e(a.x,a.y+b),c,2)},ra=function(a,b,c,d,e){h.fillStyle=c;h.strokeStyle=d;h.lineWidth=e;d=-f.x+(e?e/2:0);var g=-f.y+(e?e/2:0);c&&h.fillRect(a.x+d,a.y+g,b.w,b.h);e&&h.strokeRect(a.x+
-d,a.y+g,b.w,b.h)};this.brush.drawRect=function(a){ra(e(a.x,a.y),y(a.w,a.h),a.fillColor||!1,a.strokeColor||t.strokeStyle,a.strokeWidth||!1)};this.brush.drawRectS=function(a){ra(e(a.x+f.x,a.y+f.y),y(a.w,a.h),a.fillColor||!1,a.strokeColor||t.strokeStyle,a.strokeWidth||!1)};var Xa=function(a,b){(h.fillStyle=b)&&h.fillRect(-f.x+a.x-1,-f.y+a.y-1,2,2)};this.brush.drawPoint=function(a){Xa(e(a.x,a.y),a.fillColor||!1)};this.brush.drawPointS=function(a){Xa(e(a.x+f.x,a.y+f.y),a.fillColor||!1)};var ob=function(a,
-b,c,d,e,g){h.fillStyle=d;h.strokeStyle=e;h.lineWidth=g;e=-f.x+a.x+(g?g/2:0);a=-f.y+a.y+(g?g/2:0);h.beginPath();h.moveTo(e+c,a);h.lineTo(e+b.w-c,a);h.quadraticCurveTo(e+b.w,a,e+b.w,a+c);h.lineTo(e+b.w,a+b.h-c);h.quadraticCurveTo(e+b.w,a+b.h,e+b.w-c,a+b.h);h.lineTo(e+c,a+b.h);h.quadraticCurveTo(e,a+b.h,e,a+b.h-c);h.lineTo(e,a+c);h.quadraticCurveTo(e,a,e+c,a);h.closePath();d&&h.fill();g&&h.stroke()};this.brush.drawRoundRect=function(a){ob(e(a.x,a.y),y(a.w,a.h),a.radius||2,a.fillColor||!1,a.strokeColor||
-t.strokeStyle,a.strokeWidth||!1)};this.brush.drawRoundRectS=function(a){ob(e(f.x+a.x,f.y+a.y),y(a.w,a.h),a.radius||2,a.fillColor||!1,a.strokeColor||t.strokeStyle,a.strokeWidth||!1)};var sa=function(a,b,c,d,e){h.fillStyle=c;h.strokeStyle=d;h.lineWidth=e;d=-f.x+b+(e?e/2:0);var g=-f.y+b+(e?e/2:0);h.beginPath();h.arc(a.x+d,a.y+g,b,0,2*Math.PI,!0);h.closePath();c&&h.fill();e&&h.stroke()};this.brush.drawCircle=function(a){sa(e(a.x,a.y),a.radius,a.fillColor||!1,a.strokeColor||t.strokeStyle,a.strokeWidth||
-!1)};this.brush.drawCircleS=function(a){sa(e(a.x+f.x,a.y+f.y),a.radius,a.fillColor||!1,a.strokeColor||t.strokeStyle,a.strokeWidth||!1)};var V=function(a,b,c,d){h.strokeStyle=c;h.lineWidth=d;c=-f.x;d=-f.y;h.beginPath();h.moveTo(c+a.x,d+a.y);h.lineTo(c+b.x,d+b.y);h.closePath();h.stroke()};this.brush.drawLineAngle=function(a){var b=I(e(a.x+a.length,a.y),e(a.x,a.y),a.angle);V(e(a.x,a.y),e(b.x,b.y),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawLineAngleS=function(a){var b=I(e(f.x+a.x+
-a.length,f.y+a.y),e(f.x+a.x,f.y+a.y),a.angle);V(e(f.x+a.x,f.y+a.y),e(b.x,b.y),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawLine=function(a){V(e(a.x1,a.y1),e(a.x1+a.x2,a.y1+a.y2),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawLineS=function(a){V(e(f.x+a.x1,f.y+a.y1),e(f.x+a.x2,f.y+a.y2),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawLineA=function(a){V(e(a.x1,a.y1),e(a.x2,a.y2),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawLineAS=function(a){V(e(a.x1+
-f.x,a.y1+f.y),e(a.x2+f.x,a.y2+f.y),a.strokeColor||t.strokeStyle,a.strokeWidth||1)};this.brush.drawEllips=function(a){var b=a.w/2,c=a.h/2,d=e(-f.x+a.x,-f.y+a.y);h.save();h.translate(d.x,d.y);h.scale(b/c,1);h.translate(-d.x,-d.y);sa(e(a.x,a.y),c,a.fillColor,a.strokeColor,a.strokeWidth);h.restore()};this.brush.drawEllipsS=function(a){var b=a.w/2,c=a.h/2,d=e(a.x,a.y);h.save();h.translate(d.x,d.y);h.scale(b/c,1);h.translate(-d.x,-d.y);sa(e(f.x+a.x,f.y+a.y),c,a.fillColor,a.strokeColor,a.strokeWidth);h.restore()};
-this.brush.drawImageS=function(a){if(a.file)if(r(n[a.file])){if(n[a.file].loaded){var b=a.x||0,c=a.y||0,d,e;if(a.w&&!a.h){var f=a.w/n[a.file].w;d=a.w;e=n[a.file].h*f}else!a.w&&a.h?(f=a.h/n[a.file].h,e=a.h,d=n[a.file].w*f):a.w&&a.h?(d=a.w,e=a.h):(d=n[a.file].w,e=n[a.file].h);a.scale&&(d*=a.scale,e*=a.scale);h.drawImage(n[a.file].img,0,0,n[a.file].w,n[a.file].h,b,c,d,e)}}else n[a.file]={},n[a.file].loaded=!1,b=g.document.createElement("img"),b.onload=function(){n[a.file].loaded=!0;n[a.file].img=this;
-n[a.file].w=this.width;n[a.file].h=this.height;z.load()},b.src=a.file,z.add()};this.brush.drawImage=function(a){if(a.file)if(r(n[a.file])){if(n[a.file].loaded){var b=a.x||0,c=a.y||0,d,e;if(a.w&&!a.h){var k=a.w/n[a.file].w;d=a.w;e=n[a.file].h*k}else!a.w&&a.h?(k=a.h/n[a.file].h,e=a.h,d=n[a.file].w*k):a.w&&a.h?(d=a.w,e=a.h):(d=n[a.file].w,e=n[a.file].h);a.scale&&(d*=a.scale,e*=a.scale);h.drawImage(n[a.file].img,0,0,n[a.file].w,n[a.file].h,-f.x+b,-f.y+c,d,e)}}else n[a.file]={},n[a.file].loaded=!1,b=g.document.createElement("img"),
-b.onload=function(){n[a.file].loaded=!0;n[a.file].img=this;n[a.file].w=this.width;n[a.file].h=this.height;z.load()},b.src=a.file,z.add()};this.brush.getPixelColor=function(a,b){var c=h.getImageData(a,b,1,1).data;return"rgb("+c[0]+", "+c[1]+", "+c[2]+")"};this.brush.setPixelColor=function(a,b,c){var d=h.createImageData(1,1);d.data[0]=c.r||d.data[0];d.data[1]=c.g||d.data[1];d.data[2]=c.b||d.data[2];d.data[3]=c.a||255;h.putImageData(d,a,b)};this.brush.onPixel=function(a,b,c){var d=h.getImageData(a,b,
-1,1),e={r:d.data[0],g:d.data[1],b:d.data[2],a:d.data[3]?d.data[3]:255};c(e);d.data[0]=e.r;d.data[1]=e.g;d.data[2]=e.b;d.data[3]=e.a;h.putImageData(d,a,b)};this.brush.onPixels=function(a,b,c,d,e){c=h.getImageData(a,b,c,d);var f;d=0;for(f=c.data.length;d<f;d+=4){var g={r:c.data[d],g:c.data[d+1],b:c.data[d+2],a:c.data[d+3]?c.data[d+3]:255};e(g);c.data[d]=g.r;c.data[d+1]=g.g;c.data[d+2]=g.b;c.data[d+3]=g.a}h.putImageData(c,a,b)};this.brush.onRawPixels=function(a,b,c,d,e){c=h.getImageData(a,b,c,d);e(c.data,
-c.data.length);h.putImageData(c,a,b)};var O=g.AudioContext||g.webkitAudioContext||!1;(O=O?new O:!1)&&O.listener.setPosition(0,0,0);var P=function(a,b){O||C('module "wAudio" is not supported! use a "audio"');this.vol=b&&1>=b&&0<b?b:1;this.loadPLay=this.nextPlay=this.loaded=this.playing=!1;this.pausedTime=this.duration=this.startTime=0;var c=this,d=new XMLHttpRequest;d.open("GET",a,!0);d.responseType="arraybuffer";d.onload=function(a){O.decodeAudioData(this.response,function(a){c.wABuffer=a;c.duration=
-c.wABuffer.duration;c.wAGain=O.createGain();c.wAGain.gain.value=c.vol;c.wAPanner=O.createPanner();c.wAPanner.setPosition(0,0,1);c.wAPanner.panningModel="equalpower";z.load();c.loaded=!0;c.loadPlay&&c.replay()},function(a){C("error in wAudio.newAudio : error decoding file",a)})};a?d.send():C("error in wAudio.newAudio : Where is file?");z.add()};P.prototype.play=function(a){if(!this.loaded)this.loadPlay=!0;else if(!this.playing){this.playing=!0;this.wASource=O.createBufferSource();this.wASource.buffer=
-this.wABuffer;this.wAListener=O.destination;this.wASource.connect(this.wAGain);this.wAGain.connect(this.wAPanner);this.wAPanner.connect(this.wAListener);this.wASource.start(0,this.pausedTime,this.duration);this.startTime=O.currentTime;var b=this;this.wASource.onended=function(){b.playing=!1;b.startTime=0;b.pausedTime=0;b.nextPlay&&b.nextPlay.replay()}}};P.prototype.replay=function(a){this.loaded?(this.stop(),this.play()):this.loadPlay=!0};P.prototype.stop=function(){this.pause();this.pausedTime=this.startTime=
-0};P.prototype.pause=function(){if(this.playing){this.pausedTime=this.getProgress();this.playing=!1;this.wASource.stop(0);var a=this;this.wASource.onended=function(){a.playing=!1}}};P.prototype.getProgress=function(){return this.playing?O.currentTime-this.startTime+this.pausedTime:this.pausedTime};P.prototype.playPause=function(){this.playing?this.pause():this.play()};P.prototype.setNextPlay=function(a){this.nextPlay=a};P.prototype.setVolume=function(a){this.vol=a&&1>=a&&0<a?a:this.vol;this.wAGain.gain.value=
-this.vol};P.prototype.getVolume=function(){return this.vol};P.prototype.setSide=function(a){this.side=a;this.wAPanner&&this.wAPanner.setPosition(this.side,0,1-Math.abs(this.side))};P.prototype.getSide=function(){return this.side};this.wAudio.newAudio=function(a,b){return new P(a,b)};var Z=function(a,b){var c,d,e=g.document.createElement("audio");if("string"==typeof a){var f=g.document.createElement("source");f.src=a;e.appendChild(f)}else for(c=0,d=a.length;c<d;c++)f=g.document.createElement("source"),
-f.src=a[c],e.appendChild(f);this.vol=b&&1>=b&&0<b?b:1;this.playing=0;this.audio=e;this.nextPlay=this.loaded=!1;this.audio.volume=this.vol;var h=this;this.audio.onloadeddata=function(){h.loaded=!0;z.load()};this.audio.onended=function(){h.playing=!1;h.nextPlay&&h.nextPlay.play()};this.audio.load();z.add()};Z.prototype.play=function(a){this.playing||(a&&(this.vol=a&&1>=a&&0<a?a:this.vol,this.audio.volume=this.vol),this.playing=!0,this.audio.play())};Z.prototype.replay=function(a){a&&this.setVolume(a);
-this.playing=!0;this.audio.currentTime=0;this.audio.play()};Z.prototype.stop=function(){this.playing&&(this.playing=!1,this.audio.pause(),this.audio.currentTime=0)};Z.prototype.pause=function(){this.playing&&(this.playing=!1,this.audio.pause())};Z.prototype.playPause=function(){this.playing?this.pause():this.play()};Z.prototype.setNextPlay=function(a){this.nextPlay=a};Z.prototype.setVolume=function(a){this.vol=a&&1>=a&&0<a?a:this.vol;this.audio.volume=this.vol};Z.prototype.getVolume=function(){return this.vol};
-this.audio.newAudio=function(a,b){return new Z(a,b)};this.dialogs.openLine=function(a,b){W.game.stop();var c=g.document.createElement("input");c.type="text";c.style.position="fixed";c.style.border="none";c.style.zIndex=l.style.zIndex+1;c.style.outline="none";c.style.backgroundColor=a.fillColor||"white";c.style.color=a.color||"black";c.style.top=(a.y?a.y>>0:0)+"px";c.style.left=(a.x?a.x>>0:0)+"px";c.style.width=(a.w?a.w>>0:0)+"px";c.style.fontSize=(a.size?a.size>>0:10)+"px";c.onclick=function(a){a.stopPropagation()};
-c.onkeydown=function(a){a.stopPropagation();if(27==a.keyCode||13==a.keyCode)a=c.value.trim(),"function"==typeof b&&b(""!=a?a:!1),g.document.body.removeChild(c),W.game.resume()};m.attach(c);c.focus()};this.dialogs.openArea=function(a,b){W.game.stop();var c=g.document.createElement("textarea");c.style.position="fixed";c.style.border="none";c.style.zIndex=l.style.zIndex+1;c.style.overflowY="scroll";c.style.outline="none";c.style.backgroundColor=a.fillColor||"white";c.style.color=a.color||"black";c.style.top=
-(a.y?a.y>>0:0)+"px";c.style.left=(a.x?a.x>>0:0)+"px";c.style.width=(a.w?a.w>>0:0)+"px";c.style.height=(a.h?a.h>>0:0)+"px";c.style.fontSize=(a.size?a.size>>0:10)+"px";c.style.maxWidth=(a.w?a.w>>0:0)+"px";c.style.maxHeight=(a.h?a.h>>0:0)+"px";c.onclick=function(a){a.stopPropagation()};c.onkeydown=function(a){a.stopPropagation();27==a.keyCode&&(a=c.value.trim(),"function"==typeof b&&b(""!=a?a:!1),g.document.body.removeChild(c),W.game.resume())};m.attach(c);c.focus()};this.dialogs.openTouchLine=function(a,
-b,c){W.game.stop();W.touchControl.exitTouchControl();var d=g.document.createElement("input");d.type="text";d.style.position="fixed";d.style.border="none";d.style.zIndex=l.style.zIndex+1;d.style.outline="none";d.style.backgroundColor=a.fillColor||"white";d.style.color=a.color||"black";d.style.top=(a.y?a.y>>0:0)+"px";d.style.left=(a.x?a.x>>0:0)+"px";d.style.width=(a.w?a.w>>0:0)+"px";d.style.fontSize=(a.size?a.size>>0:10)+"px";var e=g.document.createElement("div");e.style.padding=(b.padding||10)+"px";
-e.align="center";e.style.position="fixed";e.style.border="none";e.style.zIndex=l.style.zIndex+1;e.style.backgroundColor=b.fillColor||"white";e.style.color=b.color||"black";e.innerHTML=b.text||"OK";e.style.top=(b.y?b.y>>0:0)+"px";e.style.left=(b.x?b.x>>0:0)+"px";b.w&&(e.style.width=(b.w>>0)+"px");b.h&&(e.style.height=(b.h>>0)+"px");e.style.fontSize=(b.size?b.size>>0:10)+"px";e.addEventListener("touchstart",function(a){a.preventDefault();a.stopPropagation();W.touchControl.initTouchControl();a=d.value.trim();
-"function"==typeof c&&c(""!=a?a:!1);g.document.body.removeChild(d);g.document.body.removeChild(e);W.game.resume()},!0);m.attach(d);m.attach(e);d.focus()};var z={count:0,loaded:0,errored:0,add:function(){this.count+=1},load:function(){this.loaded+=1},error:function(){this.errored+=1}};this.resources.isLoaded=function(){return z.count==z.loaded};this.resources.getProgress=function(){return Math.ceil(z.loaded/z.count*100)};var Yb=0,Zb=0,ub=0;this.system.initFPSCheck=function(){m.addEvent("postLoop",
-"fpsCheckUpdate",function(){ub+=1;1E3<=G-Zb&&(Yb=ub,ub=0,Zb=G)})};this.system.getFPS=function(){return Yb};this.OOP.newRever=function(a,b,c){var d=function(a,b,c){this.min=a;this.max=b;this.step=c;this.value=a;this.to=c};d.prototype={update:function(){var a=this.value;this.value<=this.min?this.to=this.step:this.value>=this.max&&(this.to=-this.step);this.value+=this.to;return a},getValue:function(){return this.value},setValue:function(a){this.value=parseFloat(a)},setStep:function(a){this.step=a},getStep:function(){return this.step}};
-return new d(a,b,c)};var $b={};this.OOP.once=function(a,b){$b[a]||($b[a]=!0,b())};this.OOP.newTimer=function(a,b){if(0>=a)return da("error in system.newTimer : variable < 0, Timer is not created");var c={time:0<a?a:1E3,func:b,startTime:!1,ending:!1,start:function(){this.ending||this.startTime||(this.startTime=G)},run:function(){!this.ending&&this.startTime&&G-this.startTime>=this.time&&(this.func(),this.ending=!0)},end:function(){this.ending||(this.ending=!0,this.func())},restart:function(a){this.startTime||
-this.start();if(this.ending){if(a&&0>=a)return da("error in Timer.restart : variable < 0");a&&(this.time=a);this.ending=!1;this.startTime=G}},stop:function(){this.ending||(this.ending=!0)}};m.addEvent("postLoop","timer"+X(-100,100)*X(-100,100)+G,function(){c.run()});return c};this.memory.local={storage:g.localStorage,clear:function(){this.storage.clear()},save:function(a,b){this.storage.setItem(a,b)},saveAsObject:function(a,b){var c=JSON.stringify(b);this.storage.setItem(a,c)},loadAsObject:function(a){return JSON.parse(this.storage.getItem(a))},
-load:function(a){return this.storage.getItem(a)},loadAsNumber:function(a){return parseFloat(this.storage.getItem(a))}};this.memory.temp={values:{},save:function(a,b){this.values[a]=b},load:function(a){return this.values[a]},loadAsNumber:function(a){return parseFloat(this.values[a])}};g.onload=function(){for(var a in t)h[a]=t[a];h.save();m.runEvent("onload");m.loaded=!0;return!1};g.onblur=function(){if(fa)return m.runEvent("gameBlur"),!1};g.onfocus=function(){if(!fa)return g.document.activeElement.blur(),
-g.focus(),m.runEvent("gameFocus"),!1};g.onresize=function(){m.runEvent("gameResize");h.textBaseline=t.textBaseline;return!1};g.onclick=function(){g.document.activeElement.blur();g.focus()}};
+function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
+	'use strict';
+
+	this._logo = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABcCAYAAACYyxCUAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEgAACxIB0t1+/AAAAA10RVh0YXV0aG9yAFNrYW5lcrXlqu8AAAfJSURBVHic7Z1PaBRXHMe/M278GxW6CnalhEQMIlqUgiE2DUguha6g12Ih4sVrD70VevKUiwoKq8XFeOjBgxZ68aAXDYEKhUKpoMiaSCTR4EaINjtJ5vWQmXXcnTfz/r/ZzX7gHZKZ9/v93vvN7/ebNzM7A3To0KE9+A0AEWzfWLC37Wia2IWFBcJLtVqNc9Ata6NqMeqTVigUuCeflT179kSd84vVETfg2DYAwNcAHgGA4zjwfd+octd1QQgJ/7Q+H65F3eNYO0IfeZ4HQohxZwCA7/sghKBWqwEfo8Yato4IAiB6ZGYKx6lPi/H5MR0hBAAhhEg5o1QqwXVdOI4T21zXRalUEjfyo33WI0YXBAApl8vcBbivr0/0VLep7du3j1v/tWvXwv67TUyUiZDkTk+RlKEVQZu0GqczZf0IgIyMjDANvFKp1FOOKUJ9U1NTqfsSQjA8PAy0aAoLa0UqV65cUZaSZFupVGKyGRqdouNwZEpRvu9jw4YNGtTL4/t+aqQG25XPn2qBTM4wmZZkYByHC4URo7KGpDrj3r17LeMMYG3C79+/T90ejNUHMKZMpyI5qc5oJUfEwTC2AQB/yupRMUtt74wQhjFKD1Q2ZT0G1oczgOSxkI8rezkdkv3JenFGFJ2RIhMhZGRkhLqRxxnLy8vK2/T0NK5fv47+/n6JIfKPbWhoCLCweExc+CFh8RXXTFMsFpUsJGnAhkNonDlzJvMOicJra7SdO3cuTa4RyIkTJ2KNmJ+fV3qkmUTEbgCkWq3GyhscHBRyCm/xWQXgEkpREy3iNHmmUW2/SIHnLerKnZElRA8M2tiJwKkwj0Oogm3cC9eF7WjlihCasVm9amsSVVHC6hCqwKtXr7LqahlEo6RcLkvrZk38xPM8dHV1NQtQUDtsp4k4VBb4Wq2GzZs3AwzzzRIhowBinVGpVBi6ry9mZmaa/rdp0yalOsjx48eVnrs3Np1rB1GmpqaUjufo0aMEwK9pk80Sl8HYYzorOtWlyU+DRf+BAwfw5MkTbfLjSJmvRKFpGhcBbItToHLdodMhJuSz6mRxSFoN2VYoFISN6vAp+XweAH5I2iftENCergIlQv1aLUIiMqmCbT793iGGJIf00Ta0w3Ur3YjOUVIvQvsBjWqHtGPKoumVSlnValXKoA7NzM3NAcAXtO2JEWKioAeKhPq1YoQEcj0Ascv3TlG3w0baBm6HrKysyJnSIRFuh1y8eFGHHW3J5cuXuftwO+Tu3bvcStYrd+7c4e7D7ZCnT59yK7HJli1brOl+9uwZd5+2L+ofPnwQ6jc9Pa3YEjZyvB36+/vx5s0bHbZwE1ysa6KrqwvPnz/H1q1bhWX39PQI9w3Zv38/dx9uh5w6dQoTExPcinQwPz9v24RETp8+zd2He2G4srISeztXBtGFm050PiuQdPmEu4bkctxB1XLYvHja9kWdl/fv31vVn+iQhYUFU3Zkhu7ubq3yg4uL39O2t/Tld9WYGJfM5fefsjJRusnlcpm56dbS99RVoMsRnXvqHBSLReMvumEl9Ry2UCjg1atXJmzRgud52Lt3byYWkcGVhb+T9klNWUBicVKCrTt6OtH1oBy183op+CLIzA1TDRkcHBRWYAMSvDOREILDhw/bNgcAcOTIEWWyFkF5ortSqWTu6fcLFy4w7aerzczMJNmaCvMPdmq1GjZubL43b/MHOyk/IwMAvHjxAr29vULyRYgby9LSUnijTFnRox7JpVIpUxFis928eVMqOnjRNjGqHZK0n+d5sbJu376tbRw8DuEJIRJ4pXkDIXBd8TVmnEwWWFJWdL+kdylqfCgOAD4HMMsih2cWqRZneT0QhWan53m6VTM5AxC4dMJ6VGad7u5uOI6DfD4v/aPMlOjQ+moNB0D4QuEm3r59yynOHouLi9i5c6e0ze/evYv9/7Fjx6Tk8vAtEgrY2bNnM1vUfd+PldPb2ytUxM+fP59mmzFYzioy5xAA5PXr17GyTp48qfqs6jO9LmiGDA8Pc08Wz8DSYJUXt09ctKiweWBgwHh0hEwmGcY7QJWNZsfk5CTZsWNH/e/R0VEhexnGLIz0W0mxZiFdgYVT4kZ7QhuS7IzuxyM7pn8XAOHfbMjeMXQihsSSNglZ4dat9C/pMTjjMSScoRLWULaWssbGxqi2ra6uqkhTmTvyUg1/8OCB1RoSbfl8nmzfvj1V1sOHD406oy0/V9GoX9fLOQO5/wEQf8y+AdVPnaTWFADRr6ApI/xApAq5LHKCMf4Dhc4A9DwGxOQUYG3gN27c0GBCxBiO6BgfH2dyaCBzEUA27g8zQgCQoaGhxBwc8vLlS6m64bouU+2Ia7Tbro1EFn1f6po03YuEPwB8B/Cd/orkfMdxuNOVoE1a50z3k4tFRFIY6xtMwxxOCMHBgweZ+6Rx6NChT2SzcOnSJaufYtXJMhhOjVkol8skl8tRU1AulxP6qmgjEZnGsOHx+gBZj1LTRCIiD8DoTR4bD1s7iKQxx3HCT2dbZWlpKfoA9n9Ys9H4Hbcs5MR6mGTgA/d/AfjKqAENZOHnCGHETBBC6kfprl27tCnM5/N1PYEz3MAGq87IMrHFem5ujrswz87O0or/z5bG1haouOj4u3GrBchCDZFlN4AerBXif5HBy+AdWpj/AazZcTP7IXuyAAAAAElFTkSuQmCC';
+	var version_of_engine = '0.0.7.2';
+
+	var device = window;
+	var _PointJS = this;
+
+	var noFunction = function () {
+		console.log('function is not supported in this object');
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+	// settings ///////////////////////////////////////
+
+	var isShowError = true,
+			isZBuffer = false,
+			isStopForError = true,
+			isAutoClear = false,
+			isRun = false,
+			isOnlyInt = false,
+			isSmooth = true,
+
+			width = w,
+			height = h,
+			origWidth = w,
+			origHeight = h,
+			width2 = width / 2,
+			height2 = height / 2,
+
+			offset = {x : 0, y : 0},
+			angle = 0,
+			centerCamera = {x : 0, y : 0},
+
+			contextSettings = {
+				fillStyle : 'black',
+				strokeStyle : 'black',
+				globalAlpha : 1,
+				font : 'sans-serif',
+				textBaseline : 'top',
+			};
+
+	var log = function (obj) {
+		console.log('[PointJS] : ', obj);
+	};
+
+	if (typeof POINTJS_USER_LOG != 'undefined') {
+		log = POINTJS_USER_LOG;
+	}
+
+	var errorLog = function (e) {
+		var stack = decodeURI(e.stack.toString().replace(/(@|[\(\)]|[\w]+:\/\/)/g, ''));
+		stack = stack.split(/\n/);
+		stack = (stack[2] == '' ? stack[0] : stack[1]).split('/');
+		stack = stack[stack.length - 1].split(':');
+		console.log('ERROR "' + e.toString() + '" \n in      ' + stack[0] + ' \n line :   ' + stack[1] + ' \n symbol : ' + stack[2]);
+	};
+
+	var DEPRECATED = function (f1, f2) {
+		log('function "' + f1 + '" is DEPRECATED, use a "' + f2 + '"');
+	};
+
+	// end settings //////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// reserved ///////////////////////////////////////////
+
+	this.game =             {};
+	this.levels =           {};
+	this.camera =           {};
+	this.keyControl =       {};
+	this.mouseControl =     {};
+	this.touchControl =     {};
+	this.actionControl =    {};
+	this.system =           {};
+	this.vector =           {};
+	this.math =             {};
+	this.colors =           {};
+	this.brush =            {};
+	this.audio =            {};
+	this.wAudio =           {};
+	this.dialogs =          {};
+	this.resources =        {};
+	this.tiles =            {};
+	this.OOP =              {};
+	this.GUI =              {};
+	this.GL =               {};
+	this.memory =           {};
+
+	// end reserved ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	this.system.log = log;
+
+	this.system.consoleLog = function (bool) {
+		if (bool === true) {
+			this.log = console.log;
+		} else {
+			this.log = log;
+		}
+	};
+
+	this.system.setTitle = function (title) {
+		device.document.title = title;
+	};
+
+	this.system.setSettings = function (settings) {
+		isShowError = isDef(settings.isShowError) ? settings.isShowError : true;
+		isStopForError = isDef(settings.isStopForError) ? settings.isStopForError : true;
+		isAutoClear = isDef(settings.isAutoClear) ? settings.isAutoClear : false;
+		isZBuffer = isDef(settings.isZBuffer) ? settings.isZBuffer : false;
+	};
+
+	this.system.setDefaultSettings = function (obj) {
+		for (var i in obj) {
+			contextSettings[i] = obj[i];
+		}
+		context.save();
+	};
+
+	this.system.setSmoothing = function (bool) {
+		isSmooth = bool;
+		setSmooth();
+	};
+
+	// end settings ///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// info ///////////////////////////////////////////
+
+	var info = {
+		'name'    : 'PointJS',
+		'desc'    : 'HTML5 2D Game Engine for JavaScript',
+		'author'  : 'Skaner (skaner0@yandex.ru)',
+		'version' : version_of_engine
+	};
+
+	this.system.getInfo = function () {
+		return info;
+	};
+
+	// end info /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// WebGL ///////////////////////////////////////////
+	// var webgl = false;
+
+
+	var shader = {
+		fr : '',
+		vr : ''
+	};
+
+	var getShader = function (type, text) {
+		var source = text;
+		var shader = gl.createShader(type);
+		gl.shaderSource(shader, source);
+		gl.compileShader(shader);
+
+		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
+			log('Error shader compilation : ' + gl.getShaderInfoLog(shader));
+			gl.deleteShader(shader);
+			return null;
+		}
+		return shader;
+	};
+
+	var shaderProgram;
+
+
+	var gl = false;
+	var glCanvas = false;
+	var initGL = function () {
+
+		glCanvas = device.document.createElement('canvas');
+		glCanvas.width = canvas.width;
+		glCanvas.height = canvas.height;
+		glCanvas.style.position = 'fixed';
+		glCanvas.style.left = 0;
+		glCanvas.style.top = 0;
+		glCanvas.style.zIndex = canvas.style.zIndex + 1;
+		glCanvas.id = 'PointJS-canvas_1';
+		glCanvas.style.backgroundColor = s.backgroundColor ? s.backgroundColor : 'black';
+
+		dom.attach(glCanvas);
+
+		dom.addEvent('onload', 'hideSourceCanvas', function () {
+			canvas.style.display = 'none';
+		});
+
+		gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl');
+
+		gl.viewport(0, 0, width, height);
+		gl.clearColor(0.0, 0.0, 0.0, 1.0);
+		gl.clear(gl.COLOR_BUFFER_BIT);
+	};
+
+	var reinitGL = function () {
+
+
+	};
+
+	var initShaders = function () {
+		shader.vr =
+		'attribute vec2 aPosition; '+
+		'attribute vec2 aTextCoord; '+
+		'uniform vec2 uResolution; '+
+		'uniform int uMirrorX; '+
+		'varying vec2 vTextureCoord; '+
+		'void main() { '+
+		'   vec2 zeroToOne = aPosition / uResolution; '+
+		'   vec2 zeroToTwo = zeroToOne * 2.0; '+
+		'   vec2 clipSpace = zeroToTwo - 1.0; '+
+		'   gl_Position = vec4(clipSpace * vec2((uMirrorX == 1 ? -1 : 1), -1), 0, 1); '+
+		'   vTextureCoord = aTextCoord; '+
+		'}';
+
+		shader.fr =
+		'precision mediump float; '+
+		'uniform sampler2D texture; '+
+		'varying vec2 vTextureCoord; '+
+		'uniform int uInversion; '+
+		'void main() { '+
+		'	vec4 texColor = texture2D(texture,vTextureCoord.xy); '+
+		'	vec4 finalColor; '+
+		'	finalColor = texColor; '+
+		'	if (uInversion == 1) '+
+		'		finalColor = 1.0 - finalColor; '+
+		'	gl_FragColor = finalColor; '+
+		'}';
+
+		// получаем шейдеры
+		shaderProgram = gl.createProgram();
+		gl.attachShader(shaderProgram, getShader(gl.VERTEX_SHADER, shader.vr));
+		gl.attachShader(shaderProgram, getShader(gl.FRAGMENT_SHADER, shader.fr));
+		gl.linkProgram(shaderProgram);
+
+		if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
+			log('Can\'t install shader');
+		}
+
+		gl.useProgram(shaderProgram);
+	};
+
+	var initWebGL = function () {
+		initGL();
+		initShaders();
+		initBuffer();
+
+		glOn = true;
+
+	};
+
+
+	var aTextCoord,
+					aPosition,
+					uResolution,
+					uColor,
+					itemSize,
+					texture,
+					uInversion,
+					uMirrorX;
+
+	var initBuffer = function () {
+		itemSize = 2;
+
+		var buffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
+
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+			  0, 0,
+     width, 0,
+     0, height,
+     0, height,
+     width, 0,
+     width, height
+			]), gl.STATIC_DRAW);
+
+		aPosition = gl.getAttribLocation(shaderProgram, "aPosition");
+		uResolution = gl.getUniformLocation(shaderProgram, "uResolution");
+  aTextCoord = gl.getAttribLocation(shaderProgram, "aTextCoord");
+  uInversion = gl.getUniformLocation(shaderProgram, "uInversion");
+  uMirrorX = gl.getUniformLocation(shaderProgram, "uMirrorX");
+
+		gl.uniform2f(uResolution, width, height);
+
+		gl.enableVertexAttribArray(aPosition);
+		gl.vertexAttribPointer(aPosition, itemSize, gl.FLOAT, false, 0, 0);
+
+  var textureBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+      0.0,  0.0,
+      1.0,  0.0,
+      0.0,  1.0,
+      0.0,  1.0,
+      1.0,  0.0,
+      1.0,  1.0]), gl.STATIC_DRAW);
+
+  gl.enableVertexAttribArray(aTextCoord);
+  gl.vertexAttribPointer(aTextCoord, 2, gl.FLOAT, false, 0, 0);
+
+  texture = gl.createTexture();
+  gl.bindTexture(gl.TEXTURE_2D, texture);
+
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+
+	};
+
+
+	// DRAW
+
+	this.GL.filter = function (type, obj) {
+		if (!gl) return log('GL is not inited. Use a initGL() function.');
+		if (type == 'inversion') gl.uniform1i(uInversion, 1);
+		if (type == 'mirror-x') gl.uniform1i(uMirrorX, 1);
+
+	};
+
+	var drawGL = function () {
+		if (!gl) return log('GL is not inited. Use a initGL() function.');
+
+  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
+  gl.drawArrays(gl.TRIANGLES, 0, 6);
+
+		gl.uniform1i(uInversion, 0);
+		gl.uniform1i(uMirrorX, 0);
+	};
+
+
+
+	// end WebGL ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// vector ///////////////////////////////////////////
+
+	var point = function (x, y) {
+		return {
+			x : x,
+			y : y
+		};
+	};
+
+	var size = function (w, h) {
+		return {
+			w : w,
+			h : h
+		};
+	};
+
+	var pointPlus = function (p1, p2) {
+		return {
+			x : p1.x + p2.x,
+			y : p1.y + p2.y
+		};
+	};
+
+	var pointMinus = function (p1, p2) {
+		return {
+			x : p1.x - p2.x,
+			y : p1.y - p2.y
+		};
+	};
+
+	var pointInc = function (p1, p2) {
+		return {
+			x : p1.x * p2.x,
+			y : p1.y * p2.y
+		};
+	};
+
+	var pointDiv = function (p1, p2) {
+		return {
+			x : p1.x / (p2.x != 0 ? p2.x : 1),
+			y : p1.y / (p2.y != 0 ? p2.y : 1)
+		};
+	};
+
+	var pointAbs = function (p) {
+		return {
+			x : Math.abs(p.x),
+			y : Math.abs(p.y)
+		};
+	};
+
+	var getPointAngle = function (p, c, a) {
+		if (a != 0) {
+			var r = a2r(a);
+			var dx = p.x - c.x;
+			var dy = p.y - c.y;
+			var cos = Math.cos(r);
+			var sin = Math.sin(r);
+			return point(dx * cos - dy * sin + c.x, dx * sin + dy * cos + c.y);
+		} else {
+			return point(p.x, p.y);
+		}
+	};
+
+	var getAngle2Points = function (p1, p2) {
+		return Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI);
+	};
+
+	var isPointIn = function (point, points) {
+		if (points.length < 3) {
+			return false;
+		}
+		var intersections_num = 0;
+		var prev = points.length - 1;
+		var prev_under = points[prev].y < point.y;
+		var i, len;
+		for (i = 0, len = points.length; i < len; ++i) {
+			var cur_under = points[i].y < point.y;
+			var a = pointMinus(points[prev], point);
+			var b = pointMinus(points[i], point);
+			var t = (a.x * (b.y - a.y) - a.y * (b.x - a.x));
+			if (cur_under && !prev_under) {
+				if (t > 0) {
+					intersections_num += 1;
+				}
+			}
+			if (!cur_under && prev_under) {
+				if (t < 0) {
+					intersections_num += 1;
+				}
+			}
+			prev = i;
+			prev_under = cur_under;
+		}
+
+		return (intersections_num & 1) != 0;
+	};
+
+	var getMidPoint = function (p1, p2) {
+		if (!isDef(p2)) return 0;
+		return (point((p1.x + p2.x) / 2, (p1.y + p2.y) / 2));
+	};
+
+	var getDistance = function (p1, p2) {
+		return Math.sqrt(Math.pow(p2.x - p1.x, 2) + Math.pow(p2.y - p1.y, 2));
+	};
+
+	var isSame = function (p1, p2) {
+		if (!isDef(p2)) return false;
+		return (p1.x == p2.x && p1.y == p2.y);
+	};
+
+	var newStaticBox = function (x, y, w, h) {
+		return {
+			x : x,
+			y : y,
+			w : x + w,
+			h : y + h
+		};
+	};
+
+	var newDynamicBoxRect = function (x, y, w, h) {
+		return [
+			point(x, y),
+			point(x + w, y),
+			point(x + w, y + h),
+			point(x, y + h),
+		];
+	};
+
+
+	this.vector.point = point;
+	this.vector.v2d = point;
+	this.vector.size = size;
+	this.vector.w2h = size;
+	this.vector.getPointAngle = getPointAngle;
+	this.vector.isPointIn = isPointIn;
+	this.vector.pointMinus = pointMinus;
+	this.vector.pointPlus = pointPlus;
+	this.vector.pointInc = pointInc;
+	this.vector.pointDiv = pointDiv;
+	this.vector.pointAbs = pointAbs;
+	this.vector.getMidPoint = getMidPoint;
+	this.vector.getDistance = getDistance;
+	this.vector.isSame = isSame;
+	this.vector.getAngle2Points = getAngle2Points;
+	this.vector.newStaticBox = newStaticBox;
+	this.vector.newDynamicBoxRect = newDynamicBoxRect;
+
+
+// end vector ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// math /////////////////////////////////////////////
+
+	var toInt = function (n) { // number
+		return n >> 0;
+	};
+
+	var a2r = function (a) {
+		return a * (Math.PI / 180);
+	};
+
+	var random = function (min, max, z) {
+		var rnd = Math.floor(Math.random() * (max - min + 1) + min);
+		return (z && rnd == 0) ? random(min, max, z) : rnd;
+	};
+
+	var limit = function (n, m) {
+		n = Math.abs(n);
+		m = Math.abs(m);
+		return n < m ? (n * sign(n)) : (m * sign(m));
+	};
+
+	var sign = function (a) {
+		return a < 0 ? -1 : 1;
+	};
+
+	this.math.limit = limit;
+	this.math.sign = sign;
+	this.math.a2r = a2r;
+	this.math.random = random;
+	this.math.toInt = toInt;
+
+	// end math /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// DOM /////////////////////////////////////////////
+
+	var eventCount = 0;
+
+	var dom = {
+		loaded : false,
+
+		events : {
+			'onload' : [],         // загрузка DOM
+			'preLoop' : [],								// перед Engine
+			'postLoop' : [],							// после Engine
+			'gameBlur' : [],							// при покидании окна игры, расфокусировке
+			'gameFocus' : [],						// при фокусировке
+			'gameResize' : []						// при изменении размеров окна
+		},
+
+		addEvent : function (evt, key, func) {
+			if (evt == 'onload' && dom.loaded) {
+				func();
+			} else {
+				dom.events[evt].push({
+					id : key,
+					func : func
+				});
+			}
+		},
+
+		delEvent : function (evt, key) {
+			forArr(dom.events[evt], function (el, i, arr) {
+				if (el.id == key) {
+					arr.splice(i, 1);
+				}
+			});
+		},
+
+		runEvent : function (evt) {
+			forArr(dom.events[evt], function (el) {
+				if (typeof el.func == 'function') {
+					el.func();
+				}
+			});
+		},
+
+		attach : function (element) {
+			var attach = function () {
+				device.document.body.appendChild(element);
+			};
+			if (dom.loaded) {
+				attach();
+			} else {
+				dom.addEvent('onload', 'attachElement_PointJS' + (eventCount++), attach);
+			}
+		},
+
+		getWH : function () {
+			return {
+				w : parseInt(device.document.documentElement.clientWidth  || device.innerWidth  || device.document.body.clientWidth),
+				h : parseInt(device.document.documentElement.clientHeight || device.innerHeight || device.document.body.clientHeight)
+			};
+		}
+
+	};
+
+	this.system.delEvent = function (evt, key) {
+		dom.delEvent(evt, key);
+	};
+
+	this.system.addEvent = function (evt, key, func) {
+		dom.addEvent(evt, key, func);
+	};
+
+	this.system.attachDOM = function (element) {
+		dom.attach(element);
+	};
+
+	this.system.newDOM = function (tag) {
+		var element = device.document.createElement(tag);
+		element.style.position = 'fixed';
+		element.style.left = 0;
+		element.style.top = 0;
+		element.style.zIndex = canvas.style.zIndex + 1;
+		element.style.border = 'none';
+		dom.attach(element);
+		return element;
+	};
+
+
+
+
+
+	// create canvas
+	var canvas = device.document.createElement('canvas');
+	canvas.crossOrigin = 'anonymous';
+	canvas.width = parseInt(w);
+	canvas.height = parseInt(h);
+	canvas.style.position = 'fixed';
+	canvas.style.left = 0;
+	canvas.style.top = 0;
+	canvas.style.zIndex = 1000;
+	canvas.id = 'PointJS-canvas_0';
+	canvas.style.backgroundColor = 'black';
+
+
+	if (typeof s == 'object') {
+		for (var i in s) {
+			if (!i.match(/margin|padding|position/))
+				canvas.style[i] = s[i];
+		}
+	}
+
+	dom.addEvent('onload', 'Window_Hide_Scroll', function () {
+		device.document.body.style.overflow = 'hidden';
+		canvasOffset = {
+			x : parseInt(canvas.style.left),
+			y : parseInt(canvas.style.top)
+		};
+	});
+
+	var canvasOffset = point(0, 0);
+
+	var context = null;
+	var gl = null;
+	var glOn = false;
+
+	context = canvas.getContext('2d');
+
+	if (D == 'GL2D') {
+		initWebGL();
+
+		dom.addEvent('postLoop', 'drawGL', function () {
+			drawGL();
+		});
+
+	} else {
+		dom.attach(canvas);
+		context.textBaseline = contextSettings.textBaseline;
+	}
+
+
+	var nowFillStyle = 'black';
+	var nowStrokeStyle = 'black';
+	var setFillColor = function (color) {
+		// if (nowFillStyle != color) {
+			// nowFillStyle = color;
+			context.fillStyle = color;
+		// }
+	};
+
+	var setStrokeColor = function (color) {
+		// if (nowStrokeStyle != color) {
+			// nowStrokeStyle = color;
+			context.strokeStyle = color;
+		// }
+	};
+
+
+	this.system.setStyle = function (s) {
+		if (typeof s == 'object') {
+			for (var i in s) {
+				canvas.style[i] = s[i];
+			}
+		}
+	};
+
+	this.system.getContext = function () {
+		return context;
+	};
+
+	this.system.resize = function (w, h) {
+		width = w || origWidth;
+		height = h || origHeight;
+		width2 = width / 2;
+		height2 = height / 2;
+		canvas.width = width;
+		canvas.height = height;
+
+		if (glOn) {
+			glCanvas.width = canvas.width;
+			glCanvas.height = canvas.height;
+			gl.viewport(0,0, width, height);
+		}
+
+	};
+
+	this.system.initFullPage = function () {
+		dom.addEvent('gameResize', 'PointJS_resizeGame', function () {
+			width = dom.getWH().w;
+			height = dom.getWH().h;
+			width2 = width / 2;
+			height2 = height / 2;
+			canvas.width = width;
+			canvas.height = height;
+
+			if (glOn) {
+				glCanvas.width = canvas.width;
+				glCanvas.height = canvas.height;
+				gl.viewport(0,0, width, height);
+			}
+
+			context.textBaseline = contextSettings.textBaseline;
+		});
+		dom.runEvent('gameResize', 'PointJS_resizeGame');
+	};
+
+
+	var fullScreen = false;
+	var launchFullScreen = function () {
+		if (fullScreen) return;
+		if (this.requestFullscreen) {
+			this.requestFullscreen();
+			fullScreen = true;
+		} else if (this.mozRequestFullScreen) {
+			this.mozRequestFullScreen();
+			fullScreen = true;
+		} else if (this.webkitRequestFullscreen) {
+			this.webkitRequestFullscreen();
+			fullScreen = true;
+		}
+		width = dom.getWH().w;
+		height = dom.getWH().h;
+		width2 = width / 2;
+		height2 = height / 2;
+		canvas.width = width;
+		canvas.height = height;
+		if (glOn) {
+			glCanvas.width = canvas.width;
+			glCanvas.height = canvas.height;
+			gl.viewport(0,0, width, height);
+		}
+
+	};
+
+	var cancelFullscreen = function () {
+		if (device.document.exitFullscreen) {
+			device.document.exitFullscreen();
+			fullScreen = false;
+		} else if (device.document.mozCancelFullScreen) {
+			device.document.mozCancelFullScreen();
+			fullScreen = false;
+		} else if (device.document.webkitExitFullscreen) {
+			device.document.webkitExitFullscreen();
+			fullScreen = false;
+		}
+	};
+
+	var onfullscreenchange = function (e) {
+		var isFull = device.document.fullscreenElement ||
+			device.document.mozFullScreenElement || device.document.webkitFullscreenElement;
+		fullScreen = isSet(isFull);
+	}
+
+	// Событие об изменениии режима
+	device.document.addEventListener("webkitfullscreenchange", onfullscreenchange);
+	device.document.addEventListener("mozfullscreenchange", onfullscreenchange);
+	device.document.addEventListener("fullscreenchange", onfullscreenchange);
+
+	this.system.initFullScreen = function () {
+		if (fullScreen) return;
+		device.document.documentElement.onclick = launchFullScreen;
+		if (fullScale) return;
+		dom.addEvent('gameResize', 'PointJS_initFullScreen', function () {
+			width = dom.getWH().w;
+			height = dom.getWH().h;
+			width2 = width / 2;
+			height2 = height / 2;
+			canvas.width = width;
+			canvas.height = height;
+			if (glOn) {
+				glCanvas.width = canvas.width;
+				glCanvas.height = canvas.height;
+				gl.viewport(0,0, width, height);
+			}
+
+			context.textBaseline = contextSettings.textBaseline;
+		});
+		dom.runEvent('gameResize', 'PointJS_initFullScreen');
+	};
+
+	this.system.exitFullScreen = function () {
+		if (!fullScreen) return;
+		dom.delEvent('gameResize', 'PointJS_initFullScreen');
+		cancelFullscreen();
+		width = origWidth;
+		height = origHeight;
+		width2 = width / 2;
+		height2 = height / 2;
+		canvas.width = width;
+		canvas.height = height;
+		if (glOn) {
+			glCanvas.width = canvas.width;
+			glCanvas.height = canvas.height;
+			gl.viewport(0,0, width, height);
+		}
+		device.document.documentElement.onclick = function () {};
+	};
+
+	this.system.isFullScreen = function () {
+		return fullScreen;
+	};
+
+	this.system.exitFullPage = function () {
+		width = origWidth;
+		height = origHeight;
+		width2 = width / 2;
+		height2 = height / 2;
+		canvas.width = width;
+		canvas.height = height;
+		if (glOn) {
+			glCanvas.width = canvas.width;
+			glCanvas.height = canvas.height;
+			gl.viewport(0,0, width, height);
+		}
+
+	};
+
+
+	var scaleScreen = false;
+	var fullScale = false;
+	var scaleWidth = origWidth, scaleHeight = origHeight;
+	var scaleNoProp = false;
+	this.system.initFullScale = function (no_pr) { // no proportional
+		if (fullScale) return;
+
+		if (no_pr)
+			scaleNoProp = true;
+
+		dom.addEvent('gameResize', 'PointJS_initFullScale', function () {
+			var w = scaleWidth,
+					h = scaleHeight;
+
+			var screen = dom.getWH();
+
+			if (!scaleNoProp) {
+				if (screen.w < screen.h) {
+					var dh = screen.w / width;
+					w = screen.w;
+					h = height * dh;
+				} else if (screen.h < screen.w) {
+					var dw = screen.h / height;
+					h = screen.h;
+					w = width * dw;
+				}
+			} else {
+				w = screen.w;
+				h = screen.h;
+			}
+
+			scaleWidth = w;
+			scaleHeight = h;
+
+			scaleScreen = {
+				w : w / width,
+				h : h / height
+			};
+
+			canvas.style.width = w + 'px';
+			canvas.style.height = h + 'px';
+			if (glOn) {
+				glCanvas.style.width = canvas.style.width;
+				glCanvas.style.height = canvas.style.height;
+				gl.viewport(0,0, width, height);
+			}
+		});
+		dom.runEvent('gameResize', 'PointJS_initFullScale');
+		fullScale = true;
+	};
+
+	this.system.exitFullScale = function () {
+		if (!fullScale) return;
+		fullScale = false;
+		dom.delEvent('gameResize', 'PointJS_initFullScale');
+		canvas.style.width = origWidth + 'px';
+		canvas.style.height = origHeight + 'px';
+		if (glOn) {
+			glCanvas.style.width = canvas.style.width;
+			glCanvas.style.height = canvas.style.height;
+			gl.viewport(0,0, width, height);
+		}
+	};
+
+	this.system.getWH = function () {
+		return dom.getWH();
+	};
+
+	// end DOM //////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// GUI //////////////////////////////////////////////
+	var guiList = [];
+	var guiCount = 0;
+
+	var GUIBase = function (tag, obj) { // tag, object
+		var dEl = device.document.createElement(tag);
+		dEl.style.position = 'fixed';
+		dEl.style.zIndex = canvas.style.zIndex + 1;
+		dEl.style.outline = 'none';
+		dEl.style.left = obj.x ? obj.x + 'px' : 0;
+		dEl.style.top = obj.y ? obj.y + 'px' : 0;
+		if (obj.w) dEl.style.width = obj.w + 'px';
+		if (obj.h) dEl.style.height = obj.h + 'px';
+
+		dEl.style.backgroundColor = obj.fillColor ? obj.fillColor : '';
+		dEl.style.color = obj.color ? obj.color : 'black';
+		dEl.style.border = (obj.strokeWidth || 0) + 'px solid ' + (obj.strokeColor || '');
+
+		dEl.onmousedown = dEl.onmouseup = dEl.onmousemove = dEl.onclick =
+			dEl.onkeydown = dEl.onkeypress = dEl.onkeyup =
+				function (e) {
+					e.stopPropagation();
+				};
+
+		dEl.oncontextmenu = dEl.onselectstart = dEl.ondragstart = function (e) {
+			e.stopPropagation();
+			return false;
+		};
+
+		this.w = obj.w || 0;
+		this.h = obj.h || 0;
+		this.el = dEl;
+		this.id = guiCount++;
+		this.visible = true;
+
+		if (obj.events) {
+			this.onEvents(obj.events);
+		}
+
+		if (obj.style) {
+			this.setStyle(obj.style);
+		}
+
+		guiList.push(this);
+	};
+
+	GUIBase.prototype = {
+		// click, mousePress, mouseUp, mouseOver, mouseOut
+		onEvents : function (obj) { // function
+
+			if (typeof obj.keyPress == 'function') {
+				this.el.onkeypress = function (e) {
+					e.stopPropagation();
+					var char = false;
+					if (e.which != 0 && e.charCode != 0)
+						if (e.which >= 32) {
+							char = String.fromCharCode(e.which);
+						}
+					return obj.keyPress(char);
+				};
+			}
+
+			if (typeof obj.change == 'function') {
+				this.el.oninput = function (e) {
+					e.stopPropagation();
+					obj.change();
+				};
+			}
+
+			if (typeof obj.mouseOver == 'function') {
+				this.el.onmouseover = function (e) {
+					e.stopPropagation();
+					obj.mouseOver();
+				};
+			}
+
+			if (typeof obj.mouseOut == 'function') {
+				this.el.onmouseleave = function (e) {
+					e.stopPropagation();
+					obj.mouseOut();
+				};
+			}
+
+			if (typeof obj.click == 'function') {
+				this.el.onclick = function (e) {
+					e.stopPropagation();
+					obj.click();
+				};
+			}
+
+			if (typeof obj.mousePress == 'function') {
+				this.el.onmousedown = function (e) {
+					e.stopPropagation();
+					obj.mousePress();
+				};
+			}
+
+			if (typeof obj.mouseUp == 'function') {
+				this.el.onmouseup = function (e) {
+					e.stopPropagation();
+					obj.mouseUp();
+				};
+			}
+
+
+		},
+
+		getID : function () {
+			return this.id;
+		},
+
+		move : function (p) {
+			this.el.style.left = parseInt(this.el.style.left) + p.x + 'px';
+			this.el.style.top = parseInt(this.el.style.top) + p.y + 'px';
+		},
+
+		setPosition : function (p) {
+			this.el.style.left = p.x + 'px';
+			this.el.style.top = p.y + 'px';
+		},
+
+		setPositionC : function (p) {
+			this.el.style.left = p.x - this.w / 2 + 'px';
+			this.el.style.top = p.y - this.h / 2 + 'px';
+		},
+
+		getPosition : function () {
+			return point(parseInt(this.el.style.left), parseInt(this.el.style.top));
+		},
+
+		getPositionC : function () {
+			return point(parseInt(this.el.style.left) + this.w / 2, parseInt(this.el.style.top) + this.h / 2);
+		},
+
+		setSize : function (s) {
+			this.w = s.w;
+			this.h = s.h;
+			this.el.style.width = s.w + 'px';
+			this.el.style.height = s.h + 'px';
+		},
+
+		getSize : function () {
+			return size(this.w, this.h);
+		},
+
+		setStyle : function (obj) {
+			var i;
+			for (i in obj) {
+				this.el.style[i] = obj[i];
+			}
+		},
+
+		setVisible : function (bool) {
+			this.visible = bool;
+			if (bool) return this.el.style.display = 'block';
+			this.el.style.display = 'none';
+		},
+
+		isVisible : function () {
+			return this.visible;
+		},
+
+		setEnabled : function (bool) {
+			this.enabled = bool;
+			this.el.disabled = !bool;
+		},
+
+		setText : function (text) {
+			if (this.el.innerHTML) {
+				this.el.innerHTML = text;
+				this.w = parseInt(this.el.offsetWidth);
+				this.h = parseInt(this.el.offsetHeight);
+			}
+
+			if (this.el.value)
+				this.el.value = text;
+		},
+
+		getText : function () {
+			if (this.el.innerHTML)
+				return this.el.innerHTML;
+			if (this.el.value)
+				this.el.value = text;
+		}
+
+	};
+
+
+	this.GUI.newButton = function (obj) {
+		var object = new GUIBase('input', obj);
+		object.el.type = 'button';
+		object.el.value = obj.text ? obj.text : 'Button ' + object.id;
+
+		dom.attach(object.el);
+
+		return object;
+	};
+
+	this.GUI.newInput = function (obj) {
+		var object = new GUIBase('input', obj);
+		object.el.type = 'text';
+		object.el.value = obj.text ? obj.text : 'Button ' + object.id;
+		object.el.oncontextmenu = object.el.onselectstart = object.el.ondragstart = function (e) {
+		};
+		dom.attach(object.el);
+		return object;
+	};
+
+	this.GUI.newPanel = function (obj) {
+		var object = new GUIBase('div', obj);
+		object.el.innerHTML = obj.text ? obj.text : 'Panel ' + object.id;
+		dom.attach(object.el);
+		return object;
+	};
+
+	this.GUI.newImage = function (obj) {
+		var object = new GUIBase('img', obj);
+		if (!obj.file) return log('error in GUI.newImage : Where image file?');
+		object.el.src = obj.file;
+		dom.attach(object.el);
+		object.el.onload = function () {
+			if (!object.w) object.w = parseInt(this.width);
+			if (!object.h) object.h = parseInt(this.height);
+		};
+		return object;
+	};
+
+	this.GUI.newHTML = function (obj) {
+		var object = new GUIBase('div', obj);
+		object.el.innerHTML = obj.text ? obj.text.toString() : 'Your HTML Text';
+
+		dom.attach(object.el);
+		dom.addEvent('onload', 'getWH_HTMLPanel' + object.id, function () {
+			if (!object.w) object.w = parseInt(object.el.offsetWidth);
+			if (!object.h) object.h = parseInt(object.el.offsetHeight);
+		});
+		return object;
+	};
+
+
+	// end GUI //////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// actionControl ////////////////////////////////////
+
+	var touchInited = false;
+	this.actionControl.initActionControl = function () {
+
+		if (_PointJS.touchControl.isTouchSupported()) {
+			touchInited = true;
+			_PointJS.touchControl.initTouchControl();
+		}
+
+		_PointJS.mouseControl.initMouseControl();
+
+		return this;
+	};
+
+	this.actionControl.isPress = function () {
+		if (touchInited) return _PointJS.touchControl.isPress();
+		return _PointJS.mouseControl.isPress('LEFT');
+	};
+
+	this.actionControl.isDown = function () {
+		if (touchInited) return _PointJS.touchControl.isDown();
+		return _PointJS.mouseControl.isDown('LEFT');
+	};
+
+	this.actionControl.isUp = function () {
+		if (touchInited) return _PointJS.touchControl.isUp();
+		return _PointJS.mouseControl.isUp('LEFT');
+	};
+
+	this.actionControl.isInObject = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isInObject(obj);
+		return _PointJS.mouseControl.isInObject(obj);
+	};
+
+	this.actionControl.isInStatic = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isInStatic(obj);
+		return _PointJS.mouseControl.isInStatic(obj);
+	};
+
+	this.actionControl.isInDynamic = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isInDynamic(obj);
+		return _PointJS.mouseControl.isInDynamic(obj);
+	};
+
+	this.actionControl.isPeekObject = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isPeekObject(obj);
+		return _PointJS.mouseControl.isPeekObject('LEFT', obj);
+	};
+
+	this.actionControl.isPeekStatic = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isPeekStatic(obj);
+		return _PointJS.mouseControl.isPeekStatic('LEFT', obj);
+	};
+
+	this.actionControl.isPeekDynamic = function (obj) {
+		if (touchInited) return _PointJS.touchControl.isPeekDynamic(obj);
+		return _PointJS.mouseControl.isPeekDynamic('LEFT', obj);
+	};
+
+	this.actionControl.getPosition = function (obj) {
+		if (touchInited) return _PointJS.touchControl.getPosition();
+		return _PointJS.mouseControl.getPosition();
+	};
+
+	this.actionControl.getPositionS = function (obj) {
+		if (touchInited) return _PointJS.touchControl.getPositionS();
+		return _PointJS.mouseControl.getPositionS();
+	};
+
+	this.actionControl.getMouse = function () {
+		return _PointJS.mouseControl;
+	};
+
+	this.actionControl.getTouch = function () {
+		if (touchInited)
+			return _PointJS.touchControl;
+		else
+			return false;
+	};
+
+	this.actionControl.getActiveControl = function () {
+		return touchInited ? _PointJS.touchControl : _PointJS.mouseControl;
+	};
+
+	this.actionControl.getActiveControlName = function () {
+		return touchInited ? 'touchControl' : 'mouseControl';
+	};
+
+	this.actionControl.getSpeed = function () {
+		if (touchInited) return ;
+		return _PointJS.mouseControl.getSpeed() || _PointJS.touchControl.getSpeed();
+	};
+
+	// end actionControl ////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// keyControl /////////////////////////////////////
+
+	var keyList = {
+		'LEFT' : 37,
+		'RIGHT' : 39,
+		'UP' : 38,
+		'DOWN' : 40,
+		'SPACE' : 32,
+		'CTRL' : 17,
+		'SHIFT' : 16,
+		'ALT' : 18,
+		'ESC' : 27,
+		'ENTER' : 13,
+		'MINUS' : 189,
+		'PLUS' : 187,
+		'CAPS_LOCK' : 20,
+		'BACKSPACE' : 8,
+		'TAB' : 9,
+		'Q' : 81,
+		'W' : 87,
+		'E' : 69,
+		'R' : 82,
+		'T' : 84,
+		'Y' : 89,
+		'U' : 85,
+		'I' : 73,
+		'O' : 79,
+		'P' : 80,
+		'A' : 65,
+		'S' : 83,
+		'D' : 68,
+		'F' : 70,
+		'G' : 71,
+		'H' : 72,
+		'J' : 74,
+		'K' : 75,
+		'L' : 76,
+		'Z' : 90,
+		'X' : 88,
+		'V' : 86,
+		'B' : 66,
+		'N' : 78,
+		'M' : 77,
+		'0' : 48,
+		'1' : 49,
+		'2' : 50,
+		'3' : 51,
+		'4' : 52,
+		'5' : 53,
+		'6' : 54,
+		'7' : 55,
+		'8' : 56,
+		'C' : 67,
+		'9' : 57,
+		/*			'NUM_0'     : 45,
+		 'NUM_1'     : 35,
+		 'NUM_2'     : 40,
+		 'NUM_3'     : 34,
+		 'NUM_4'     : 37,
+		 'NUM_5'     : 12,
+		 'NUM_6'     : 39,
+		 'NUM_7'     : 36,
+		 'NUM_8'     : 38,
+		 'NUM_9'     : 33,
+		 'NUM_MINUS' : 109,
+		 'NUM_PLUS'  : 107,
+		 'NUM_LOCK'  : 144,*/
+		'F1' : 112,
+		'F2' : 113,
+		'F3' : 114,
+		'F4' : 115,
+		'F5' : 116,
+		'F6' : 117,
+		'F7' : 118,
+		'F8' : 119,
+		'F9' : 120,
+		'F10' : 121,
+		'F11' : 122,
+		'F12' : 123
+	};
+
+	var codeList = {
+		'37' : 'LEFT',
+		'39' : 'RIGHT',
+		'38' : 'UP',
+		'40' : 'DOWN',
+		'32' : 'SPACE',
+		'17' : 'CTRL',
+		'16' : 'SHIFT',
+		'18' : 'ALT',
+		'27' : 'ESC',
+		'13' : 'ENTER',
+		'189' : 'MINUS',
+		'187' : 'PLUS',
+		'20' : 'CAPS_LOCK',
+		'8' : 'BACKSPACE',
+		'9' : 'TAB',
+		'81' : 'Q',
+		'87' : 'W',
+		'69' : 'E',
+		'82' : 'R',
+		'84' : 'T',
+		'89' : 'Y',
+		'85' : 'U',
+		'73' : 'I',
+		'79' : 'O',
+		'80' : 'P',
+		'65' : 'A',
+		'83' : 'S',
+		'68' : 'D',
+		'70' : 'F',
+		'71' : 'G',
+		'72' : 'H',
+		'74' : 'J',
+		'75' : 'K',
+		'76' : 'L',
+		'90' : 'Z',
+		'88' : 'X',
+		'86' : 'V',
+		'66' : 'B',
+		'78' : 'N',
+		'77' : 'M',
+		'48' : '0',
+		'49' : '1',
+		'50' : '2',
+		'51' : '3',
+		'52' : '4',
+		'53' : '5',
+		'54' : '6',
+		'55' : '7',
+		'56' : '8',
+		'67' : 'C',
+		'57' : '9',
+		/*			'45'  : 'NUM_0',
+		 '35'  : 'NUM_1',
+		 '40'  : 'NUM_2',
+		 '34'  : 'NUM_3',
+		 '37' :   'NUM_4',
+		 '12'  : 'NUM_5',
+		 '39'  : 'NUM_6',
+		 '36'  : 'NUM_7',
+		 '38'  : 'NUM_8',
+		 '33'  : 'NUM_9',
+		 '109' : 'NUM_MINUS',
+		 '107' : 'NUM_PLUS',
+		 '144' : 'NUM_LOCK',*/
+		'112' : 'F1',
+		'113' : 'F2',
+		'114' : 'F3',
+		'115' : 'F4',
+		'116' : 'F5',
+		'117' : 'F6',
+		'118' : 'F7',
+		'119' : 'F8',
+		'120' : 'F9',
+		'121' : 'F10',
+		'122' : 'F11',
+		'123' : 'F12'
+	};
+
+	var stopInputKeys = {
+		'8' : true,
+		'9' : true,
+		'13' : true,
+		'18' : true,
+		'16' : true,
+		'17' : true,
+		'27' : true,
+		'112' : true,
+		'113' : true,
+		'114' : true,
+		'115' : true,
+		'116' : true,
+		'117' : true,
+		'118' : true,
+		'119' : true,
+		'120' : true,
+		'121' : true,
+		'122' : true,
+		'123' : true
+	};
+
+	this.keyControl.getKeyList = function () {
+		var i, t = [];
+		for (i in keyList) {
+			t.push(i);
+		}
+		return t;
+	};
+
+	var arrKeyDown = {},
+		arrKeyUp = {},
+		arrKeyPress = {},
+		inputPressChar = false,
+		inputPressKey = false,
+		inputMode = false;
+
+	var setKeyDown = function (keyCode) {
+		arrKeyDown[keyCode] = true;
+	};
+
+	var stopKeyPress = function (keyCode) {
+		forEach(arrKeyPress, function (el, i, arr) {
+			if (el == 1) arr[i] = 2;
+		});
+	};
+
+	var clearKeyDown = function (keyCode) {
+		arrKeyDown[keyCode] = false;
+	};
+
+	var clearAllKey = function () {
+		arrKeyUp = {};
+	};
+
+	var clearAllKeys = function () {
+		arrKeyDown = {};
+		arrKeyUp = {};
+		arrKeyPress = {};
+		inputPressChar = false;
+		inputPressKey = false;
+	};
+
+	this.keyControl.isDown = function (keyName) {
+		return arrKeyDown[keyList[keyName]] == true;
+	};
+
+	this.keyControl.isUp = function (keyName) {
+		return arrKeyUp[keyList[keyName]] == true;
+	};
+
+	this.keyControl.isPress = function (keyName) {
+		return arrKeyPress[keyList[keyName]] == 1;
+	};
+
+	this.keyControl.getInputChar = function () {
+		return inputPressChar;
+	};
+
+	this.keyControl.getInputKey = function () {
+		return codeList[inputPressKey];
+	};
+
+	this.keyControl.setInputMode = function (bool) {
+		inputMode = bool;
+	};
+
+	this.keyControl.isInputMode = function () {
+		return inputMode;
+	};
+
+	this.keyControl.exitKeyControl = function () {
+		device.onkeydown = function () {
+		}
+		device.onkeypress = function () {
+		};
+		device.onkeyup = function () {
+		};
+
+		dom.delEvent('postLoop', 'PointJS_clearAllKeyUp');
+		arrKeyDown = {};
+		arrKeyUp = {};
+		arrKeyPress = {};
+		inputPressChar = false;
+		inputPressKey = false;
+		inputMode = false;
+	};
+
+	this.keyControl.initKeyControl = function () {
+
+		device.onkeydown = function (e) {
+			if (inputMode) {
+				inputPressKey = e.keyCode;
+				if (stopInputKeys[e.keyCode]) {
+					e.preventDefault();
+					return false;
+				}
+				return true;
+			}
+			e.preventDefault();
+			if (arrKeyPress[e.keyCode] != 2) arrKeyPress[e.keyCode] = 1;
+			setKeyDown(e.keyCode);
+			return false;
+		};
+
+		device.onkeypress = function (e) {
+			var char = false;
+			if (e.which != 0 && e.charCode != 0)
+				if (e.which >= 32) {
+					char = String.fromCharCode(e.which);
+				}
+			inputPressChar = char;
+		};
+
+		device.onkeyup = function (e) {
+			e.preventDefault();
+			if (arrKeyDown[e.keyCode] == true) {
+				arrKeyUp[e.keyCode] = true;
+			}
+			clearKeyDown(e.keyCode);
+			delete arrKeyPress[e.keyCode];
+			return false;
+		};
+
+		dom.addEvent('postLoop', 'PointJS_clearAllKeyUp', function () {
+			clearAllKey();
+			stopKeyPress();
+			inputPressChar = false;
+			inputPressKey = false;
+		});
+
+		return this;
+
+	};
+
+	// end keyControl /////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// mouseControl ///////////////////////////////////
+
+	var mouse = {
+		pos : point(0, 0),
+		prevPos : point(0, 0),
+		oldPos : point(0, 0),
+		visible : true,
+		image : '',
+		locked : false,
+		speed : point(0, 0),
+		moving : false
+	};
+
+	var mouseList = {
+		'LEFT' : 1,
+		'RIGHT' : 3,
+		'MIDDLE' : 2
+	};
+
+	var mouseDown = {},
+		mouseUp = {},
+		mousePress = {},
+		mouseWheel = 0;
+
+	var clearMouseAction = function () {
+		mouseDown = {};
+		mouseUp = {};
+		mousePress = {};
+		mouseWheel = 0;
+		mouse.moving = false;
+	};
+
+	var stopMousePress = function () {
+		forEach(mousePress, function (el, i, arr) {
+			if (el == 1)
+				arr[i] = 2;
+		});
+	};
+
+	var getMousePosition = function (abs) {
+		var dx = 0,
+						dy = 0;
+		if (abs) {
+			dx = offset.x;
+			dy = offset.y;
+		}
+		return point(dx + mouse.pos.x, dy + mouse.pos.y);
+	};
+
+	this.mouseControl.getPosition = function () {
+		return getMousePosition(1);
+	};
+
+	this.mouseControl.getPositionS = function () {
+		return getMousePosition();
+	};
+
+	var setMouseImage = function (img) {
+		mouse.image = 'url("' + img + '"), auto';
+		device.document.body.style.cursor = mouse.image;
+	};
+	this.mouseControl.setCursorImage = setMouseImage;
+
+	this.mouseControl.setVisible = function (bool) {
+		if ((!mouse.visible && !bool) || mouse.visible && bool) return;
+		mouse.visible = bool == true;
+		device.document.body.style.cursor = mouse.visible ? mouse.image : 'none';
+	};
+
+	this.mouseControl.isVisible = function () {
+		return mouse.visible;
+	};
+
+	this.mouseControl.isDown = function (key) {
+		return mouseDown[mouseList[key]];
+	};
+
+	this.mouseControl.isUp = function (key) {
+		return mouseUp[mouseList[key]];
+	};
+
+	this.mouseControl.isPress = function (key) {
+		return mousePress[mouseList[key]] == 1;
+	};
+
+	this.mouseControl.isMove = function () {
+		return mouse.moving;
+	};
+
+	this.mouseControl.isInStatic = function (box) {
+		var pos = getMousePosition(1);
+		return (pos.x >= box.x && pos.x <= box.x + box.w && pos.y >= box.y && pos.y <= box.y + box.h);
+	};
+
+	this.mouseControl.isInDynamic = function (box) {
+		return isPointIn(getMousePosition(1), box);
+	};
+
+	this.mouseControl.isInObject = function (obj) {
+		if (!obj.visible) return false;
+		if (!obj.angle) {
+			return this.isInStatic(obj.getStaticBox());
+		} else {
+			return this.isInDynamic(obj.getDynamicBox());
+		}
+	};
+
+	this.mouseControl.isWheel = function (key) {
+		return (key == 'UP' && mouseWheel > 0) || (key == 'DOWN' && mouseWheel < 0)
+	};
+
+	var onMouseWheel = function (e) {
+		e.preventDefault();
+		mouseWheel = ((e.wheelDelta) ? e.wheelDelta : -e.detail);
+		return false;
+	};
+
+	var clearAllMouseUp = function () {
+		mouseUp = {};
+	};
+
+	var requestMouseLock = false;
+
+	var onMouseLock = function () {
+		if (!requestMouseLock) return;
+		if (isDef(device.document.pointerLockElement) || isDef(device.document.mozPointerLockElement)) {
+			mouse.locked = true;
+		} else {
+			mouse.locked = false;
+		}
+	};
+
+	this.mouseControl.initMouseLock = function () {
+		dom.addEvent('onload', 'initPointerLock', function () {
+			requestMouseLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || false;
+			device.document.exitPointerLock = device.document.exitPointerLock || device.document.mozExitPointerLock || false;
+
+			if ('onpointerlockchange' in device.document) {
+				device.document.addEventListener('pointerlockchange', onMouseLock, false);
+			} else if ('onmozpointerlockchange' in device.document) {
+				device.document.addEventListener('mozpointerlockchange', onMouseLock, false);
+			}
+
+			if (!requestMouseLock) return log('error in initMouseLock : not supported');
+			if (mouse.locked) return;
+			canvas.onclick = requestMouseLock;
+
+		});
+	};
+
+	this.mouseControl.exitMouseLock = function () {
+		device.document.exitPointerLock();
+		canvas.onclick = function () {
+		};
+		mouse.speed = point(0, 0);
+	};
+
+	this.mouseControl.unlockMouse = function () {
+		mouse.speed = point(0, 0);
+		device.document.exitPointerLock();
+	};
+
+	this.mouseControl.isMouseLock = function () {
+		return mouse.locked;
+	};
+
+	this.mouseControl.getSpeed = function () {
+		return point(mouse.speed.x, mouse.speed.y);
+	};
+
+	this.mouseControl.isPeekStatic = function (key, box) {
+		if (!this.isPress(key)) return false;
+		return (this.isInStatic(box));
+	};
+
+	this.mouseControl.isPeekDynamic = function (key, box) {
+		if (!this.isPress(key)) return false;
+		return (this.isInDynamic(box));
+	};
+
+	this.mouseControl.isPeekObject = function (key, obj) {
+		if (!this.isPress(key) || !obj.visible) return false;
+		return this.isInDynamic(obj.getDynamicBox());
+	};
+
+	this.mouseControl.initMouseControl = function () {
+
+		device.onmousemove = function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			if (mouse.locked) {
+				var movementX = e.movementX || e.mozMovementX || 0;
+				var movementY = e.movementY || e.mozMovementY || 0;
+				mouse.pos.x += movementX;
+				mouse.pos.y += movementY;
+				return false;
+			} else {
+				mouse.pos.x = e.pageX - canvasOffset.x;
+				mouse.pos.y = e.pageY - canvasOffset.y;
+				if (scaleScreen) {
+					 mouse.pos.x /=  scaleScreen.w;
+					 mouse.pos.y /= scaleScreen.h;
+				}
+			}
+
+			mouse.speed.x = mouse.pos.x - mouse.prevPos.x;
+			mouse.speed.y = mouse.pos.y - mouse.prevPos.y;
+			mouse.prevPos.x = mouse.pos.x;
+			mouse.prevPos.y = mouse.pos.y;
+
+			mouse.moving = true;
+			return false;
+		};
+
+		device.onmousedown = function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			if (!e.which && e.button) {
+				if (e.button & 1) e.which = 1;
+				else if (e.button & 4) e.which = 2;
+				else if (e.button & 2) e.which = 3;
+			}
+
+			mouseDown[e.which] = true;
+			mousePress[e.which] = 1;
+		};
+
+		device.onmouseup = function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+
+			if (!e.which && e.button) {
+				if (e.button & 1) e.which = 1;
+				else if (e.button & 4) e.which = 2;
+				else if (e.button & 2) e.which = 3;
+			}
+
+			mouseDown[e.which] = false;
+			mouseUp[e.which] = true;
+			delete mousePress[e.which];
+
+		};
+
+		device.oncontextmenu = device.onselectstart = device.ondragstart = function () {
+			return false;
+		};
+
+		device.onmousewheel = onMouseWheel;
+		device.addEventListener("DOMMouseScroll", onMouseWheel, false);
+
+		dom.addEvent('postLoop', 'PointJS_clearAllMouseUp', function () {
+			clearAllMouseUp();
+			stopMousePress();
+			mouseWheel = 0;
+			mouse.moving = false;
+			mouse.speed = point(0, 0);
+		});
+
+		return this;
+
+	};
+
+	this.mouseControl.exitMouseControl = function () {
+		device.onmousemove =
+			device.onmousedown =
+				device.onmouseup =
+					device.oncontextmenu =
+						device.onselectstart =
+							device.ondragstart =
+								device.onmousewheel = function () {
+								};
+		dom.delEvent('postLoop', 'PointJS_clearAllMouseUp');
+		clearMouseAction();
+	};
+
+	// end mouseControl ///////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// touchControl ///////////////////////////////////
+
+	var touch = {
+		down : false,
+		press : 0,
+		up : 0,
+		x : 0,
+		y : 0,
+		fix : point(0, 0),
+		contacts : [],
+		speed : point(0, 0),
+		prevPos : point(0, 0)
+	};
+
+	this.touchControl.isTouchSupported = function () {
+		return !!('ontouchstart' in window);
+	};
+
+	this.touchControl.isMobileDevice = function () {
+		return (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(device.navigator.userAgent));
+	};
+
+	var touchStopPress = function () {
+		touch.press = 0;
+		touch.up = 0;
+	};
+
+	var clearTouchAction = function () {
+		touch.down = false;
+		touch.press = 0;
+		touch.up = 0;
+		touch.fix = point(0, 0);
+		touch.contacts = [];
+		touch.x = 0;
+		touch.y = 0;
+	};
+
+	this.touchControl.getFixPositionS = function () {
+		if (!touch.fix.x && !touch.fix.y) return false;
+		return point(touch.fix.x, touch.fix.y);
+	};
+
+	this.touchControl.getFixPosition = function () {
+		if (!touch.fix.x && !touch.fix.y) return false;
+		return point(touch.fix.x + offset.x, touch.fix.y + offset.y);
+	};
+
+	this.touchControl.getRun = function () {
+		var x = 0, y = 0;
+		if (touch.fix.x && touch.fix.x != touch.x) {
+			x = touch.x - touch.fix.x;
+		}
+		if (touch.fix.y && touch.fix.y != touch.y) {
+			y = touch.y - touch.fix.y;
+		}
+
+		return point(x, y);
+	};
+
+	this.touchControl.getVector = function () {
+		var x = 0, y = 0;
+		if (touch.fix.x && touch.fix.x != touch.x) {
+			x = touch.x > touch.fix.x ? 1 : -1;
+		}
+		if (touch.fix.y && touch.fix.y != touch.y) {
+			y = touch.y > touch.fix.y ? 1 : -1;
+		}
+
+		return point(x, y);
+	};
+
+	this.touchControl.getSpeed = function () {
+		return point(touch.speed.x, touch.speed.y);
+	};
+
+	this.touchControl.isDown = function () {
+		return touch.down;
+	};
+
+	this.touchControl.isPress = function () {
+		return touch.press == 1;
+	};
+
+	this.touchControl.isUp = function () {
+		return touch.up == 1;
+	};
+
+	this.touchControl.getPosition = function () {
+		return point(touch.x + offset.x, touch.y + offset.y);
+	};
+
+	this.touchControl.getPositionS = function () {
+		return point(touch.x, touch.y);
+	};
+
+	this.touchControl.isPeekStatic = function (box) { // staticBox
+		if (!this.isPress()) return false;
+		return (this.isInStatic(box));
+	};
+
+	this.touchControl.isPeekDynamic = function (box) { // dynamicBox
+		if (!this.isPress()) return false;
+		return (this.isInDynamic(box));
+	};
+
+	this.touchControl.isPeekObject = function (obj) {
+		if (!this.isPress() || !obj.visible) return false;
+		return this.isInDynamic(obj.getDynamicBox());
+	};
+
+	this.touchControl.isInStatic = function (box) {
+		var pos = this.getPosition();
+		return (pos.x >= box.x && pos.x <= box.x + box.w && pos.y >= box.y && pos.y <= box.y + box.h);
+	};
+
+	this.touchControl.isInDynamic = function (box) {
+		return isPointIn(this.getPosition(), box);
+	};
+
+	this.touchControl.isInObject = function (obj) {
+		if (!obj.visible) return false;
+		if (!obj.angle) {
+			return this.isInStatic(obj.getStaticBox());
+		} else {
+			return this.isInDynamic(obj.getDynamicBox());
+		}
+	};
+
+
+	this.touchControl.getTouches = function () {
+		DEPRECATED('getTouches', 'isPress, isUp, isDown');
+	};
+
+
+	this.touchControl.initTouchControl = function () {
+
+		device.addEventListener('touchstart', function (e) {
+			e.preventDefault();
+			touch.x = e.targetTouches[0].pageX;
+			touch.y = e.targetTouches[0].pageY;
+
+			if (scaleScreen) {
+				touch.x /=  scaleScreen.w;
+				touch.y /= scaleScreen.h;
+			}
+
+			touch.fix.x = touch.x;
+			touch.fix.y = touch.y;
+			touch.down = true;
+			touch.press = 1;
+			return false;
+		}, false);
+
+		device.addEventListener('touchmove', function (e) {
+			e.preventDefault();
+			touch.x = e.targetTouches[0].pageX;
+			touch.y = e.targetTouches[0].pageY;
+
+			if (scaleScreen) {
+				touch.x /=  scaleScreen.w;
+				touch.y /= scaleScreen.h;
+			}
+
+			touch.speed.x = touch.x - touch.prevPos.x;
+			touch.speed.y = touch.y - touch.prevPos.y;
+			return false;
+		}, false);
+
+		device.addEventListener('touchend', function (e) {
+			e.preventDefault();
+			touch.fix.x = 0;
+			touch.fix.y = 0;
+			touch.down = false;
+			touch.up = 1;
+			return false;
+		}, false);
+
+
+		_PointJS.touchControl.vibrate = function (t) { // t - time mls
+			if (device.navigator.vibrate)              return device.navigator.vibrate(t);
+			if (device.navigator.oVibrate)           return device.navigator.oVibrate(t);
+			if (device.navigator.mozVibrate)       return device.navigator.mozVibrate(t);
+			if (device.navigator.webkitVibrate)  return device.navigator.webkitVibrate(t);
+		};
+
+
+		dom.addEvent('postLoop', 'PointJS_touchStopPress', function () {
+			touchStopPress();
+			touch.prevPos.x = touch.x;
+			touch.prevPos.y = touch.y;
+			touch.speed = point(0, 0);
+		});
+
+
+		return this;
+
+	};
+
+
+	this.touchControl.exitTouchControl = function () {
+		device.ontouchstart =
+			device.ontouchmove =
+				device.ontouchend = function (e) {
+				};
+		dom.delEvent('postLoop', 'PointJS_touchStopPress');
+		clearTouchAction();
+	};
+
+	// end touchControl ///////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// colors ///////////////////////////////////////////
+
+	var color = function (r, g, b, a) {
+		// if (webgl) return {
+		// 	r : r / 255,
+		// 	g : g / 255,
+		// 	b : b / 255,
+		// 	a : isDef(a) ? a : 1.0,
+		// };
+		return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a ? a : 1) + ')';
+	};
+
+	var hex2rgb = function (hex, a) {
+		hex = hex[0] == '#' ? hex.substr(1, 6) : hex;
+		var r = parseInt(hex.substr(0, 2), 16);
+		var g = parseInt(hex.substr(2, 2), 16);
+		var b = parseInt(hex.substr(4, 2), 16);
+		return color(r, g, b, a);
+	};
+
+	this.colors.rgb = function (r, g, b) {
+		return color(r, g, b, 1);
+	};
+	this.colors.rgba = function (r, g, b, a) {
+		return color(r, g, b, a);
+	};
+	this.colors.hex2rgb = function (hex) {
+		return hex2rgb(hex, 1);
+	};
+	this.colors.hex2rgba = function (hex, a) {
+		return hex2rgb(hex, a);
+	};
+	this.colors.randomColor = function (min, max, a) {
+		return color(random(min, max), random(min, max), random(min, max), a || 1);
+	};
+
+
+	// end colors ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// OOP ///////////////////////////////////////////////
+
+	var isDef = function (val) {
+		if (typeof val == 'undefined' || val == null) return false;
+		return true;
+	};
+
+	var isSet = function (val) {
+		if (!isDef(val) || val === '' || val === 0) return false;
+		return true;
+	};
+
+	var toString = function (obj, flag) {
+		var i, j = 0, val, str = '[';
+		for (i in obj) {
+			val = obj[i];
+			if (typeof val == 'number' && flag) {
+				val = parseInt(val);
+			}
+			str += (j > 0 ? ', ' : '') + i + ' : ' + val;
+			j++;
+		}
+		return str + ']';
+	};
+
+	var forEach = function (arr, func) {
+		var i, res;
+		for (i in arr) {
+			if (!arr[i]) continue;
+			res = func(arr[i], i, arr);
+			if (res) {
+				if (res == 'break') break;
+			}
+		}
+	};
+
+	var forArr = function (arr, func) { // only Array!
+		if (arr.length == 0) return;
+		var i, len, res;
+		for (i = 0, len = arr.length; i < len; i++) {
+			if (!arr[i]) continue;
+			res = func(arr[i], i, arr) || false;
+			if (res) {
+				if (res == 'break') break;
+			}
+		}
+	};
+
+	var forInt = function (i, func) {
+		var _i, res;
+		for (_i = 0; _i < i; _i++) {
+			res = func(_i);
+			if (res) {
+				if (res == 'break') break;
+			}
+		}
+	};
+
+	var forXY = function (i, j, func) {
+		var _i, _j, res;
+		for (_j = 0; _j < j; _j++)
+			for (_i = 0; _i < i; _i++) {
+				res = func(_i, _j);
+				if (res) {
+					if (res == 'break') break;
+				}
+			}
+	};
+
+	var randArrElement = function (arr) {
+		return arr[random(0, arr.length - 1)];
+	};
+
+	var readJSONSync = function (f) { // file
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		getter.open('GET', f, false);
+		getter.send();
+
+		JSONObject = getter.responseText;
+		JSONObject = JSON.parse(JSONObject);
+
+		return JSONObject;
+	};
+
+	var readJSON = function (f, func) { // file, callback
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+		getter.open('GET', f, true);
+		resources.add();
+
+		getter.onreadystatechange = function () {
+			if (getter.readyState == 4) {
+				JSONObject = getter.responseText;
+				JSONObject = JSON.parse(JSONObject);
+				resources.load();
+				func(JSONObject);
+			}
+		};
+
+		getter.send();
+	};
+
+	this.OOP.insertArrElement = function (arr, i) {
+		var el = arr[i];
+		arr.splice(i, 1);
+		return el;
+	};
+
+	this.OOP.insertRandArrElement = function (arr) {
+		var i = random(0, arr.length - 1);
+		var el = arr[i];
+		arr.splice(i, 1);
+		return el;
+	};
+
+	this.OOP.drawArr = function (arr) {
+		var i, len;
+		for (i = 0, len = arr.length; i < len; i++) {
+			if (!arr[i].isInCamera || !arr[i].draw) continue;
+			if (arr[i].isInCamera())
+				arr[i].draw();
+		}
+	};
+
+	var sendGET = function (f, p, func) { // file, params, callback
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		var href = '?';
+
+		forEach(p, function(el, key) {
+			href+= (key + '=' + encodeURIComponent(el)) + '&';
+		});
+
+		getter.open('GET', f + href, true);
+
+		getter.onreadystatechange = function () {
+			if (getter.readyState == 4) {
+				func(getter.responseText);
+			}
+		};
+
+		getter.send();
+	};
+
+	var sendGETSync = function (f, p) { // file, params
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		var href = '?';
+
+		forEach(p, function(el, key) {
+			href+= (key + '=' + encodeURIComponent(el)) + '&';
+		});
+
+		getter.open('GET', f + href, false);
+		getter.send();
+
+		return getter.responseText;
+	};
+
+	var sendPOSTSync = function (f, p) { // file, params
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		var href = '';
+
+		forEach(p, function(el, key) {
+			href+= (key + '=' + encodeURIComponent(el)) + '&';
+		});
+
+		getter.open('POST', f, false);
+		getter.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		getter.send(href);
+
+		return getter.responseText;
+	};
+
+	var sendPOST = function (f, p, func) { // file, params, callback
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		var href = '';
+
+		forEach(p, function(el, key) {
+			href+= (key + '=' + encodeURIComponent(el)) + '&';
+		});
+
+		getter.open('POST', f, true);
+		getter.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		getter.onreadystatechange = function () {
+			if (getter.readyState == 4) {
+				func(getter.responseText);
+			}
+		};
+
+		getter.send(href);
+	};
+
+	var sendPOSTScreen = function (f, name, func) { // file, params, callback
+		var JSONObject = {};
+		var getter = new XMLHttpRequest();
+
+		var href = name + '=' + canvas.toDataURL('image/png');
+
+		getter.open('POST', f, true);
+		getter.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+		getter.onreadystatechange = function () {
+			if (getter.readyState == 4) {
+				func(getter.responseText);
+			}
+		};
+
+		getter.send(href);
+	};
+
+
+	var clearArr = function (arr) {
+		arr.length = 0;
+	};
+
+	var fillArr = function (arr, i, func) {
+		arr.length = 0;
+		var _i;
+		for (_i = 0; _i < i; _i++) {
+			arr.push(func(_i, _i > 0 ? arr[_i-1] : false));
+		}
+
+		return arr;
+	};
+
+	this.OOP.readJSON = readJSON;
+	this.OOP.toString = toString;
+	this.OOP.sendGET = sendGET;
+	this.OOP.sendPOST = sendPOST;
+	this.OOP.sendPOSTScreen = sendPOSTScreen;
+	this.OOP.isDef = isDef;
+	this.OOP.isSet = isSet;
+	this.OOP.forEach = forEach;
+	this.OOP.forInt = forInt;
+	this.OOP.forXY = forXY;
+	this.OOP.forArr = forArr;
+	this.OOP.clearArr = clearArr;
+	this.OOP.fillArr = fillArr;
+
+	this.OOP.randArrElement = randArrElement;
+	this.OOP.readJSONSync = readJSONSync;
+	this.OOP.sendGETSync = sendGETSync;
+	this.OOP.sendPOSTSync = sendPOSTSync;
+
+	this.OOP.runCode = function (code) {
+		var func = new Function('', code);
+		func();
+	};
+
+	var includes = {};
+
+	this.OOP.includeSync = function (file, once) {
+		if (!includes[file]) {
+
+			includes[file] = {
+				loaded : false,
+				code : function () { console.log(file + ' is loading'); }
+			};
+
+			var getter = new XMLHttpRequest();
+
+			getter.open('GET', file, false);
+			getter.send();
+
+			var code = getter.responseText;
+
+			includes[file].code = new Function ('', code);
+			includes[file].loaded = true;
+			includes[file].code();
+		} else {
+			if (includes[file].loaded && !once)
+				includes[file].code();
+		}
+	};
+
+
+	this.OOP.include = function (file, func, once) {
+		if (!includes[file]) {
+
+			includes[file] = {
+				loaded : false,
+				code : function () { console.log(file + ' is loading'); }
+			};
+
+			var getter = new XMLHttpRequest();
+			getter.open('GET', file, true);
+
+			getter.onreadystatechange = function () {
+				if (getter.readyState == 4) {
+					var code = getter.responseText;
+					includes[file].code = new Function ('', code);
+					includes[file].loaded = true;
+					includes[file].code();
+
+					if (func) func();
+				}
+			};
+
+			getter.send();
+		} else {
+			if (includes[file].loaded && !once)
+				includes[file].code();
+
+			if (func) func();
+		}
+	};
+
+
+
+
+	// end OOP ///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+	// game engine //////////////////////////////////////
+
+	var fps = 60,
+		time = Date.now(),
+		dt = 0,
+		startTime = -1,
+		endTime = time,
+		loops = {};
+
+	var setFPS = function (newFps) {
+		fps = newFps;
+	};
+
+	this.game.setFPS = function (newFps) {
+		setFPS(newFps > 0 ? newFps : 60);
+	};
+
+	this.game.getFPS = function () {
+		return fps;
+	};
+
+	this.game.getDT = function (delta) {
+		if (!delta) delta = 1000;
+		return dt / delta;
+	};
+
+	this.game.getTime = function () {
+		return time;
+	};
+
+	var getRequestAnimationFrame = function () {
+		return device.requestAnimationFrame  ||
+			device.webkitRequestAnimationFrame ||
+			device.mozRequestAnimationFrame    ||
+			device.oRequestAnimationFrame      ||
+			device.msRequestAnimationFrame     ||
+			function (callback) {
+				device.setTimeout(callback, 1000 / fps);
+			};
+	};
+
+	var next = getRequestAnimationFrame();
+
+	var preEngine = function () {
+		time = Date.now();
+		if (isAutoClear) {
+			clearContext(point(0, 0), point(width, height));
+		}
+		dom.runEvent('preLoop');
+	};
+
+	var postEngine = function () {
+		dom.runEvent('postLoop');
+		if (startTime != -1) {
+			dt = time - startTime;
+		}
+		startTime = time;
+	};
+
+	var engine = {
+		func : function () {
+			console.log('please, use a "setLoop" function.');
+			next = function () {/* stop engine */
+			};
+		},
+		start : false,
+		end : false,
+		audio : false,
+		fps : false
+	};
+
+	var stopLoopAudio = function () {
+		if (!engine.audio) return;
+		var i;
+		forArr(engine.audio, function(el) {
+			el.stop();
+		});
+	};
+
+	var playLoopAudio = function () {
+		if (!engine.audio) return;
+		engine.audio[0].play();
+	};
+
+	this.game.newLoop = function (key, func, start, end) {
+		if (typeof func == 'function') {
+			loops[key] = {
+				func : func,
+				start : start || false,
+				end : end || false,
+				audio : false,
+				fps : false
+			};
+		} else {
+			stop('error in newLoop : ' + func + ' is not a function');
+		}
+	};
+
+	this.game.newLoopFromClassObject = function (key, obj) {
+		if (!obj.update) return stop('error in newLoopFromClassObject : function "update" not found');
+			loops[key] = {
+				func : obj.update,
+				start : obj.entry || false,
+				end : obj.exit || false,
+				audio : false,
+				fps : false
+			};
+	};
+
+	this.game.newLoopFromConstructor = function (key, Obj) {
+		var obj = new Obj();
+		if (!obj.update) return stop('error in newLoopFromConstructor : function "update" not found');
+			loops[key] = {
+				func : obj.update,
+				start : obj.entry || false,
+				end : obj.exit || false,
+				audio : false,
+				fps : false
+			};
+	};
+
+	this.game.setLoopSound = function (key, arrAudio) { // key, array audios
+		var i;
+		if (!loops[key].audio) {
+			loops[key].audio = [];
+		}
+		for (i = 0; i < arrAudio.length; i++) {
+			arrAudio[i].setNextPlay(arrAudio[i + 1 == arrAudio.length ? 0 : i + 1]);
+			loops[key].audio.push(arrAudio[i]);
+		}
+	};
+
+	this.game.setLoop = function (key) {
+		if (!loops[key]) return stop('setLoop : ' + key + ' is no a Loop');
+		stopLoopAudio();
+		clearMouseAction();
+		clearAllKeys();
+		clearTouchAction();
+		setOffset(point(0, 0));
+		if (engine.end) engine.end();
+		engine = loops[key];
+		if (engine.start) engine.start();
+		playLoopAudio();
+	};
+
+	var loop = function () {
+
+		if (fps < 60) {
+			var pauseTime = 1000/fps;
+			try {
+				time = Date.now();
+				if (time - endTime > pauseTime) {
+					preEngine();
+					engine.func(dt);
+					endTime = time;
+					postEngine();
+				}
+			} catch (e) {
+				if (isShowError) errorLog(e);
+				if (isStopForError) {
+					if (!isShowError) errorLog(e);
+					stop();
+				}
+			}
+			next(loop);
+			return;
+		}
+
+		try {
+			preEngine();
+			engine.func(dt);
+			postEngine();
+		} catch (e) {
+			if (isShowError) errorLog(e);
+			if (isStopForError) {
+				if (!isShowError) errorLog(e);
+				stop();
+			}
+		}
+		next(loop);
+	};
+
+	var start = function (fps) {
+		if (isRun) return;
+		isRun = true;
+		setFPS(fps || 60);
+		next(loop);
+	};
+
+	var stop = function (msg) {
+		if (!isRun) return log(isDef(msg) ? msg : 'game is stop');
+		isRun = false;
+		stopLoopAudio();
+		next = function () {
+			log(isDef(msg) ? msg : 'game is stop');
+		};
+	};
+
+	var resume = function (msg) {
+		if (isRun) return;
+		playLoopAudio();
+		log(msg || 'game is run');
+		next = getRequestAnimationFrame();
+		startTime = -1;
+		start(fps);
+		return;
+	};
+
+	this.game.getWH = function () {
+		return {
+			w : width,
+			h : height,
+			w2 : width2,
+			h2 : height2
+		};
+	};
+
+	this.game.getWH2 = function () {
+		return {
+			w : width / 2,
+			h : height / 2
+		};
+	};
+
+	this.game.getResolution = function () {
+		return Math.min(width / origWidth, height / origHeight);
+	};
+
+	this.game.startLoop = function (l, f) { // loop, fps
+		this.setLoop(l);
+		this.start(f);
+	};
+
+	this.game.start = start;
+	this.game.stop = stop;
+	this.game.resume = resume;
+
+	// end game engine ///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// object manager ////////////////////////////////////
+
+	var objectList = [];
+	var objectCount = 0;
+
+	var drawAllObjects = function () {
+		forArr(objectList, function (el) {
+			if (typeof el.draw == 'function') {
+				el.draw();
+			}
+		});
+	};
+
+	var inherit = function (Parent, Child) {
+		Child.prototype = Object.create(Parent.prototype);
+		Child.prototype.constructor = Child;
+	};
+
+	// BaseObject
+	var BaseObject = function (obj) {
+		this.type = 'BaseObject';
+		this.id = objectCount++;
+		this.x = obj.x || 0;
+		this.y = obj.y || 0;
+		this.w = obj.w || 1;
+		this.h = obj.h || 1;
+		this.ondraw = obj.ondraw ? obj.ondraw : false;
+		this.parent = false;
+		this.children = [];
+		this.fillColor = obj.fillColor || false;
+		this.strokeColor = obj.strokeColor || contextSettings.strokeStyle;
+		this.strokeWidth = obj.strokeWidth || 0;
+		this.angle = obj.angle || 0;
+		this.alpha = isDef(obj.alpha) ? obj.alpha : 1;
+		this.center = point(0, 0);
+		this.box = {
+			x : 0, y : 0,
+			w : 0, h : 0
+		};
+		this.visible = isDef(obj.visible) ? obj.visible : true;
+		this.flip = point(0, 0);
+
+		this.setShadow(obj);
+
+		if (obj.userData) {
+			this.setUserData(obj.userData);
+		}
+
+		if (obj.center) {
+			this.setCenter(obj.center);
+		}
+
+		if (obj.box) {
+			this.setBox(obj.box);
+		}
+
+		if (obj.size) {
+			this.setSize(obj.size);
+		}
+
+		if (obj.sizeC) {
+			this.setSizeC(obj.sizeC);
+		}
+
+		if (obj.position) {
+			this.setPosition(obj.position);
+		}
+
+		if (obj.positionC) {
+			this.setPositionC(obj.positionC);
+		}
+
+		objectList.push(this);
+	};
+
+	BaseObject.prototype = {
+
+		getID : function () {
+			return this.id;
+		},
+
+		getType : function () {
+			return this.type;
+		},
+
+		getParent : function () {
+			return this.parent;
+		},
+
+		addChild : function (obj) {
+			if (!obj || obj.id == this.id) return;
+			obj.parent = this;
+			this.children.push(obj);
+			obj.move(this.getPosition());
+			obj.setPositionC(getPointAngle(obj.getPositionC(), this.getPositionC(), this.angle));
+			obj.turn(this.angle);
+		},
+
+		delChild : function (obj) {
+			obj.parent = false;
+			var i, len;
+			for (i = 0, len = this.children.length; i < len; i += 1) {
+				if (this.children[i].id == obj.id) {
+					this.children.splice(i, 1);
+					break;
+				}
+			}
+		},
+
+		delParent : function () {
+			this.parent.delChild(this);
+		},
+
+		setBox : function (obj) {
+			if (obj.offset) {
+				this.box.x = obj.offset.x || 0;
+				this.box.y = obj.offset.y || 0;
+			}
+			if (obj.size) {
+				this.box.w = obj.size.w || 0;
+				this.box.h = obj.size.h || 0;
+			}
+		},
+
+		isArrIntersect : function (arr) { // array of Objects
+			var i, len;
+			for (i = 0, len = arr.length; i < len; i++) {
+				if (arr[i].id != this.id)
+					if (this.isIntersect(arr[i])) {
+						return arr[i];
+					}
+			}
+			return false;
+		},
+
+		isArrInside : function (arr) { // array of Objects
+			var i, len;
+			for (i = 0, len = arr.length; i < len; i++) {
+				if (this.isDynamicInside(arr[i].getDynamicBox())) {
+					return arr[i];
+				}
+			}
+			return false;
+		},
+
+		getNearest : function (arr) { // array of Objects
+			var i = 0,
+				id = 0,
+				min = false,
+				len = 0;
+			for (i = 0, len = arr.length; i < len; i++) {
+				if (this.id != arr[i].id) {
+					if (min === false) {
+						min = this.getDistanceC(arr[i].getPositionC());
+						id = i;
+					}
+					var tmp = this.getDistanceC(arr[i].getPositionC());
+					if (tmp < min) {
+						min = tmp;
+						id = i;
+					}
+				}
+			}
+			return arr[id];
+		},
+
+		setFlip : function (x, y) {
+			if (isDef(x) && this.flip.x != x) {
+				this.flip.x = x;
+			}
+
+			if (isDef(y) && this.flip.y != y) {
+				this.flip.y = y;
+			}
+		},
+
+		setUserData : function (obj) {
+			var i;
+			for (i in obj) {
+				if (isDef(this[i])) continue;
+				this[i] = obj[i];
+			}
+		},
+
+		setShadow : function (obj) {
+			this.shadowColor = obj.shadowColor || false;
+			this.shadowBlur = isDef(obj.shadowBlur) ? obj.shadowBlur : 3;
+			this.shadowX = obj.shadowX || 0;
+			this.shadowY = obj.shadowY || 0;
+		},
+
+		getDynamicBox : function () {
+			var center = this.getPosition(1);
+			if (this.angle == 0) {
+				return [
+					point(this.x + this.box.x, this.y + this.box.y),
+					point(this.x + this.box.x + this.w + this.box.w, this.y + this.box.y),
+					point(this.x + this.box.x + this.w + this.box.w, this.y + this.box.y + this.h + this.box.h),
+					point(this.x + this.box.x, this.y + this.box.y + this.h + this.box.h),
+				];
+			}
+			return [
+				getPointAngle(point(this.x + this.box.x, this.y + this.box.y), center, this.getAngle()),
+				getPointAngle(point(this.x + this.box.x + this.w + this.box.w, this.y + this.box.y), center, this.getAngle()),
+				getPointAngle(point(this.x + this.box.x + this.w + this.box.w, this.y + this.box.y + this.h + this.box.h), center, this.getAngle()),
+				getPointAngle(point(this.x + this.box.x, this.y + this.box.y + this.h + this.box.h), center, this.getAngle())
+			];
+		},
+
+		isDynamicIntersect : function (box2) {
+			if (box2.length < 3) return false;
+			var box1 = this.getDynamicBox();
+			var i, len;
+			for (i = 0, len = box1.length; i < len; i++) {
+				if (isPointIn(box1[i], box2)) {
+					return true;
+				}
+			}
+			for (i = 0, len = box2.length; i < len; i++) {
+				if (isPointIn(box2[i], box1)) {
+					return true;
+				}
+			}
+			return false;
+		},
+
+		isIntersect : function (obj) {
+			if (!obj.visible) return false;
+			return (!this.angle && !obj.angle) ? this.isStaticIntersect(obj.getStaticBox()) : this.isDynamicIntersect(obj.getDynamicBox());
+		},
+
+		isDynamicInside : function (box2) {
+			if (box2.length < 3) return false;
+			var box1 = this.getDynamicBox();
+			var i, len, count = 0;
+			for (i = 0, len = box1.length; i < len; i++) {
+				if (isPointIn(box1[i], box2)) {
+					count++;
+				}
+			}
+			if (count == box1.length) {
+				return true;
+			}
+			return false;
+		},
+
+		drawDynamicBox : function (c) {
+			editContext(this, 1);
+			context.shadowColor = 'transparent';
+			drawRect(point(this.x + this.box.x, this.y + this.box.y), size(this.w + this.box.w, this.h + this.box.h), false, c || 'yellow', 2);
+			drawCenter(point(this.x + this.w / 2 + this.center.x, this.y + this.h / 2 + this.center.y), 10, c || 'yellow');
+			restoreContext();
+		},
+
+		drawStaticBox : function (c) {
+			context.shadowColor = 'transparent';
+			drawRect(point(this.x + this.box.x, this.y + this.box.y), size(this.w + this.box.w, this.h + this.box.h), false, c || 'yellow', 2);
+			drawCenter(point(this.x + this.w / 2 + this.center.x, this.y + this.h / 2 + this.center.y), 10, c || 'yellow');
+		},
+
+		isStaticIntersect : function (box) {
+			return ((this.y + this.box.y + this.h + this.box.h >= box.y) && (this.x + this.box.x + this.w + this.box.w >= box.x)) && ((this.x + this.box.x < box.x + box.w) && (this.y + this.box.y < box.y + box.h));
+		},
+
+		getStaticBox : function () {
+			return {
+				x : this.x + this.box.x,
+				y : this.y + this.box.y,
+				w : this.w + this.box.w,
+				h : this.h + this.box.h
+			};
+		},
+
+		setAlpha : function (a) {
+			if (this.alpha != a)
+				this.alpha = a >= 0 ? (a <= 1 ? a : 1) : 0;
+		},
+
+		transparent : function (step) {
+			this.setAlpha(this.alpha + step);
+		},
+
+		getAlpha : function () {
+			return this.alpha;
+		},
+
+		rotate : function (p) {
+			this.setAngle(Math.atan2(p.y - this.getPosition(1).y, p.x - this.getPosition(1).x) * (180 / Math.PI));
+		},
+
+		setCenter : function (p) {
+			this.center = point(p.x, p.y);
+		},
+
+		nullCenter : function (p) {
+			if (!p) p = point(0, 0);
+			this.center = point(-this.w / 2 + p.x, -this.h / 2 + p.y);
+		},
+
+		getCenter : function () {
+			return point(this.center.x, this.center.y);
+		},
+
+		getBox : function () {
+			return this.box;
+		},
+
+		move : function (p) {
+			this.prevPosition = this.getPosition();
+			if (p.x != 'none') this.x += p.x;
+			if (p.y != 'none') this.y += p.y;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].move(p);
+				}
+			}
+		},
+
+		circling : function (p, r, s) { // point, radius, speed
+			if (!isDef(this.circlingAnglePointJS)) {
+				this.circlingAnglePointJS = 0;
+			}
+			this.x = p.x + r * Math.cos(a2r(this.circlingAnglePointJS));
+			this.y = p.y + r * Math.sin(a2r(this.circlingAnglePointJS));
+			this.circlingAnglePointJS = this.circlingAnglePointJS > 360 ? 0 : this.circlingAnglePointJS + s;
+		},
+
+		circlingC : function (p, r, s) { // point, radius, speed
+			if (!isDef(this.circlingAnglePointJS)) {
+				this.circlingAnglePointJS = 0;
+			}
+			this.setPositionC(point(p.x + r * Math.cos(a2r(this.circlingAnglePointJS)), p.y + r * Math.sin(a2r(this.circlingAnglePointJS))));
+			this.circlingAnglePointJS = this.circlingAnglePointJS > 360 ? 0 : this.circlingAnglePointJS + s;
+		},
+
+		motion : function (p, s, sp) { // point, size, speed
+			if (!isDef(this.motionPercentPointJS)) {
+				this.motionPercentPointJS = 0;
+			}
+			this.x = p.x + s.w * Math.cos(a2r(this.motionPercentPointJS));
+			this.y = p.y + s.h * Math.sin(a2r(this.motionPercentPointJS));
+			this.motionPercentPointJS = this.motionPercentPointJS > 360 ? 0 : this.motionPercentPointJS + sp;
+		},
+
+		motionC : function (p, s, sp) { // point, size, speed
+			if (!isDef(this.motionPercentPointJS)) {
+				this.motionPercentPointJS = 0;
+			}
+			this.setPositionC(point(p.x + s.w * Math.cos(a2r(this.motionPercentPointJS)), p.y + s.h * Math.sin(a2r(this.motionPercentPointJS))));
+			this.motionPercentPointJS = this.motionPercentPointJS > 360 ? 0 : this.motionPercentPointJS + sp;
+		},
+
+		scale : function (s) {
+			this.w *= s;
+			this.h *= s;
+		},
+
+		scaleC : function (s) {
+			var oldW = this.w, oldH = this.h;
+			this.scale(s);
+			this.move(point(-((this.w - oldW) / 2), -((this.h - oldH) / 2)));
+		},
+
+		getPosition : function (fmt) {
+			if (fmt == 1) {
+				return point(this.x + (this.w / 2 + this.center.x), this.y + (this.h / 2 + this.center.y));
+			} else if (fmt == 2) {
+				var p = point(this.x + (this.w / 2), this.y + (this.h / 2));
+				if (this.angle) {
+					p = getPointAngle(p, this.getPosition(1), this.angle);
+				}
+				return point(p.x, p.y);
+			} else { // fmt empty or 0
+				return point(this.x, this.y);
+			}
+		},
+
+		getPositionC : function () {
+			return point(this.x + (this.w / 2 + this.center.x), this.y + (this.h / 2 + this.center.y));
+		},
+
+		getPositionS : function () {
+			return point(this.x + offset.x, this.y + offset.x);
+		},
+
+		getPositionCS : function () {
+			return point(this.x + (this.w / 2 + this.center.x) + offset.x, this.y + (this.h / 2 + this.center.y) + offset.y);
+		},
+
+		setPosition : function (p) {
+			var pPos = this.getPosition();
+			if (p.x != 'none') this.x = p.x;
+			if (p.y != 'none') this.y = p.y;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
+				}
+			}
+		},
+
+		setPositionS : function (p) {
+			var pPos = this.getPosition();
+			if (p.x != 'none') this.x = p.x + offset.x;
+			if (p.y != 'none') this.y = p.y + offset.y;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
+				}
+			}
+		},
+
+		setPositionC : function (p) {
+			var pPos = this.getPosition();
+			if (p.x != 'none') this.x = (-(this.w / 2 + this.center.x) + p.x);
+			if (p.y != 'none') this.y = (-(this.h / 2 + this.center.y) + p.y);
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
+				}
+			}
+		},
+
+		setPositionCS : function (p) {
+			var pPos = this.getPosition();
+			if (p.x != 'none') this.x = (-(this.w / 2 + this.center.x) + p.x) + offset.x;
+			if (p.y != 'none') this.y = (-(this.h / 2 + this.center.y) + p.y) + offset.y;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
+				}
+			}
+		},
+
+		getSize : function () {
+			return size(this.w, this.h);
+		},
+
+		setSize : function (s) {
+			if (s.w != 'none') this.w = s.w;
+			if (s.h != 'none') this.h = s.h;
+		},
+
+		setSizeC : function (s) {
+			if (s.w != 'none') {
+				this.w = s.w;
+				this.move(point(-(s.w / 2), 'none'));
+			}
+			if (s.h != 'none') {
+				this.h = s.h;
+				this.move(point('none', -(s.h / 2)));
+			}
+		},
+
+		turn : function (a) {
+			this.angle += a;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].turn(a);
+				}
+			}
+		},
+
+		rotateForAngle : function (a, s) { // angle, speed
+			var aa = Math.abs(this.angle);
+			var aa2 = Math.abs(a);
+			if (aa < 90) {
+				if (this.angle < a) this.turn(s);
+				else this.turn(-s);
+			} else {
+				if (180 - aa2 <= s * 2) this.setAngle(a);
+				if (this.angle < a) this.turn(s);
+				else this.turn(-s);
+			}
+
+			//if (Math.abs(this.angle - a) < s*2) this.setAngle(a);
+		},
+
+		moveTo : function (p, s) {
+			var a = a2r(getAngle2Points(this.getPosition(), p));
+			this.prevPosition = this.getPosition();
+			this.x += s * Math.cos(a);
+			this.y += s * Math.sin(a);
+		},
+
+		moveToC : function (p, s) {
+			var a = a2r(getAngle2Points(this.getPositionC(), p));
+			this.prevPosition = this.getPosition();
+			this.x += s * Math.cos(a);
+			this.y += s * Math.sin(a);
+		},
+
+		moveAngle : function (s, a) {
+			a = a2r(isDef(a) ? a : this.angle);
+			this.prevPosition = this.getPosition();
+			this.x += s * Math.cos(a);
+			this.y += s * Math.sin(a);
+		},
+
+		moveTime : function (p, t) {
+			t = t || 1;
+			var pos = this.getPosition();
+			this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+		},
+
+		moveTimeC : function (p, t) {
+			t = t || 1;
+			var pos = this.getPosition(1);
+			this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+		},
+
+		getAngle : function () {
+			return this.angle;
+		},
+
+		setAngle : function (a) {
+			if (this.angle != a)
+				this.angle = a % 360;
+			if (this.children.length) {
+				var i, len;
+				for (i = 0, len = this.children.length; i < len; i += 1) {
+					this.children[i].turn(a);
+				}
+			}
+		},
+
+		getDistance : function (p) {
+			return Math.sqrt(Math.pow(p.x - this.getPosition(2).x, 2) + Math.pow(p.y - this.getPosition(2).y, 2));
+		},
+
+		getDistanceC : function (p) {
+			return Math.sqrt(Math.pow(p.x - this.getPosition(1).x, 2) + Math.pow(p.y - this.getPosition(1).y, 2));
+		},
+
+		setVisible : function (bool) {
+			this.visible = bool == true;
+		},
+
+		isVisible : function () {
+			return this.visible;
+		},
+
+		isInCamera : function () {
+			return this.angle ? this.isInCameraDynamic() : this.isInCameraStatic();
+		},
+
+		isInCameraStatic : function () {
+			if (this.x + this.w < offset.x || this.x > offset.x + width) return false;
+			if (this.y + this.h < offset.y || this.y > offset.y + height) return false;
+			return true;
+		},
+
+		isInCameraDynamic : function () {
+			var box = this.getDynamicBox();
+			var camera = [point(offset.x, offset.y), point(offset.x + width, offset.y),
+				point(offset.x + width, offset.y + height), point(offset.x, offset.y + height)
+			];
+			var i, len, count = 0;
+			for (i = 0, len = box.length; i < len; i++) {
+				if (isPointIn(box[i], camera)) {
+					count++;
+				}
+			}
+			return count > 0;
+		},
+
+		onCollision : function (obj) {
+			DEPRECATED('onCollision, onArrCollision', 'isIntersect, isArrIntersect');
+		},
+
+		onArrCollision : function (arr) {
+			var i, len;
+			for (i = 0, len = arr.length; i < len; i++) {
+				if (this.id == arr[i].id) continue;
+				this.onCollision(arr[i]);
+			}
+		},
+
+		draw : function () {
+			// 0-function
+		}
+
+
+	};
+
+	this.game.newBaseObject = function (obj) {
+		return new BaseObject(obj);
+	};
+
+
+	// RectObject
+	var RectObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'RectObject';
+	};
+	inherit(BaseObject, RectObject);
+
+	RectObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawRect(point(this.x, this.y), size(this.w, this.h), this.fillColor, this.strokeColor, this.strokeWidth);
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	this.game.newRectObject = function (obj) {
+		return new RectObject(obj);
+	};
+
+
+
+
+	// RoundRectObject
+	var RoundRectObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'RoundRectObject';
+		this.radius = obj.radius || 1;
+	};
+	inherit(BaseObject, RoundRectObject);
+
+	RoundRectObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawRoundRect(point(this.x, this.y), size(this.w, this.h), this.radius, this.fillColor, this.strokeColor, this.strokeWidth);
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	this.game.newRoundRectObject = function (obj) {
+		return new RoundRectObject(obj);
+	};
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// CircleObject
+	var CircleObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.radius = obj.radius || 5;
+
+		if (obj.scale) {
+			this.radius *= obj.scale;
+		}
+
+		this.w = this.radius * 2;
+		this.h = this.radius * 2;
+		this.type = 'CircleObject';
+
+		if (obj.positionC) {
+			this.setPositionC(obj.positionC);
+		}
+
+	};
+	inherit(BaseObject, CircleObject);
+
+	CircleObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawCircle(point(this.x, this.y), this.radius, this.fillColor, this.strokeColor, this.strokeWidth);
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	CircleObject.prototype.scale = function (s) {
+		this.w *= s || 0;
+		this.h *= s || 0;
+		this.radius *= s ? s / 2 : 0;
+	};
+
+	CircleObject.prototype.scaleC = function (s) {
+		var oldW = this.w, oldH = this.h;
+		this.w *= s || 0;
+		this.h *= s || 0;
+		this.radius *= s;
+		this.move(point(-((this.w - oldW) / 2), -((this.h - oldH) / 2)));
+	};
+
+	CircleObject.prototype.getRadius = function () {
+		return this.radius;
+	};
+
+	CircleObject.prototype.setRadius = function (r) {
+		if (!r || this.radius == r) return;
+		this.radius = r;
+		this.w = r * 2;
+		this.h = r * 2;
+	};
+
+	this.game.newCircleObject = function (obj) {
+		return new CircleObject(obj);
+	};
+
+
+	// BackgroundObject
+	var BackgroundObject = function (obj) {
+		this.file = obj.file;
+		this.w = obj.w;
+		this.h = obj.h;
+		this.countX = obj.countX;
+		this.countY = obj.countY;
+		this.fullW = this.countX * this.w;
+		this.fullH = this.countY * this.h;
+		this.cnv = device.document.createElement('canvas');
+		this.cnv.width = this.w;
+		this.cnv.height = this.h;
+		this.ctx = this.cnv.getContext('2d');
+		this.loaded = false;
+		this.x = obj.x || 0;
+		this.y = obj.y || 0;
+
+		var img = device.document.createElement('img');
+		var that = this;
+		img.onload = function () {
+			that.ctx.drawImage(this, 0, 0, that.w, that.h);
+			that.loaded = true;
+			resources.load();
+		};
+		img.src = this.file;
+		resources.add();
+	};
+
+	BackgroundObject.prototype.draw = function () {
+		if (!this.loaded) return;
+		var dx = -offset.x + this.x;
+		var dy = -offset.y + this.y;
+		var x, y;
+		for (y = 0; y < this.countY; y++) {
+			if (this.y + y * this.h + this.h < offset.y || this.y + y * this.h > offset.y + height) continue;
+			for (x = 0; x < this.countX; x++) {
+				if (this.x + x * this.w + this.w < offset.x || this.x + x * this.w > offset.x + width) continue;
+				context.drawImage(this.cnv, dx + x * this.w, dy + y * this.h, this.w, this.h);
+			}
+		}
+	};
+
+	BackgroundObject.prototype.getSize = function () {
+		if (!this.loaded) return size();
+		return size(this.fullW, this.fullH);
+	};
+
+	this.game.newBackgroundObject = function (obj) {
+		return new BackgroundObject(obj);
+	};
+
+
+	// EllipsObject
+	var EllipsObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'EllipsObject';
+	};
+	inherit(BaseObject, EllipsObject);
+
+	EllipsObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		editContext(this);
+
+		drawCircle(point(this.x, this.y), this.h / 2, this.fillColor, this.strokeColor, this.strokeWidth);
+		if (this.ondraw) this.ondraw();
+
+		restoreContext();
+	};
+
+	this.game.newEllipsObject = function (obj) {
+		return new EllipsObject(obj);
+	};
+
+
+	// TextObject
+	var TextObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'TextObject';
+		this.text = obj.text || 'TextObject';
+		this.color = obj.color || '';
+		this.size = obj.size || 10;
+
+		if (obj.scale) {
+			this.size *= obj.scale;
+		}
+
+		this.font = obj.font || 'sans-serif';
+		this.style = obj.style || '';
+		this.align = 'left';
+		this.padding = obj.padding || 2;
+		this.w = getTextWidth(this.text, this.style, this.size, this.font) + this.padding * 2;
+		this.h = this.size + this.padding * 2;
+		this.strokeColorText = obj.strokeColorText || false;
+		this.strokeWidthText = obj.strokeWidthText || false;
+		this.textDY = -this.size / 7;
+
+
+		if (obj.positionC) {
+			this.setPositionC(obj.positionC);
+		}
+
+	};
+	inherit(BaseObject, TextObject);
+
+	TextObject.prototype.reStyle = function (obj) {
+		this.text = obj.text || this.text;
+		this.color = obj.color || this.color;
+		this.size = obj.size || this.size;
+		this.font = obj.font || this.font;
+		this.style = obj.style || this.style;
+		this.padding = obj.padding || this.padding;
+		this.w = getTextWidth(this.text, this.style, this.size, this.font) + this.padding * 2;
+		this.h = this.size + this.padding * 2;
+		this.strokeColorText = obj.strokeColorText || this.strokeColorText;
+		this.strokeWidthText = obj.strokeWidthText || this.strokeWidthText;
+		this.strokeColor = obj.strokeColor || this.strokeColor;
+		this.strokeWidth = obj.strokeWidth || this.strokeWidth;
+		this.fillColor = obj.fillColor || this.fillColor;
+		this.textDY = -this.size / 7;
+	};
+
+	TextObject.prototype.setText = function (t) { // text
+		if (this.text == t) return;
+		this.reStyle({
+			text : t
+		});
+	};
+
+	TextObject.prototype.getText = function () {
+		return this.text;
+	};
+
+	TextObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		if (this.fillColor || this.strokeColor)
+			drawRect(point(this.x, this.y), size(this.w, this.h), this.fillColor, this.strokeColor, this.strokeWidth);
+
+
+		drawText(point(this.x + this.padding, this.textDY + this.y + this.padding),
+			this.text,
+			this.color,
+			this.size,
+			this.font,
+			this.style,
+			this.align,
+			this.strokeColorText,
+			this.strokeWidthText);
+
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	TextObject.prototype.scale = function (s) { // dSize number
+		this.reStyle({
+			size : this.size * s
+		});
+	};
+
+	TextObject.prototype.scaleC = function (s) { // dSize number
+		var oldW = this.w, oldH = this.h;
+		this.reStyle({
+			size : this.size * s
+		});
+		this.move(point(-((this.w - oldW) / 2), -((this.h - oldH) / 2)));
+	};
+
+	TextObject.prototype.setSize = function (s) { // size number
+		if (this.size == s) return;
+		this.reStyle({
+			size : s
+		});
+	};
+
+
+	TextObject.prototype.setSizeC = function (s) { // size number
+		if (this.size == s) return;
+		this.reStyle({
+			size : s
+		});
+		this.move(point(-s / 2, -s / 2));
+	};
+
+
+	var getTextWidth = function (text, style, size, font) { // text
+		var ctx = device.document.createElement('canvas').getContext('2d');
+		ctx.font = style + size + 'px ' + font;
+		return ctx.measureText(text).width;
+	};
+
+	this.OOP.getTextWidth = function (obj) {
+		return getTextWidth(obj.text, obj.style || '', obj.size || 10, obj.font || 'sans-serif');
+	};
+
+
+	this.game.newTextObject = function (obj) {
+		return new TextObject(obj);
+	};
+
+
+	// PolygonObject
+	var PolygonObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'PolygonObject';
+		this.points = [];
+		this.dY = 0;
+		this.dX = 0;
+		var i;
+		var that = this;
+		if (obj.points) {
+			forArr(obj.points, function (el) {
+				that.addPoint(el);
+			});
+		}
+
+		this.pointColor = obj.pointColor || false;
+	};
+	inherit(BaseObject, PolygonObject);
+
+	PolygonObject.prototype.addPoint = function (p) {
+		this.dX = 0;
+		this.dY = 0;
+		var i;
+		var that = this;
+		if (this.y + p.y < this.y) {
+			this.dY = Math.abs(this.y + p.y - this.y);
+			forArr(this.points, function (el) {
+				el.y += that.dY;
+			})
+		}
+
+		if (this.x + p.x < this.x) {
+			this.dX = Math.abs(this.x + p.x - this.x);
+			var that = this;
+			forArr(this.points, function (el) {
+				el.x += that.dX;
+			});
+		}
+
+		this.points.push(point(p.x + this.dX, p.y + this.dY));
+
+		this.w = 0;
+		this.h = 0;
+		var that = this;
+		forArr(this.points, function (el) {
+			that.h += that.y + el.y > that.y + that.h ? el.y - that.h : 0;
+			that.w += that.x + el.x > that.x + that.w ? el.x - that.w : 0;
+		});
+	};
+
+	PolygonObject.prototype.delPoint = function (N) {
+		var i, len, p = this.getPoints();
+		this.clearPoints();
+		for (i = 0, len = p.length; i < len; i++) {
+			if (i != N) {
+				this.addPoint(p[i]);
+			}
+		}
+	};
+
+	PolygonObject.prototype.clearPoints = function () {
+		this.points = [];
+		this.count = 0;
+	};
+
+	PolygonObject.prototype.getPoints = function () {
+		return this.points;
+	};
+
+	PolygonObject.prototype.getCount = function () {
+		return this.points.length;
+	};
+
+	PolygonObject.prototype.getPoint = function (N) {
+		return this.points[N];
+	};
+
+	PolygonObject.prototype.scale = function (s) {
+		return;
+	};
+
+	PolygonObject.prototype.drawDynamicBox = function (c) {
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+		drawPolygonXY(this.x, this.y, this.points, this.fillColor, c || 'yellow', 2, 'red');
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	PolygonObject.prototype.getDynamicBox = function () {
+		var points = [], i;
+		if (!this.angle) {
+			var that = this;
+			forArr(this.points, function (el) {
+				points.push(pointPlus(el, point(that.x, that.y)));
+			});
+		} else {
+			var center = this.getPosition(1);
+			var that = this;
+			forArr(this.points, function (el) {
+				points.push(
+					getPointAngle(pointPlus(el, point(that.x, that.y)), center, that.getAngle())
+				);
+			});
+		}
+		return points;
+	},
+
+		PolygonObject.prototype.draw = function () {
+			if (!this.visible) return;
+			if (!this.alpha) return;
+			var ctx = false;
+			if (this.angle || this.alpha != 1 || this.shadowColor) {
+				editContext(this);
+				ctx = true;
+			}
+
+			drawPolygonXY(this.x, this.y, this.points, this.fillColor, this.strokeColor, this.strokeWidth, this.pointColor);
+			if (this.ondraw) this.ondraw();
+
+			if (ctx) {
+				restoreContext();
+			}
+		};
+
+	this.game.newPolygonObject = function (obj) {
+		return new PolygonObject(obj);
+	};
+
+
+	// ImageObject
+	var ImageObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'ImageObject';
+		this.w = obj.w || 0;
+		this.h = obj.h || 0;
+		this.loaded = false;
+		this.file = '';
+		this.forOnLoad = obj.onload || false;
+		addImage(obj.file, this, obj.scale || 1);
+	};
+	inherit(BaseObject, ImageObject);
+
+	ImageObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		if (!this.loaded) return;
+
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor || this.flip.x || this.flip.y) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawImage(point(this.x, this.y), size(this.w, this.h), this.file);
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	ImageObject.prototype.simpleDraw = function (p) {
+		if (!this.loaded) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+		drawImage(point(p.x, p.y), size(this.w, this.h), this.file);
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	ImageObject.prototype.setImage = function (f, func) { // file, size
+		if (this.file == f) return;
+		if (!isDef(imageList[f])) {
+			this.loaded = false;
+			this.origWidth = 0;
+			this.origHeight = 0;
+			this.forOnLoad = func || false;
+			addImage(f, this);
+		} else {
+			this.file = f;
+			func();
+		}
+	};
+
+	ImageObject.prototype.getImage = function () {
+		return this.file;
+	};
+
+	this.game.newImageObject = function (obj) {
+		return new ImageObject(obj);
+	};
+
+
+	// AnimationObject
+	var AnimationObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'AnimationObject';
+		this.frame = 0;
+		this.anim = obj.animation;
+		this.step = obj.delay || 10;
+		this.difStep = 0;
+		this.toFrameStep = 0;
+
+		if (obj.scale) {
+			this.w *= obj.scale;
+			this.h *= obj.scale;
+		}
+
+	};
+	inherit(BaseObject, AnimationObject);
+
+	AnimationObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawAnimation(this.anim, point(this.x, this.y), size(this.w, this.h), this.frame);
+		if (this.ondraw) this.ondraw();
+
+		if (this.difStep > this.step) {
+			this.frame = this.frame < this.anim.r ? this.frame + 1 : 0;
+			this.difStep = 0;
+		}
+		else {
+			this.difStep++;
+		}
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+
+	AnimationObject.prototype.drawFrames = function (min, max, obj) {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		if (this.frame < min || this.frame > max) this.frame = min;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawAnimation(this.anim, point(this.x, this.y), size(this.w, this.h), this.frame);
+		if (this.ondraw) this.ondraw();
+
+		if (this.difStep > this.step) {
+			this.frame = this.frame < max ? this.frame + 1 : min;
+			this.difStep = 0;
+		}
+		else {
+			this.difStep++;
+		}
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	AnimationObject.prototype.drawFrame = function (f) {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawAnimation(this.anim, point(this.x, this.y), size(this.w, this.h), f);
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	AnimationObject.prototype.drawToFrame = function (f) { // to frame
+		if (!this.visible) return;
+		if (!this.alpha) return;
+
+		if (this.frame < f)
+			this.toFrameStep = 1;
+		else if (this.frame > f)
+			this.toFrameStep = -1;
+		else {
+			this.drawFrame(f);
+			return;
+		}
+
+		this.drawFrame(this.frame);
+		if (this.ondraw) this.ondraw();
+
+		if (this.difStep > this.step) {
+			this.frame = this.frame < this.anim.r ? this.frame + this.toFrameStep : 0;
+			this.difStep = 0;
+		}
+		else {
+			this.difStep++;
+		}
+	};
+
+	AnimationObject.prototype.drawReverFrames = function (min, max) { // to frame
+		if (!this.visible) return;
+		if (!this.alpha) return;
+
+		this.drawFrame(this.frame);
+		if (this.ondraw) this.ondraw();
+
+		if (this.difStep > this.step) {
+
+			if (this.frame <= min)
+				this.toFrameStep = 1;
+			else if (this.frame >= max)
+				this.toFrameStep = -1;
+
+			this.frame = this.frame <= this.anim.r ? this.frame + this.toFrameStep : 0;
+			this.difStep = 0;
+		}
+		else {
+			this.difStep++;
+		}
+
+
+	};
+
+	AnimationObject.prototype.setAnimation = function (t) { // tile
+		this.anim = t;
+	};
+
+	AnimationObject.prototype.getAnimation = function () {
+		return this.anim;
+	};
+
+	AnimationObject.prototype.setDelay = function (d) {
+		this.step = d > 0 ? d : this.step;
+	};
+
+	AnimationObject.prototype.getDelay = function () {
+		return this.step;
+	};
+
+	this.game.newAnimationObject = function (obj) {
+		return new AnimationObject(obj);
+	};
+
+
+	// end object manager ////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// tiles ///////////////////////////////////////////
+
+	var Image = function (f) { // file
+		this.file = f;
+		this.loaded = false;
+		this.w = 0;
+		this.h = 0;
+		this.toLoad = [];
+		var img = device.document.createElement('img');
+		var that = this;
+		img.onload = function () {
+			that.loaded = true;
+			that.w = this.width;
+			that.h = this.height;
+			that.img = device.document.createElement('canvas');
+			that.img.width = this.width;
+			that.img.height = this.height;
+			that.context = that.img.getContext('2d');
+			that.context.drawImage(this, 0, 0);
+			if (that.toLoad.length)
+				forArr(that.toLoad, function (i) {
+					i.func(that.context, i.w, i.h, i.r);
+				});
+			resources.load();
+		};
+		img.src = f;
+		resources.add();
+	};
+
+	Image.prototype.onContext = function (func) {
+		if (this.loaded) {
+			func(this.context, this.w, this.h, 1);
+		} else {
+			this.toLoad.push({
+				w : this.w,
+				h : this.h,
+				r : 1,
+				func : func
+			});
+		}
+	};
+
+
+	Image.prototype.getAnimation = function (x, y, w, h, r) { // r - repeat
+
+		var Animation = function (that, x, y, w, h, r) {
+			this.image = that;
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			this.r = r ? r - 1 : 0;
+		};
+
+		Animation.prototype = {
+			onContext : function (func) { // frame, function
+				if (this.image.loaded)
+					func(this.image.context, this.w, this.h, this.r);
+				else
+					this.image.toLoad.push({
+						w : this.w,
+						h : this.h,
+						r : this.r,
+						func : func
+					});
+			},
+
+			getImage : function () {
+				return this.image;
+			},
+
+			getCount : function () {
+				return this.r;
+			}
+		};
+
+		return new Animation(this, x, y, w, h, r);
+	};
+
+	var DrawImage = function (w, h) { // file
+		this.loaded = true;
+		this.w = w;
+		this.h = h;
+		this.img = device.document.createElement('canvas');
+		this.img.width = w;
+		this.img.height = h;
+		this.context = this.img.getContext('2d');
+	};
+
+	DrawImage.prototype.onContext = Image.prototype.onContext;
+	DrawImage.prototype.getAnimation = Image.prototype.getAnimation;
+
+	this.tiles.newDrawImage = function (w, h) {
+		return new DrawImage(w, h);
+	};
+
+	this.tiles.newImage = function (f) {
+		return new Image(f);
+	};
+
+	this.tiles.newAnimation = function (f, w, h, r) {	// file, width-frame, height-frame, repeats (frames)
+		return new Image(f).getAnimation(0, 0, w, h, r);
+	};
+
+	var drawAnimation = function (tile, p, s, f) { // tile, pos, size, frame
+		if (!tile.image.loaded) return;
+		var dx = -offset.x;
+		var dy = -offset.y;
+		context.drawImage(tile.image.img, tile.x + (tile.w * f), tile.y, tile.w, tile.h, p.x + dx, p.y + dy, s.w, s.h);
+	};
+
+
+	// end tiles ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// image ///////////////////////////////
+
+
+	var imageList = {};
+
+	var addImage = function (file, obj, scale) {
+		if (isDef(imageList[file])) {
+			obj.loaded = true;
+			obj.file = file;
+			var w, h;
+			if (obj.w && !obj.h) {
+				var dh = obj.w / imageList[file].w;
+				w = obj.w;
+				h = imageList[file].h * dh;
+			} else if (!obj.w && obj.h) {
+				var dh = obj.h / imageList[file].h;
+				h = obj.h;
+				w = imageList[file].w * dh;
+			} else if (obj.w && obj.h) {
+				w = obj.w;
+				h = obj.h;
+			} else {
+				w = imageList[file].w;
+				h = imageList[file].h;
+			}
+
+			if (scale) {
+				w *= scale;
+				h *= scale;
+			}
+
+			obj.w = w;
+			obj.h = h;
+
+			if (obj.forOnLoad) {
+				obj.forOnLoad();
+			}
+
+			return;
+		}
+
+		var img = device.document.createElement('img');
+		img.onload = function () {
+			imageList[file] = {};
+			imageList[file].img = this;
+			imageList[file].w = this.width;
+			imageList[file].h = this.height;
+
+			if (isDef(obj)) {
+				obj.loaded = true;
+				var w, h;
+				if (obj.w && !obj.h) {
+					var dh = obj.w / imageList[file].w;
+					w = obj.w;
+					h = imageList[file].h * dh;
+				} else if (!obj.w && obj.h) {
+					var dh = obj.h / imageList[file].h;
+					h = obj.h;
+					w = imageList[file].w * dh;
+				} else if (obj.w && obj.h) {
+					w = obj.w;
+					h = obj.h;
+				} else {
+					w = imageList[file].w;
+					h = imageList[file].h;
+				}
+				if (scale) {
+					w *= scale;
+					h *= scale;
+				}
+
+				obj.w = w;
+				obj.h = h;
+
+				obj.file = file;
+				if (obj.forOnLoad) {
+					obj.forOnLoad();
+				}
+			}
+			resources.load();
+		};
+
+		img.src = file;
+		resources.add();
+	};
+
+	var getImageList = function () {
+		return imageList;
+	};
+
+
+	// this.images = {
+	// 	getImageList : getImageList
+	// };
+
+
+	var drawImage = function (p, s, img) { // pos, size, img, imgPos, imgSize
+		if (!img) return;
+		var dx = -offset.x;
+		var dy = -offset.y;
+		context.drawImage(imageList[img].img, 0, 0, imageList[img].w, imageList[img].h, p.x + dx, p.y + dy, s.w, s.h);
+	};
+
+
+	// end image ///////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// mesh system ///////////////////////////////////////
+
+
+	var Mesh = function (obj) {
+		this.type = 'Mesh';
+		this.objs = [];
+		this.x = obj.x || 0;
+		this.y = obj.y || 0;
+		this.angle = obj.angle || 0;
+		this.count = 0;
+
+		var that = this;
+
+		if (obj.add) {
+			var i;
+			forArr(obj.add, function (el) {
+				that.add(el);
+			});
+		}
+
+		if (this.angle) {
+			this.setAngle(this.angle);
+		}
+
+	};
+
+	Mesh.prototype = {
+
+		getCount : function () {
+			return this.count;
+		},
+
+		getObjects : function () {
+			return this.objs;
+		},
+
+		add : function (obj) {
+			this.count++;
+			this.objs.push(obj);
+			obj.offsetMesh = obj.getPosition(1);
+			obj.turn(this.angle);
+			obj.setPositionC(point(this.x + obj.offsetMesh.x, this.y + obj.offsetMesh.y));
+		},
+
+		del : function (obj) {
+			var i;
+			var that = this;
+			forArr(this.objs, function (el) {
+				if (el.id == obj.id) {
+					that.objs.splice(i, 1);
+					that.count--;
+				}
+			});
+		},
+
+		draw : function (p) {
+			var i;
+			forArr(this.objs, function (el) {
+				el.draw();
+			});
+		},
+
+		move : function (p) {
+			this.x += p.x || 0;
+			this.y += p.y || 0;
+			var that = this;
+			forArr(this.objs, function (el) {
+				el.setPositionC(point(that.x + el.offsetMesh.x, that.y + el.offsetMesh.y));
+			});
+		},
+
+		turn : function (a) {
+			if (a == 0) return;
+			this.angle = this.angle % 360;
+			this.angle += a;
+			var i, obj,
+				center = point(this.x, this.y);
+
+			var that = this;
+
+			forArr(this.objs, function (el) {
+				el.turn(a);
+				el.setPositionC(getPointAngle(point(that.x + el.offsetMesh.x, that.y + el.offsetMesh.y), center, that.angle));
+			});
+		},
+
+		setAngle : function (a) {
+			if (a == this.angle) return;
+			a = a % 360;
+			this.angle = a;
+			var i, obj,
+				center = point(this.x, this.y);
+
+			var that = this;
+			forArr(this.objs, function (el) {
+				el.setAngle(a);
+				el.setPositionC(getPointAngle(point(that.x + el.offsetMesh.x, that.y + el.offsetMesh.y), center, that.angle));
+			});
+		},
+
+		setPosition : function (p) {
+			if (this.x == p.x && this.y == p.y) return;
+			this.x = p.x || this.x;
+			this.y = p.y || this.y;
+			var i, obj;
+			var that = this;
+			forArr(this.objs, function (el) {
+				if (!that.angle) {
+					el.setPositionC(point(that.x + el.offsetMesh.x, that.y + el.offsetMesh.y));
+				}
+				else {
+					el.setPositionC(getPointAngle(point(that.x + el.offsetMesh.x, that.y + el.offsetMesh.y), point(that.x, that.y), that.angle));
+				}
+			});
+		},
+
+		isDynamicIntersect : function (box) {
+			if (box.length < 3) return false;
+			var obj = false;
+			forArr(this.objs, function (el) {
+				if (el.isDynamicIntersect(box)) {
+					return obj = el;
+				}
+			});
+			return obj;
+		},
+
+		isStaticIntersect : function (box) {
+			var obj = false;
+			forArr(this.objs, function (el) {
+				if (el.isStaticIntersect(box)) {
+					return obj = el;
+				}
+			});
+			return obj;
+		},
+
+		isIntersect : function (box) {
+			var obj = false;
+			forArr(this.objs, function (el) {
+				if (el.isIntersect(box)) {
+					return obj = el;
+				}
+			});
+			return obj;
+		}
+
+
+	};
+
+	this.game.newMesh = function (obj) {
+		return new Mesh(obj);
+	};
+
+
+	// end mesh system ///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// camera /////////////////////////////////////////////
+
+	this.camera.circling = function (p, r, s) { // point, radius, speed
+		if (!isDef(this.circlingAnglePointJS)) {
+			this.circlingAnglePointJS = s;
+		}
+		offset.x = p.x + r * Math.cos(a2r(this.circlingAnglePointJS));
+		offset.y = p.y + r * Math.sin(a2r(this.circlingAnglePointJS));
+		this.circlingAnglePointJS = this.circlingAnglePointJS >= 360 ? s : this.circlingAnglePointJS + s;
+	};
+
+	this.camera.circlingC = function (p, r, s) { // point, radius, speed
+		if (!isDef(this.circlingAnglePointJS)) {
+			this.circlingAnglePointJS = s;
+		}
+		offset.x = -width2 + p.x + r * Math.cos(a2r(this.circlingAnglePointJS));
+		offset.y = -height2 + p.y + r * Math.sin(a2r(this.circlingAnglePointJS));
+		this.circlingAnglePointJS = this.circlingAnglePointJS >= 360 ? s : this.circlingAnglePointJS + s;
+	};
+
+	this.camera.motion = function (p, s, sp) { // point, size, speed
+		if (!isDef(this.motionPercentPointJS)) {
+			this.motionPercentPointJS = s;
+		}
+		offset.x = p.x + s.w * Math.cos(a2r(this.motionPercentPointJS));
+		offset.y = p.y + s.h * Math.sin(a2r(this.motionPercentPointJS));
+		this.motionPercentPointJS = this.motionPercentPointJS >= 360 ? s : this.motionPercentPointJS + sp;
+	};
+
+	this.camera.motionC = function (p, s, sp) { // point, size, speed
+		if (!isDef(this.motionPercentPointJS)) {
+			this.motionPercentPointJS = s;
+		}
+		this.setPositionC(point(p.x + s.w * Math.cos(a2r(this.motionPercentPointJS)), p.y + s.h * Math.sin(a2r(this.motionPercentPointJS))));
+		this.motionPercentPointJS = this.motionPercentPointJS >= 360 ? s : this.motionPercentPointJS + sp;
+	};
+
+	this.camera.move = function (p) {
+		offset.x += p.x || 0;
+		offset.y += p.y || 0;
+	};
+
+	this.camera.moveTime = function (p, t) {
+		t = t || 1;
+		var pos = point(offset.x, offset.y);
+		this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+	};
+
+	this.camera.moveTimeC = function (p, t) {
+		t = t || 1;
+		var pos = point(offset.x + width2, offset.y + height2);
+		this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+	};
+
+	this.camera.setPosition = function (p) {
+		var dx = p.x != 'none' ? p.x : offset.x;
+		var dy = p.y != 'none' ? p.y : offset.y;
+		setOffset(point(dx, dy));
+	};
+
+	this.camera.setPositionC = function (p) {
+		var dx = p.x != 'none' ? p.x - width2 : offset.x;
+		var dy = p.y != 'none' ? p.y - height2 : offset.y;
+		setOffset(point(dx, dy));
+	};
+
+	this.camera.getPosition = function (fmt) { // format
+		if (!fmt)
+			return point(offset.x, offset.y);
+		else
+			return point(offset.x + width2, offset.y + height2);
+	};
+
+	this.camera.getPositionC = function () {
+		return point(offset.x + width2, offset.y + height2);
+	};
+
+	this.camera.getStaticBox = function () {
+		return {
+			x : offset.x,
+			y : offset.y,
+			w : offset.x + width,
+			h : offset.y + height
+		};
+	};
+
+	this.camera.getDynamicBox = function () {
+		return [
+			point(offset.x, offset.y),
+			point(offset.x + width, offset.y),
+			point(offset.x + width, offset.y + height),
+			point(offset.x, offset.y + height),
+		];
+	};
+
+
+	// end camera /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// 2D /////////////////////////////////////////////////
+
+	var setOffset = function (p) {
+		offset = point(p.x, p.y);
+	};
+
+	var setSmooth = function () {
+		context.mozImageSmoothingEnabled = isSmooth;
+		context.msImageSmoothingEnabled = isSmooth;
+		context.imageSmoothingEnabled = isSmooth;
+	};
+
+	var restoreContext = function (obj) {
+		context.restore();
+
+		context.globalAlpha = contextSettings.globalAlpha;
+		context.fillStyle = nowFillStyle;
+		context.strokeStyle = nowStrokeStyle;
+
+		setSmooth();
+
+	};
+
+	var editContext = function (obj, box) {
+		context.save();
+
+		var p = obj.getPositionC();
+		if (obj.angle) {
+			context.translate(-offset.x + p.x, -offset.y + p.y);
+			context.rotate(a2r(obj.angle));
+			context.translate(-p.x + offset.x, -p.y + offset.y);
+		}
+
+		if (obj.alpha != 1) {
+			context.globalAlpha = obj.alpha;
+		}
+
+		if (obj.flip.x || obj.flip.y) {
+			context.translate(-offset.x + p.x, -offset.y + p.y);
+			context.scale(obj.flip.x ? -1 : 1, obj.flip.y ? -1 : 1);
+			context.translate(-p.x + offset.x, -p.y + offset.y);
+		}
+
+		if (obj.shadowColor) {
+			context.shadowBlur = obj.shadowBlur;
+			context.shadowColor = obj.shadowColor;
+			context.shadowOffsetX = obj.shadowX;
+			context.shadowOffsetY = obj.shadowY;
+		}
+
+		if (obj.type == 'EllipsObject' && !box) {
+			var a = obj.w / 2,
+				b = obj.h / 2,
+				pos = point(-offset.x + obj.x, -offset.y + obj.y);
+
+			context.translate(pos.x, pos.y);
+			context.scale(a / b, 1);
+			context.translate(-pos.x, -pos.y);
+		}
+
+	};
+
+	this.system.setContextSettings = function (obj) {
+		context.save();
+		for (var i in obj) {
+			context[i] = obj[i];
+		}
+	};
+
+	this.system.defaultSettings = function () {
+		restoreContext();
+	};
+
+	var clearContext = function (p, s) {
+			context.clearRect(p.x, p.y, s.x, s.y);
+	};
+
+	this.game.clear = function () {
+		clearContext(point(0, 0), point(width, height));
+	};
+
+
+	var fillContext = function (c) {
+		setFillColor(c);
+		context.fillRect(0, 0, width, height);
+	};
+
+	this.game.fill = function (c) {
+		fillContext(c);
+	};
+
+
+	var drawPoly = function (points, fillColor) {
+		if (points.length < 3) return;
+		setFillColor(fillColor);
+		var dx = -offset.x;
+		var dy = -offset.y;
+		var i;
+		context.beginPath();
+		context.moveTo(dx + points[0].x, dy + points[0].y);
+		for (i = 1; i < points.length; i++) {
+			context.lineTo(dx + points[i].x, dy + points[i].y);
+		}
+		context.closePath();
+		context.fill();
+	};
+
+	var drawPolyXY = function (x, y, points, fillColor) {
+		if (points.length < 3) return;
+		setFillColor(fillColor);
+		var dx = -offset.x + x;
+		var dy = -offset.y + y;
+		var i;
+		context.beginPath();
+		context.moveTo(dx + points[0].x, dy + points[0].y);
+		for (i = 1; i < points.length; i++) {
+			context.lineTo(dx + points[i].x, dy + points[i].y);
+		}
+		context.closePath();
+		context.fill();
+	};
+
+	var drawPolygonXY = function (x, y, points, fillColor, strokeColor, strokeWidth, pointColor) {
+		if (points.length < 3) return;
+		var i, j;
+		if (fillColor) {
+			drawPolyXY(x, y, points, fillColor);
+		}
+		for (i = 0; i < points.length; i++) {
+			j = (i + 1) < points.length ? (i + 1) : 0;
+			if (strokeColor) {
+				drawLine(pointPlus(points[i], point(x, y)), pointPlus(points[j], point(x, y)), strokeColor, strokeWidth);
+			}
+			if (pointColor) {
+				drawPoint(pointPlus(points[i], point(x, y)), pointColor);
+			}
+		}
+	};
+
+	var drawPolygon = function (points, fillColor, strokeColor, strokeWidth, pointColor) {
+		if (points.length < 3) return;
+		var i, j;
+		if (fillColor) {
+			drawPoly(points, fillColor);
+		}
+		for (i = 0; i < points.length; i++) {
+			j = (i + 1) < points.length ? (i + 1) : 0;
+			if (strokeColor) {
+				drawLine(points[i], points[j], strokeColor, strokeWidth);
+			}
+			if (pointColor) {
+				drawPoint(points[i], pointColor);
+			}
+		}
+	};
+	this.brush.drawPolygon = function (obj) {
+		drawPolygon(
+			obj.points || [],
+			obj.fillColor || false,
+			obj.strokeColor || false,
+			obj.strokeWidth || 1,
+			obj.pointColor || false
+		);
+	};
+
+	var drawText = function (p, text, color, size, font, style, align, strokeColor, strokeWidth) {
+		context.textAlign = align;
+		context.lineWidth = strokeWidth;
+		context.font = (style ? (style + ' ') : '') + size + 'px ' + font;
+		var dx = -offset.x;
+		var dy = -offset.y;
+		if (color) {
+			setFillColor(color);
+			context.fillText(text, dx + p.x, dy + p.y);
+		}
+		if (strokeColor) {
+			setStrokeColor(strokeColor);
+			context.strokeText(text, dx + p.x, dy + p.y);
+		}
+	};
+
+	this.brush.drawMultiText = function (obj) {
+		var i, lines = obj.text.split('\n');
+		for (i = 0; i < lines.length; i++) {
+			drawText(point(obj.x, obj.y + (obj.size * i)),
+				lines[i],
+				obj.color || contextSettings.fillStyle,
+				obj.size  || 10,
+				obj.font  || contextSettings.font,
+				obj.style || false,
+				obj.align || 'left',
+				obj.strokeColor || false,
+				obj.strokeWidth || 2);
+		}
+	};
+
+	this.brush.drawMultiTextS = function (obj) {
+		var i, lines = obj.text.split('\n');
+		var size = obj.size || 10;
+		for (i = 0; i < lines.length; i++) {
+			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
+				lines[i],
+				obj.color || contextSettings.fillStyle,
+				size,
+				obj.font  || contextSettings.font,
+				obj.style || false,
+				obj.align || 'left',
+				obj.strokeColor || false,
+				obj.strokeWidth || 2);
+		}
+	};
+
+	this.brush.drawText = function (obj) {
+		drawText(point(obj.x || 0, obj.y || 0),
+			obj.text,
+			obj.color || false,
+			obj.size || 10,
+			obj.font || contextSettings.font,
+			obj.style || false,
+			obj.align || 'left',
+			obj.strokeColor || false,
+			obj.strokeWidth || 2);
+	};
+
+	this.brush.drawTextS = function (obj) {
+		drawText(point((obj.x || 0) + offset.x, (obj.y || 0) + offset.y),
+			obj.text,
+			obj.color || contextSettings.fillStyle,
+			obj.size || 10,
+			obj.font || contextSettings.font,
+			obj.style || false,
+			obj.align || 'left',
+			obj.strokeColor || false,
+			obj.strokeWidth || 2);
+	};
+
+	this.brush.drawTextLines = function (obj) {
+		if (!obj.lines) return;
+		var i, size = obj.size || 10;
+		for (i = 0; i < obj.lines.length; i++) {
+			drawText(point(obj.x, obj.y + (size * i)),
+				obj.lines[i],
+				obj.color || contextSettings.fillStyle,
+				size,
+				obj.font || contextSettings.font,
+				obj.style || false,
+				obj.align || 'left',
+				obj.strokeColor || false,
+				obj.strokeWidth || 2);
+		}
+	};
+
+	this.brush.drawTextLinesS = function (obj) {
+		if (!obj.lines) return;
+		var i, size = obj.size || 10;
+		for (i = 0; i < obj.lines.length; i++) {
+			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
+				obj.lines[i],
+				obj.color || contextSettings.fillStyle,
+				size,
+				obj.font || contextSettings.font,
+				obj.style || false,
+				obj.align || 'left',
+				obj.strokeColor || false,
+				obj.strokeWidth || 2);
+		}
+	};
+
+	var drawCenter = function (p, s, c) { // pos, size, color
+		drawLine(point(p.x - s, p.y), point(p.x + s, p.y), c, 2);
+		drawLine(point(p.x, p.y - s), point(p.x, p.y + s), c, 2);
+	};
+
+	var drawRect = function (p, s, fillColor, strokeColor, strokeWidth) {
+		setFillColor(fillColor);
+		setStrokeColor(strokeColor);
+		context.lineWidth = strokeWidth;
+		var dx = -offset.x + (strokeWidth ? strokeWidth / 2 : 0);
+		var dy = -offset.y + (strokeWidth ? strokeWidth / 2 : 0);
+		if (fillColor) {
+			context.fillRect(p.x + dx, p.y + dy, s.w, s.h);
+		}
+		if (strokeWidth) {
+			context.strokeRect(p.x + dx, p.y + dy, s.w, s.h);
+		}
+	};
+
+	this.brush.drawRect = function (obj) {
+		drawRect(point(obj.x, obj.y),
+			size(obj.w, obj.h),
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	this.brush.drawRectS = function (obj) {
+		drawRect(point(obj.x + offset.x, obj.y + offset.y),
+			size(obj.w, obj.h),
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	var drawPoint = function (p, fillColor) {
+		setFillColor(fillColor);
+		if (fillColor) {
+			context.fillRect(-offset.x + p.x - 1, -offset.y + p.y - 1, 2, 2);
+		}
+	};
+
+	this.brush.drawPoint = function (obj) {
+		drawPoint(point(obj.x, obj.y),
+			obj.fillColor || false)
+	};
+
+	this.brush.drawPointS = function (obj) {
+		drawPoint(point(obj.x + offset.x, obj.y + offset.y),
+			obj.fillColor || false)
+	};
+
+	var drawRoundRect = function (p, s, r, fillColor, strokeColor, strokeWidth) {
+		setFillColor(fillColor);
+		setStrokeColor(strokeColor);
+		context.lineWidth = strokeWidth;
+		var x = -offset.x + p.x + (strokeWidth ? strokeWidth / 2 : 0);
+		var y = -offset.y + p.y + (strokeWidth ? strokeWidth / 2 : 0);
+
+		context.beginPath();
+		context.moveTo(x+r, y);
+		context.lineTo(x+s.w-r, y);
+		context.quadraticCurveTo(x+s.w, y, x+s.w, y+r);
+		context.lineTo(x+s.w, y+s.h-r);
+		context.quadraticCurveTo(x+s.w, y+s.h, x+s.w-r, y+s.h);
+		context.lineTo(x+r, y+s.h);
+		context.quadraticCurveTo(x, y+s.h, x, y+s.h-r);
+		context.lineTo(x, y+r);
+		context.quadraticCurveTo(x, y, x+r, y);
+		context.closePath();
+
+		if (fillColor) {
+			context.fill();
+		}
+
+		if (strokeWidth) {
+			context.stroke();
+		}
+	};
+
+	this.brush.drawRoundRect = function (obj) {
+		drawRoundRect(point(obj.x, obj.y),
+			size(obj.w, obj.h),
+			obj.radius || 2,
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	this.brush.drawRoundRectS = function (obj) {
+		drawRoundRect(point(offset.x + obj.x, offset.y + obj.y),
+			size(obj.w, obj.h),
+			obj.radius || 2,
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	var drawCircle = function (p, r, fillColor, strokeColor, strokeWidth) {
+		setFillColor(fillColor);
+		setStrokeColor(strokeColor);
+		context.lineWidth = strokeWidth;
+		var dx = -offset.x + r + (strokeWidth ? strokeWidth / 2 : 0);
+		var dy = -offset.y + r + (strokeWidth ? strokeWidth / 2 : 0);
+		context.beginPath();
+		context.arc(p.x + dx, p.y + dy, r, 0, Math.PI * 2, true);
+		context.closePath();
+		if (fillColor) {
+			context.fill();
+		}
+		if (strokeWidth) {
+			context.stroke();
+		}
+	};
+
+	this.brush.drawCircle = function (obj) {
+		drawCircle(point(obj.x, obj.y),
+			obj.radius,
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	this.brush.drawCircleS = function (obj) {
+		drawCircle(point(obj.x + offset.x, obj.y + offset.y),
+			obj.radius,
+			obj.fillColor || false,
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || false);
+	};
+
+	var drawLine = function (p1, p2, strokeColor, strokeWidth) {
+		setStrokeColor(strokeColor);
+		context.lineWidth = strokeWidth;
+		var dx = -offset.x;
+		var dy = -offset.y;
+		context.beginPath();
+		context.moveTo(dx + p1.x, dy + p1.y);
+		context.lineTo(dx + p2.x, dy + p2.y);
+		context.closePath();
+		context.stroke();
+	};
+	this.brush.drawLineAngle = function (obj) {
+		var pos = getPointAngle(point(obj.x + obj.length, obj.y), point(obj.x, obj.y), obj.angle);
+		drawLine(point(obj.x, obj.y),
+			point(pos.x, pos.y),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+	this.brush.drawLineAngleS = function (obj) {
+		var pos = getPointAngle(point(offset.x + obj.x + obj.length, offset.y + obj.y), point(offset.x + obj.x, offset.y + obj.y), obj.angle);
+		drawLine(point(offset.x + obj.x, offset.y + obj.y),
+			point(pos.x, pos.y),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+	this.brush.drawLine = function (obj) {
+		drawLine(point(obj.x1, obj.y1),
+			point(obj.x1 + obj.x2, obj.y1 + obj.y2),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+	this.brush.drawLineS = function (obj) {
+		drawLine(point(offset.x + obj.x1, offset.y + obj.y1),
+			point(offset.x + obj.x2, offset.y + obj.y2),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+
+	this.brush.drawLineA = function (obj) {
+		drawLine(point(obj.x1, obj.y1),
+			point(obj.x2, obj.y2),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+	this.brush.drawLineAS = function (obj) {
+		drawLine(point(obj.x1 + offset.x, obj.y1 + offset.y),
+			point(obj.x2 + offset.x, obj.y2 + offset.y),
+			obj.strokeColor || contextSettings.strokeStyle,
+			obj.strokeWidth || 1);
+	};
+
+	this.brush.drawEllips = function (obj) {
+		var a = obj.w / 2,
+			b = obj.h / 2,
+			pos = point(-offset.x + obj.x, -offset.y + obj.y);
+
+		context.save();
+		context.translate(pos.x, pos.y);
+		context.scale(a / b, 1);
+		context.translate(-pos.x, -pos.y);
+
+		drawCircle(point(obj.x, obj.y), b, obj.fillColor, obj.strokeColor, obj.strokeWidth);
+
+		context.restore();
+	};
+
+	this.brush.drawEllipsS = function (obj) {
+		var a = obj.w / 2,
+			b = obj.h / 2,
+			pos = point(obj.x, obj.y);
+
+		context.save();
+		context.translate(pos.x, pos.y);
+		context.scale(a / b, 1);
+		context.translate(-pos.x, -pos.y);
+
+		drawCircle(point(offset.x + obj.x, offset.y + obj.y), b, obj.fillColor, obj.strokeColor, obj.strokeWidth);
+
+		context.restore();
+	};
+
+	this.brush.drawImageS = function (obj) {
+		if (!obj.file) return;
+
+		if (isDef(imageList[obj.file])) {
+			if (!imageList[obj.file].loaded) return;
+			var x = obj.x || 0;
+			var y = obj.y || 0;
+			var w, h;
+			if (obj.w && !obj.h) {
+				var dh = obj.w / imageList[obj.file].w;
+				w = obj.w;
+				h = imageList[obj.file].h * dh;
+			} else if (!obj.w && obj.h) {
+				var dh = obj.h / imageList[obj.file].h;
+				h = obj.h;
+				w = imageList[obj.file].w * dh;
+			} else if (obj.w && obj.h) {
+				w = obj.w;
+				h = obj.h;
+			} else {
+				w = imageList[obj.file].w;
+				h = imageList[obj.file].h;
+			}
+			if (obj.scale) {
+				w *= obj.scale;
+				h *= obj.scale;
+			}
+			context.drawImage(imageList[obj.file].img, 0, 0, imageList[obj.file].w, imageList[obj.file].h, x, y, w, h);
+			return;
+		}
+
+		imageList[obj.file] = {};
+		imageList[obj.file].loaded = false;
+		var img = device.document.createElement('img');
+		img.onload = function () {
+			imageList[obj.file].loaded = true;
+			imageList[obj.file].img = this;
+			imageList[obj.file].w = this.width;
+			imageList[obj.file].h = this.height;
+			resources.load();
+		}
+		img.src = obj.file;
+		resources.add();
+	};
+
+	this.brush.drawImage = function (obj) {
+		if (!obj.file) return;
+
+		if (isDef(imageList[obj.file])) {
+			if (!imageList[obj.file].loaded) return;
+			var x = obj.x || 0;
+			var y = obj.y || 0;
+			var w, h;
+			if (obj.w && !obj.h) {
+				var dh = obj.w / imageList[obj.file].w;
+				w = obj.w;
+				h = imageList[obj.file].h * dh;
+			} else if (!obj.w && obj.h) {
+				var dh = obj.h / imageList[obj.file].h;
+				h = obj.h;
+				w = imageList[obj.file].w * dh;
+			} else if (obj.w && obj.h) {
+				w = obj.w;
+				h = obj.h;
+			} else {
+				w = imageList[obj.file].w;
+				h = imageList[obj.file].h;
+			}
+
+			if (obj.scale) {
+				w *= obj.scale;
+				h *= obj.scale;
+			}
+			context.drawImage(imageList[obj.file].img, 0, 0, imageList[obj.file].w, imageList[obj.file].h, -offset.x + x, -offset.y + y, w, h);
+			return;
+		}
+
+		imageList[obj.file] = {};
+		imageList[obj.file].loaded = false;
+		var img = device.document.createElement('img');
+		img.onload = function () {
+			imageList[obj.file].loaded = true;
+			imageList[obj.file].img = this;
+			imageList[obj.file].w = this.width;
+			imageList[obj.file].h = this.height;
+			resources.load();
+		}
+		img.src = obj.file;
+		resources.add();
+	};
+
+
+	var getPixelColor = function (x, y) {
+		var pixel = context.getImageData(x, y, 1, 1).data;
+		return 'rgb(' + pixel[0] + ', ' + pixel[1] + ', ' + pixel[2] + ')';
+	};
+
+	var setPixelColor = function (x, y, pixel) {
+		var data = context.createImageData(1, 1);
+		data.data[0] = pixel.r || data.data[0];
+		data.data[1] = pixel.g || data.data[1];
+		data.data[2] = pixel.b || data.data[2];
+		data.data[3] = pixel.a || 255;
+		context.putImageData(data, x, y);
+	};
+
+	var onPixel = function (x, y, func) { // function (pixel)
+		var data = context.getImageData(x, y, 1, 1);
+		var pixel = {
+			r : data.data[0],
+			g : data.data[1],
+			b : data.data[2],
+			a : data.data[3] ? data.data[3] : 255
+		};
+		func(pixel);
+		data.data[0] = pixel.r;
+		data.data[1] = pixel.g;
+		data.data[2] = pixel.b;
+		data.data[3] = pixel.a;
+		context.putImageData(data, x, y);
+	};
+
+	var onPixels = function (x, y, w, h, func) { // function (pixel)
+		var data = context.getImageData(x, y, w, h);
+		var i, len;
+		for (i = 0, len = data.data.length; i < len; i += 4) {
+			var pixel = {
+				r : data.data[i],
+				g : data.data[i + 1],
+				b : data.data[i + 2],
+				a : data.data[i + 3] ? data.data[i + 3] : 255
+			};
+			func(pixel);
+			data.data[i] = pixel.r;
+			data.data[i + 1] = pixel.g;
+			data.data[i + 2] = pixel.b;
+			data.data[i + 3] = pixel.a;
+		}
+
+		context.putImageData(data, x, y);
+	};
+
+	var onRawPixels = function (x, y, w, h, func) { // function (pixel)
+		var data = context.getImageData(x, y, w, h);
+		func(data.data, data.data.length); // data, count
+		context.putImageData(data, x, y);
+	};
+
+	this.brush.getPixelColor = getPixelColor;
+	this.brush.setPixelColor = setPixelColor;
+	this.brush.onPixel = onPixel;
+	this.brush.onPixels = onPixels;
+	this.brush.onRawPixels = onRawPixels;
+
+	// end 2D /////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// web audio ////////////////////////////////////////////
+
+	var wAudioList = {};
+
+	var wAContext = device.AudioContext || device.webkitAudioContext || false;
+	wAContext = wAContext ? new wAContext() : false;
+
+	if (wAContext) {
+		wAContext.listener.setPosition(0, 0, 0);
+	}
+
+	var WAudio = function (f, v) { // file, volume
+		if (!wAContext) log('module "wAudio" is not supported! use a "audio"');
+
+		this.vol = (v && v <= 1 && v > 0) ? v : 1;
+		this.playing = false;
+		this.loaded = false;
+		this.nextPlay = false;
+		this.loadPLay = false;
+
+		this.startTime = 0;
+		this.duration = 0;
+		this.pausedTime = 0;
+
+		var that = this;
+
+		var xhr = new XMLHttpRequest();
+		xhr.open('GET', f, true);
+		xhr.responseType = 'arraybuffer';
+		xhr.onload = function (e) {
+			wAContext.decodeAudioData(this.response, function (decodedArrayBuffer) {
+				that.wABuffer = decodedArrayBuffer;
+				that.duration = that.wABuffer.duration;
+				that.wAGain = wAContext.createGain();
+				that.wAGain.gain.value = that.vol;
+				that.wAPanner = wAContext.createPanner();
+				that.wAPanner.setPosition(0, 0, 1);
+				that.wAPanner.panningModel = "equalpower";
+				resources.load();
+				that.loaded = true;
+				if (that.loadPlay) {
+					that.replay();
+				}
+			}, function (e) {
+				log('error in wAudio.newAudio : error decoding file', e);
+			});
+		};
+		if (f) {
+			xhr.send();
+		} else {
+			log('error in wAudio.newAudio : Where is file?');
+		}
+
+		resources.add();
+
+	};
+
+	WAudio.prototype.play = function (v) {
+		if (!this.loaded) {
+			this.loadPlay = true;
+			return;
+		}
+		if (this.playing) return;
+		this.playing = true;
+		this.wASource = wAContext.createBufferSource();
+		this.wASource.buffer = this.wABuffer;
+		this.wAListener = wAContext.destination;
+		this.wASource.connect(this.wAGain);
+		this.wAGain.connect(this.wAPanner);
+		this.wAPanner.connect(this.wAListener);
+		this.wASource.start(0, this.pausedTime, this.duration);
+
+		this.startTime = wAContext.currentTime;
+
+		var that = this;
+		this.wASource.onended = function () {
+			that.playing = false;
+			that.startTime = 0;
+			that.pausedTime = 0;
+			if (that.nextPlay) {
+				that.nextPlay.replay();
+			}
+		};
+
+	};
+
+	WAudio.prototype.replay = function (v) {
+		if (!this.loaded) {
+			this.loadPlay = true;
+			return;
+		}
+		this.stop();
+		this.play();
+	};
+
+	WAudio.prototype.stop = function () {
+		this.pause();
+		this.startTime = 0;
+		this.pausedTime = 0;
+	};
+
+	WAudio.prototype.pause = function () {
+		if (!this.playing) return;
+		this.pausedTime = this.getProgress();
+		this.playing = false;
+		this.wASource.stop(0);
+		var that = this;
+		this.wASource.onended = function () {
+			that.playing = false;
+		};
+	};
+
+	WAudio.prototype.getProgress = function () {
+		if (!this.playing) return this.pausedTime;
+		return wAContext.currentTime - this.startTime + this.pausedTime;
+	};
+
+	WAudio.prototype.playPause = function () {
+		if (!this.playing) this.play();
+		else this.pause();
+	};
+
+	WAudio.prototype.setNextPlay = function (a) {
+		this.nextPlay = a;
+	};
+
+	WAudio.prototype.setVolume = function (v) {
+		this.vol = (v && v <= 1 && v > 0) ? v : this.vol;
+		this.wAGain.gain.value = this.vol;
+	};
+
+	WAudio.prototype.getVolume = function () {
+		return this.vol;
+	};
+
+	WAudio.prototype.setSide = function (s) { // side -1 .. 0 .. 1
+		this.side = s;
+		if (!this.wAPanner) return;
+		this.wAPanner.setPosition(this.side, 0, 1 - Math.abs(this.side));
+	};
+
+	WAudio.prototype.getSide = function () {
+		return this.side;
+	};
+
+
+	this.wAudio.newAudio = function (f, v) {
+		return new WAudio(f, v);
+	};
+
+	// end web audio ////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// audio ////////////////////////////////////////////
+
+	var audioList = {};
+
+
+	var Audio = function (f, v) { // file, volume
+		var i, len;
+		var audio = device.document.createElement('audio');
+		if (typeof f == 'string') {
+			var source = device.document.createElement('source');
+			source.src = f;
+			audio.appendChild(source);
+		} else {
+			for (i = 0, len = f.length; i < len; i++) {
+				var source = device.document.createElement('source');
+				source.src = f[i];
+				audio.appendChild(source);
+			}
+		}
+		this.vol = (v && v <= 1 && v > 0) ? v : 1;
+		this.playing = 0;
+		this.audio = audio;
+		this.loaded = false;
+		this.nextPlay = false;
+
+		this.audio.volume = this.vol;
+
+		var that = this;
+
+		this.audio.onloadeddata = function () {
+			that.loaded = true;
+			resources.load();
+		};
+
+		this.audio.onended = function () {
+			var i;
+			that.playing = false;
+			if (that.nextPlay) {
+				that.nextPlay.play();
+			}
+		};
+
+		this.audio.load();
+		resources.add();
+	};
+
+	Audio.prototype.play = function (v) {
+		if (this.playing) return;
+		if (v) {
+			this.vol = (v && v <= 1 && v > 0) ? v : this.vol;
+			this.audio.volume = this.vol;
+		}
+		this.playing = true;
+		this.audio.play();
+	};
+
+	Audio.prototype.replay = function (v) {
+		if (v) {
+			this.setVolume(v);
+		}
+		this.playing = true;
+		this.audio.currentTime = 0;
+		this.audio.play();
+	};
+
+	Audio.prototype.stop = function () {
+		if (!this.playing) return;
+		this.playing = false;
+		this.audio.pause();
+		this.audio.currentTime = 0;
+	};
+
+	Audio.prototype.pause = function () {
+		if (!this.playing) return;
+		this.playing = false;
+		this.audio.pause();
+	};
+
+	Audio.prototype.playPause = function () {
+		if (!this.playing) this.play();
+		else this.pause();
+	};
+
+	Audio.prototype.setNextPlay = function (a) {
+		this.nextPlay = a;
+	};
+
+	Audio.prototype.setVolume = function (v) {
+		this.vol = (v && v <= 1 && v > 0) ? v : this.vol;
+		this.audio.volume = this.vol;
+	};
+
+	Audio.prototype.getVolume = function () {
+		return this.vol;
+	};
+
+	this.audio.newAudio = function (f, v) {
+		return new Audio(f, v);
+	};
+
+	// end audio ////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// dialogs //////////////////////////////////////////
+
+	var openTouchLine = function (obj, objB, func) { // настройки, обработка результата
+
+		_PointJS.game.stop();
+
+		_PointJS.touchControl.exitTouchControl();
+
+		var area = device.document.createElement('input');
+		area.type = 'text';
+		area.style.position = 'fixed';
+		area.style.border = 'none';
+		area.style.zIndex = canvas.style.zIndex + 1;
+		area.style.outline = 'none';
+		area.style.backgroundColor = obj.fillColor || 'white';
+		area.style.color = obj.color || 'black';
+		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
+		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
+		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
+		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
+
+
+		var button = device.document.createElement('div');
+		button.style.padding = (objB.padding || 10) + 'px';
+		button.align = 'center';
+		button.style.position = 'fixed';
+		button.style.border = 'none';
+		button.style.zIndex = canvas.style.zIndex + 1;
+		button.style.backgroundColor = objB.fillColor || 'white';
+		button.style.color = objB.color || 'black';
+		button.innerHTML = objB.text || 'OK';
+		button.style.top = (objB.y ? toInt(objB.y) : 0) + 'px';
+		button.style.left = (objB.x ? toInt(objB.x) : 0) + 'px';
+
+		if (objB.w) button.style.width = toInt(objB.w) + 'px';
+		if (objB.h) button.style.height = toInt(objB.h) + 'px';
+		button.style.fontSize = (objB.size ? toInt(objB.size) : 10) + 'px';
+
+		button.addEventListener('touchstart', function (e) {
+			e.preventDefault();
+			e.stopPropagation();
+			_PointJS.touchControl.initTouchControl();
+			var text = area.value.trim();
+			if (typeof func == 'function') {
+				func(text != '' ? text : false);
+			}
+			device.document.body.removeChild(area);
+			device.document.body.removeChild(button);
+			_PointJS.game.resume();
+		}, true);
+
+		dom.attach(area);
+		dom.attach(button);
+		area.focus();
+	};
+
+	var openLine = function (obj, func) { // настройки, обработка результата
+
+		_PointJS.game.stop();
+
+		var area = device.document.createElement('input');
+		area.type = 'text';
+		area.style.position = 'fixed';
+		area.style.border = 'none';
+		area.style.zIndex = canvas.style.zIndex + 1;
+		area.style.outline = 'none';
+		area.style.backgroundColor = obj.fillColor || 'white';
+		area.style.color = obj.color || 'black';
+		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
+		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
+		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
+		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
+
+		area.onclick = function (e) {
+			e.stopPropagation();
+		};
+
+		area.onkeydown = function (e) {
+			e.stopPropagation();
+			if (e.keyCode == 27 || e.keyCode == 13) {
+				var text = area.value.trim();
+				if (typeof func == 'function') {
+					func(text != '' ? text : false);
+				}
+				device.document.body.removeChild(area);
+				_PointJS.game.resume();
+			}
+		};
+
+		dom.attach(area);
+		area.focus();
+	};
+
+
+	var openArea = function (obj, func) { // настройки
+
+		_PointJS.game.stop();
+
+		var area = device.document.createElement('textarea');
+		area.style.position = 'fixed';
+		area.style.border = 'none';
+		area.style.zIndex = canvas.style.zIndex + 1;
+		area.style.overflowY = 'scroll';
+		area.style.outline = 'none';
+		area.style.backgroundColor = obj.fillColor || 'white';
+		area.style.color = obj.color || 'black';
+		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
+		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
+		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
+		area.style.height = (obj.h ? toInt(obj.h) : 0) + 'px';
+		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
+		area.style.maxWidth = (obj.w ? toInt(obj.w) : 0) + 'px';
+		area.style.maxHeight = (obj.h ? toInt(obj.h) : 0) + 'px';
+
+		area.onclick = function (e) {
+			e.stopPropagation();
+		};
+
+		area.onkeydown = function (e) {
+			e.stopPropagation();
+			if (e.keyCode == 27) {
+				var text = area.value.trim();
+				if (typeof func == 'function') {
+					func(text != '' ? text : false);
+				}
+				device.document.body.removeChild(area);
+				_PointJS.game.resume();
+			}
+		};
+
+		dom.attach(area);
+		area.focus();
+	};
+
+	this.dialogs.openLine = openLine;
+	this.dialogs.openArea = openArea;
+	this.dialogs.openTouchLine = openTouchLine;
+
+
+	// end dialogs //////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// resources ////////////////////////////////////////
+
+	var resources = {
+		count : 0,
+		loaded : 0,
+		errored : 0,
+
+		add : function () {
+			this.count += 1;
+		},
+
+		load : function () {
+			this.loaded += 1;
+		},
+
+		error : function () {
+			this.errored += 1;
+		}
+
+	};
+
+	var isLoaded = function () {
+		return resources.count == resources.loaded;
+	};
+
+	var getProgress = function () {
+		return Math.ceil(resources.loaded / resources.count * 100);
+	};
+
+	this.resources.isLoaded = isLoaded;
+	this.resources.getProgress = getProgress;
+
+	// end resources ////////////////////////////////////
+
+
+
+
+
+
+
+
+	// levels ///////////////////////////////////////////
+
+	var createObject = function (el) {
+		var f, tmp;
+
+		if (el.type == 'RectObject') f = _PointJS.game.newRectObject;
+		else if (el.type == 'CircleObject') f = _PointJS.game.newCircleObject;
+		else if (el.type == 'RoundRectObject') f = _PointJS.game.newRoundRectObject;
+		else if (el.type == 'TextObject') f = _PointJS.game.newTextObject;
+		else if (el.type == 'EllipsObject') f = _PointJS.game.newEllipsObject;
+		else if (el.type == 'ImageObject') f = _PointJS.game.newImageObject;
+
+		tmp = f({
+			fillColor : el.fillColor,
+			x : el.position[0],
+			y : el.position[1],
+			w : isDef(el.size) ? el.size[0] : 0,
+			h : isDef(el.size) ? el.size[1] : 0,
+			angle : el.angle,
+			radius : isDef(el.radius) ? el.radius : 0,
+			text : isDef(el.text) ? el.text : '',
+			size : el.type == 'TextObject' && el.sizeText ? el.sizeText : 0,
+			color : isDef(el.color) ? el.color : 0,
+			file : isDef(el.file) ? el.file : '',
+			scale : isDef(el.scale) ? el.scale : 1,
+			strokeColor : isDef(el.strokeColor) ? el.strokeColor : '',
+			strokeWidth : isDef(el.strokeWidth) ? el.strokeWidth : 0,
+			strokeColorText : isDef(el.strokeColorText) ? el.strokeColorText : '',
+			strokeWidthText : isDef(el.strokeWidthText) ? el.strokeWidthText : 0,
+			alpha : isDef(el.alpha) ? el.alpha : 1,
+			padding : isDef(el.padding) ? el.padding : 0,
+			visible : isDef(el.visible) ? el.visible : true,
+			center : isDef(el.center) ? el.center : false,
+			box : isDef(el.box) ? el.box : false,
+			pointColor : isDef(el.pointColor) ? el.pointColor : false
+		});
+
+		return tmp;
+
+	};
+
+	var loadLevelAsJSON = function (data) {
+		var lvl = [];
+		data = JSON.parse(data);
+		forArr(data, function (el) {
+			var tmp = createObject(el);
+			tmp.name = el.name;
+			lvl.push(tmp);
+		});
+
+		return lvl;
+	};
+
+	var Level = function (data, type) {
+		var lvl = [];
+		var origData;
+
+		if (data && type == 'json') {
+			lvl = loadLevelAsJSON(data);
+			origData = data;
+		}
+
+		this.reload = function () {
+			lvl = loadLevelAsJSON(origData);
+		};
+
+		this.clear = function () {
+			clearArr(lvl);
+		};
+
+		this.add = function (obj) {
+			lvl.push(obj);
+		};
+
+		this.del = function (obj) {
+			forArr(lvl, function (el, i) {
+				if (obj.id == el.id) {
+					lvl.splice(i, 1);
+					return 'break';
+				}
+			});
+		};
+
+		this.delById = function (id) {
+			lvl.splice(id, 1);
+		};
+
+		this.getObjects = function () {
+			return lvl;
+		};
+
+		this.getObjectByName = function (name) {
+			var i, len;
+			for (i = 0, len = lvl.length; i < len; i++) {
+				if (lvl[i].name == name) {
+					return lvl[i];
+				}
+			}
+
+			return false;
+		};
+
+		this.getObjectById = function (id) {
+			var i, len;
+			for (i = 0, len = lvl.length; i < len; i++) {
+				if (lvl[i].id == id) {
+					return lvl[i];
+				}
+			}
+
+			return false;
+		};
+
+		this.draw = function () {
+			forArr(lvl, function (el) {
+				el.draw();
+			});
+		};
+
+		this.getLevelAsJSON = function () {
+			if (!lvl.length) return '';
+
+			var json = '[';
+
+			forArr(lvl, function (el, i) {
+				json+= '{';
+
+				json+= '"type":"'+el.type+'",';
+				json+= '"name":"'+(el.name || '')+'",';
+				json+= '"position":['+el.x+','+el.y+'],';
+				json+= '"size":['+el.w+','+el.h+'],';
+				json+= '"angle":'+el.angle+',';
+				if (el.fillColor) json+= '"fillColor":"'+el.fillColor+'",';
+				if (el.strokeColor) json+= '"strokeColor":"'+el.strokeColor+'",';
+				if (el.strokeWidth) json+= '"strokeWidth":'+el.strokeWidth+',';
+				if (el.radius) json+= '"radius":'+el.radius+',';
+				if (el.size) json+= '"sizeText":'+el.size+',';
+				if (el.color) json+= '"color":"'+el.color+'",';
+				if (el.strokeWidthText) json+= '"strokeWidthText":'+el.strokeWidthText+',';
+				if (el.strokeColorText) json+= '"strokeColorText":"'+el.strokeColorText+'",';
+				json+= '"alpha":'+el.alpha+',';
+				json+= '"visible":'+el.visible+',';
+				if (el.text) json+= '"text":"'+el.text+'",';
+				if (el.padding) json+= '"padding":'+el.padding+',';
+				if (el.points) json+= '"points":'+JSON.stringify(el.points)+',';
+				json+= '"center":'+JSON.stringify(el.center)+',';
+				json+= '"box":'+JSON.stringify(el.box)+',';
+				if (el.pointColor) json+= '"pointColor":"'+el.pointColor+'",';
+				if (el.file) json+= '"file":"'+el.file+'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+				// json+= '"name":"'++'",';
+
+				json = json.substr(0, json.length - 1) + '},';
+			});
+
+			json = json.substr(0, json.length - 1);
+
+			return json + ']';
+
+		};
+
+	};
+
+	this.levels.newLevelFromJSON = function (json) {
+		var level = new Level(json, 'json');
+
+		return level;
+	};
+
+	this.levels.newEmptyLevel = function (json) {
+		var level = new Level(false);
+
+		return level;
+	};
+
+	// end levels ///////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// get FPS ////////////////////////////////////////////
+
+	var fpsChecker = {
+		fps : 0,
+		time : 0,
+		tmpFps : 0
+	};
+
+	var fpsUpdate = function () {
+		fpsChecker.tmpFps += 1;
+		if (time - fpsChecker.time >= 1000) {
+			fpsChecker.fps = fpsChecker.tmpFps;
+			fpsChecker.tmpFps = 0;
+			fpsChecker.time = time;
+		}
+	};
+
+	this.system.initFPSCheck = function () {
+		dom.addEvent('postLoop', 'fpsCheckUpdate', function () {
+			fpsUpdate();
+		});
+	};
+
+	this.system.getFPS = function () {
+		return fpsChecker.fps;
+	};
+
+	// end get FPS ////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+	// functions ////////////////////////////////////////////
+
+	this.OOP.newRever = function (min, max, step) {
+		var Rever = function (min, max, step) {
+			this.min = min;
+			this.max = max;
+			this.step = step;
+			this.value = min;
+			this.to = step;
+		};
+
+		Rever.prototype = {
+			update : function () {
+				var old = this.value;
+				if (this.value <= this.min)
+					this.to = this.step;
+				else if (this.value >= this.max)
+					this.to = -this.step;
+
+				this.value += this.to;
+				return old;
+			},
+
+			getValue : function () {
+				return this.value;
+			},
+
+			setValue : function (val) {
+				this.value = parseFloat(val);
+			},
+
+			setStep : function (val) {
+				this.step = val;
+			},
+
+			getStep : function () {
+				return this.step;
+			}
+
+		};
+		return new Rever(min, max, step);
+	};
+
+	var functionList = {};
+	this.OOP.once = function (key, func) { // key, function
+		if (functionList[key]) return;
+		functionList[key] = true;
+		func();
+	};
+
+	this.OOP.newTimer = function (t, f) { // time mls, function
+		if (t <= 0) return stop('error in system.newTimer : variable < 0, Timer is not created');
+
+		var tmp = {
+			time : t > 0 ? t : 1000,
+			func : f,
+			startTime : false,
+			ending : false,
+
+			start : function () {
+				if (this.ending) return;
+				if (!this.startTime)
+					this.startTime = time;
+			},
+
+			run : function () {
+				if (this.ending || !this.startTime) return;
+				if (time - this.startTime >= this.time) {
+					this.func();
+					this.ending = true;
+				}
+			},
+
+			end : function () {
+				if (this.ending) return;
+				this.ending = true;
+				this.func();
+			},
+
+			restart : function (newTime) {
+				if (!this.startTime) this.start();
+				if (!this.ending) return;
+
+				if (newTime && newTime <= 0)
+					return stop('error in Timer.restart : variable < 0');
+				else if (newTime)
+					this.time = newTime;
+
+				this.ending = false;
+				this.startTime = time;
+			},
+
+			stop : function () {
+				if (this.ending) return;
+				this.ending = true;
+			}
+
+		};
+
+		dom.addEvent('postLoop', 'timer' + (random(-100, 100) * random(-100, 100)) + time, function () {
+			tmp.run();
+		});
+
+		return tmp;
+	};
+
+
+	// end functions ////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+	// memory ///////////////////////////////////////////////
+
+	this.memory.local = {
+		storage : device.localStorage,
+
+		clear : function () {
+			this.storage.clear();
+		},
+
+		save : function (key, val) {
+			this.storage.setItem(key, val);
+		},
+
+		saveAsObject : function (key, obj) {
+			var tmp = JSON.stringify(obj);
+			this.storage.setItem(key, tmp);
+		},
+
+		loadAsObject : function (key) {
+			return JSON.parse(this.storage.getItem(key));
+		},
+
+		load : function (key) {
+			return this.storage.getItem(key);
+		},
+
+		loadAsNumber : function (key) {
+			return parseFloat(this.storage.getItem(key));
+		},
+	};
+
+	this.memory.temp = {
+		values : {},
+
+		save : function (key, val) {
+			this.values[key] = val;
+		},
+
+		load : function (key) {
+			return this.values[key];
+		},
+
+		loadAsNumber : function (key) {
+			return parseFloat(this.values[key]);
+		}
+
+	};
+
+
+
+	// end memory ///////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// system //////////////////////////////////////////////
+	device.onload = function () {
+		var i;
+		for (i in contextSettings) {
+			context[i] = contextSettings[i];
+		}
+
+		context.save();
+
+		dom.runEvent('onload');
+		dom.loaded = true;
+		return false;
+	};
+
+	device.onblur = function () {
+		if (!isRun) return;
+		dom.runEvent('gameBlur');
+		return false;
+	};
+
+	device.onfocus = function () {
+		if (isRun) return;
+		device.document.activeElement.blur();
+		device.focus();
+		dom.runEvent('gameFocus');
+		return false;
+	};
+
+	device.onresize = function () {
+		dom.runEvent('gameResize');
+		context.textBaseline = contextSettings.textBaseline;
+		return false;
+	};
+
+	device.onclick = function () {
+		device.document.activeElement.blur();
+		device.focus();
+	};
+
+
+	if (typeof POINTJS_LOADED_DOM_IGNORE !== 'undefined') {
+		device.onload();
+	}
+
+
+	// end system //////////////////////////////////////////
+
+
+};
