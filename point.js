@@ -2,7 +2,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	'use strict';
 
 	this._logo = 'data:image/png;base64,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';
-	var version_of_engine = '0.0.7.2';
+	var version_of_engine = '0.0.7.4';
 
 	var device = window;
 	var _PointJS = this;
@@ -11,6 +11,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		console.log('function is not supported in this object');
 	};
 
+
+	// Исправлена работа rotateForAngle
 
 
 
@@ -351,36 +353,36 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		aPosition = gl.getAttribLocation(shaderProgram, "aPosition");
 		uResolution = gl.getUniformLocation(shaderProgram, "uResolution");
-  aTextCoord = gl.getAttribLocation(shaderProgram, "aTextCoord");
-  uInversion = gl.getUniformLocation(shaderProgram, "uInversion");
-  uMirrorX = gl.getUniformLocation(shaderProgram, "uMirrorX");
+		aTextCoord = gl.getAttribLocation(shaderProgram, "aTextCoord");
+		uInversion = gl.getUniformLocation(shaderProgram, "uInversion");
+		uMirrorX = gl.getUniformLocation(shaderProgram, "uMirrorX");
 
 		gl.uniform2f(uResolution, width, height);
 
 		gl.enableVertexAttribArray(aPosition);
 		gl.vertexAttribPointer(aPosition, itemSize, gl.FLOAT, false, 0, 0);
 
-  var textureBuffer = gl.createBuffer();
-  gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
+		var textureBuffer = gl.createBuffer();
+		gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
 
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-      0.0,  0.0,
-      1.0,  0.0,
-      0.0,  1.0,
-      0.0,  1.0,
-      1.0,  0.0,
-      1.0,  1.0]), gl.STATIC_DRAW);
+		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+			0.0,  0.0,
+			1.0,  0.0,
+			0.0,  1.0,
+			0.0,  1.0,
+			1.0,  0.0,
+			1.0,  1.0]), gl.STATIC_DRAW);
 
-  gl.enableVertexAttribArray(aTextCoord);
-  gl.vertexAttribPointer(aTextCoord, 2, gl.FLOAT, false, 0, 0);
+		gl.enableVertexAttribArray(aTextCoord);
+		gl.vertexAttribPointer(aTextCoord, 2, gl.FLOAT, false, 0, 0);
 
-  texture = gl.createTexture();
-  gl.bindTexture(gl.TEXTURE_2D, texture);
+		texture = gl.createTexture();
+		gl.bindTexture(gl.TEXTURE_2D, texture);
 
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-  gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
+		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
 
 	};
 
@@ -435,11 +437,18 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 // vector ///////////////////////////////////////////
 
+	var Point = function (x, y) {
+		this.x = x || 0;
+		this.y = y || 0;
+	};
+
+	Point.prototype = {
+		abs : function () {return new Point(Math.abs(this.x), Math.abs(this.y));},
+
+	};
+
 	var point = function (x, y) {
-		return {
-			x : x,
-			y : y
-		};
+		return new Point(x, y);
 	};
 
 	var size = function (w, h) {
@@ -712,7 +721,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (dom.loaded) {
 				attach();
 			} else {
-				dom.addEvent('onload', 'attachElement_PointJS' + (eventCount++), attach);
+				dom.addEvent('onload', 'attachElement_PointJS' + (eventCount+= 1), attach);
 			}
 		},
 
@@ -1099,7 +1108,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.w = obj.w || 0;
 		this.h = obj.h || 0;
 		this.el = dEl;
-		this.id = guiCount++;
+		this.id = guiCount+= 1;
 		this.visible = true;
 
 		if (obj.events) {
@@ -1691,12 +1700,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.keyControl.exitKeyControl = function () {
-		device.onkeydown = function () {
-		}
-		device.onkeypress = function () {
-		};
-		device.onkeyup = function () {
-		};
+		device.onkeydown = function () {}
+		device.onkeypress = function () {};
+		device.onkeyup = function () {};
 
 		dom.delEvent('postLoop', 'PointJS_clearAllKeyUp');
 		arrKeyDown = {};
@@ -2374,7 +2380,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				val = parseInt(val);
 			}
 			str += (j > 0 ? ', ' : '') + i + ' : ' + val;
-			j++;
+			j+= 1;
 		}
 		return str + ']';
 	};
@@ -2382,7 +2388,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var forEach = function (arr, func) {
 		var i, res;
 		for (i in arr) {
-			if (!arr[i]) continue;
+			if (typeof arr[i] === 'undefined') continue;
 			res = func(arr[i], i, arr);
 			if (res) {
 				if (res == 'break') break;
@@ -2393,9 +2399,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var forArr = function (arr, func) { // only Array!
 		if (arr.length == 0) return;
 		var i, len, res;
-		for (i = 0, len = arr.length; i < len; i++) {
-			if (!arr[i]) continue;
-			res = func(arr[i], i, arr) || false;
+		for (i = 0, len = arr.length; i < len; i+= 1) {
+			if (typeof arr[i] === 'undefined') continue;
+			res = func(arr[i], i, arr, i > 0 ? arr[i-1] : false) || false;
 			if (res) {
 				if (res == 'break') break;
 			}
@@ -2404,7 +2410,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var forInt = function (i, func) {
 		var _i, res;
-		for (_i = 0; _i < i; _i++) {
+		for (_i = 0; _i < i; _i+= 1) {
 			res = func(_i);
 			if (res) {
 				if (res == 'break') break;
@@ -2414,8 +2420,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var forXY = function (i, j, func) {
 		var _i, _j, res;
-		for (_j = 0; _j < j; _j++)
-			for (_i = 0; _i < i; _i++) {
+		for (_j = 0; _j < j; _j+= 1)
+			for (_i = 0; _i < i; _i+= 1) {
 				res = func(_i, _j);
 				if (res) {
 					if (res == 'break') break;
@@ -2471,12 +2477,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return el;
 	};
 
-	this.OOP.drawArr = function (arr) {
+	this.OOP.drawArr = function (arr, func) {
 		var i, len;
-		for (i = 0, len = arr.length; i < len; i++) {
+		for (i = 0, len = arr.length; i < len; i+= 1) {
 			if (!arr[i].isInCamera || !arr[i].draw) continue;
-			if (arr[i].isInCamera())
+			if (arr[i].isInCamera()) {
 				arr[i].draw();
+				if (func) func(arr[i], i);
+			}
 		}
 	};
 
@@ -2582,11 +2590,20 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var fillArr = function (arr, i, func) {
 		arr.length = 0;
 		var _i;
-		for (_i = 0; _i < i; _i++) {
+		for (_i = 0; _i < i; _i+= 1) {
 			arr.push(func(_i, _i > 0 ? arr[_i-1] : false));
 		}
 
 		return arr;
+	};
+
+	var delObject = function (arr, obj) {
+		var i, len;
+		for (i = 0, len = arr.length; i < len; i+= 1) {
+			if (arr[i].id == obj.id) {
+				return;
+			}
+		}
 	};
 
 	this.OOP.readJSON = readJSON;
@@ -2602,6 +2619,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.OOP.forArr = forArr;
 	this.OOP.clearArr = clearArr;
 	this.OOP.fillArr = fillArr;
+	this.OOP.delObject = delObject;
 
 	this.OOP.randArrElement = randArrElement;
 	this.OOP.readJSONSync = readJSONSync;
@@ -2755,7 +2773,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		start : false,
 		end : false,
 		audio : false,
-		fps : false
+		fps : false,
+		name : 'NotLoop'
 	};
 
 	var stopLoopAudio = function () {
@@ -2778,7 +2797,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				start : start || false,
 				end : end || false,
 				audio : false,
-				fps : false
+				fps : false,
+				name : key
 			};
 		} else {
 			stop('error in newLoop : ' + func + ' is not a function');
@@ -2792,7 +2812,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				start : obj.entry || false,
 				end : obj.exit || false,
 				audio : false,
-				fps : false
+				fps : false,
+				name : key
 			};
 	};
 
@@ -2804,7 +2825,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				start : obj.entry || false,
 				end : obj.exit || false,
 				audio : false,
-				fps : false
+				fps : false,
+				name : key
 			};
 	};
 
@@ -2813,7 +2835,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		if (!loops[key].audio) {
 			loops[key].audio = [];
 		}
-		for (i = 0; i < arrAudio.length; i++) {
+		for (i = 0; i < arrAudio.length; i+= 1) {
 			arrAudio[i].setNextPlay(arrAudio[i + 1 == arrAudio.length ? 0 : i + 1]);
 			loops[key].audio.push(arrAudio[i]);
 		}
@@ -2853,20 +2875,20 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			}
 			next(loop);
 			return;
-		}
-
-		try {
-			preEngine();
-			engine.func(dt);
-			postEngine();
-		} catch (e) {
-			if (isShowError) errorLog(e);
-			if (isStopForError) {
-				if (!isShowError) errorLog(e);
-				stop();
+		} else {
+			try {
+				preEngine();
+				engine.func(dt);
+				postEngine();
+			} catch (e) {
+				if (isShowError) errorLog(e);
+				if (isStopForError) {
+					if (!isShowError) errorLog(e);
+					stop();
+				}
 			}
+			next(loop);
 		}
-		next(loop);
 	};
 
 	var start = function (fps) {
@@ -2891,7 +2913,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		log(msg || 'game is run');
 		next = getRequestAnimationFrame();
 		startTime = -1;
-		start(fps);
+		start();
 		return;
 	};
 
@@ -2943,6 +2965,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var objectList = [];
 	var objectCount = 0;
+	var drawLoops = false;
 
 	var drawAllObjects = function () {
 		forArr(objectList, function (el) {
@@ -2960,7 +2983,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// BaseObject
 	var BaseObject = function (obj) {
 		this.type = 'BaseObject';
-		this.id = objectCount++;
+		this.id = objectCount+= 1;
 		this.x = obj.x || 0;
 		this.y = obj.y || 0;
 		this.w = obj.w || 1;
@@ -3009,6 +3032,25 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		if (obj.positionC) {
 			this.setPositionC(obj.positionC);
+		}
+
+		if (obj.drawLoop) {
+			if (!drawLoops) {
+				drawLoops = {};
+				dom.addEvent('postLoop', 'drawFrames', function () {
+					if (drawLoops[engine.name]) {
+						forArr(drawLoops[engine.name], function (el) {
+							el.draw();
+						});
+					}
+				});
+			}
+
+			if (!drawLoops[obj.drawLoop]) {
+				drawLoops[obj.drawLoop] = [];
+			}
+
+			drawLoops[obj.drawLoop].push(this);
 		}
 
 		objectList.push(this);
@@ -3065,7 +3107,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		isArrIntersect : function (arr) { // array of Objects
 			var i, len;
-			for (i = 0, len = arr.length; i < len; i++) {
+			for (i = 0, len = arr.length; i < len; i+= 1) {
 				if (arr[i].id != this.id)
 					if (this.isIntersect(arr[i])) {
 						return arr[i];
@@ -3076,7 +3118,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		isArrInside : function (arr) { // array of Objects
 			var i, len;
-			for (i = 0, len = arr.length; i < len; i++) {
+			for (i = 0, len = arr.length; i < len; i+= 1) {
 				if (this.isDynamicInside(arr[i].getDynamicBox())) {
 					return arr[i];
 				}
@@ -3089,7 +3131,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				id = 0,
 				min = false,
 				len = 0;
-			for (i = 0, len = arr.length; i < len; i++) {
+			for (i = 0, len = arr.length; i < len; i+= 1) {
 				if (this.id != arr[i].id) {
 					if (min === false) {
 						min = this.getDistanceC(arr[i].getPositionC());
@@ -3152,12 +3194,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (box2.length < 3) return false;
 			var box1 = this.getDynamicBox();
 			var i, len;
-			for (i = 0, len = box1.length; i < len; i++) {
+			for (i = 0, len = box1.length; i < len; i+= 1) {
 				if (isPointIn(box1[i], box2)) {
 					return true;
 				}
 			}
-			for (i = 0, len = box2.length; i < len; i++) {
+			for (i = 0, len = box2.length; i < len; i+= 1) {
 				if (isPointIn(box2[i], box1)) {
 					return true;
 				}
@@ -3174,9 +3216,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (box2.length < 3) return false;
 			var box1 = this.getDynamicBox();
 			var i, len, count = 0;
-			for (i = 0, len = box1.length; i < len; i++) {
+			for (i = 0, len = box1.length; i < len; i+= 1) {
 				if (isPointIn(box1[i], box2)) {
-					count++;
+					count+= 1;
 				}
 			}
 			if (count == box1.length) {
@@ -3248,14 +3290,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		move : function (p) {
 			this.prevPosition = this.getPosition();
-			if (p.x != 'none') this.x += p.x;
-			if (p.y != 'none') this.y += p.y;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].move(p);
-				}
-			}
+			this.x += p.x;
+			this.y += p.y;
 		},
 
 		circling : function (p, r, s) { // point, radius, speed
@@ -3331,50 +3367,26 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		setPosition : function (p) {
 			var pPos = this.getPosition();
-			if (p.x != 'none') this.x = p.x;
-			if (p.y != 'none') this.y = p.y;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
-				}
-			}
+			if (p.x !== false) this.x = p.x;
+			if (p.y !== false) this.y = p.y;
 		},
 
 		setPositionS : function (p) {
 			var pPos = this.getPosition();
-			if (p.x != 'none') this.x = p.x + offset.x;
-			if (p.y != 'none') this.y = p.y + offset.y;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
-				}
-			}
+			if (p.x !== false) this.x = p.x + offset.x;
+			if (p.y !== false) this.y = p.y + offset.y;
 		},
 
 		setPositionC : function (p) {
 			var pPos = this.getPosition();
-			if (p.x != 'none') this.x = (-(this.w / 2 + this.center.x) + p.x);
-			if (p.y != 'none') this.y = (-(this.h / 2 + this.center.y) + p.y);
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
-				}
-			}
+			if (p.x !== false) this.x = (-(this.w / 2 + this.center.x) + p.x);
+			if (p.y !== false) this.y = (-(this.h / 2 + this.center.y) + p.y);
 		},
 
 		setPositionCS : function (p) {
 			var pPos = this.getPosition();
-			if (p.x != 'none') this.x = (-(this.w / 2 + this.center.x) + p.x) + offset.x;
-			if (p.y != 'none') this.y = (-(this.h / 2 + this.center.y) + p.y) + offset.y;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].move(point(-pPos.x + this.x, -pPos.y + this.y));
-				}
-			}
+			if (p.x !== false) this.x = (-(this.w / 2 + this.center.x) + p.x) + offset.x;
+			if (p.y !== false) this.y = (-(this.h / 2 + this.center.y) + p.y) + offset.y;
 		},
 
 		getSize : function () {
@@ -3382,44 +3394,54 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		},
 
 		setSize : function (s) {
-			if (s.w != 'none') this.w = s.w;
-			if (s.h != 'none') this.h = s.h;
+			this.w = s.w;
+			this.h = s.h;
 		},
 
 		setSizeC : function (s) {
-			if (s.w != 'none') {
-				this.w = s.w;
-				this.move(point(-(s.w / 2), 'none'));
-			}
-			if (s.h != 'none') {
-				this.h = s.h;
-				this.move(point('none', -(s.h / 2)));
-			}
+			this.w = s.w;
+			this.h = s.h;
+			this.move(point(-(s.w / 2), -(s.h / 2)));
 		},
 
 		turn : function (a) {
 			this.angle += a;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].turn(a);
-				}
-			}
 		},
 
 		rotateForAngle : function (a, s) { // angle, speed
-			var aa = Math.abs(this.angle);
-			var aa2 = Math.abs(a);
-			if (aa < 90) {
-				if (this.angle < a) this.turn(s);
-				else this.turn(-s);
-			} else {
-				if (180 - aa2 <= s * 2) this.setAngle(a);
-				if (this.angle < a) this.turn(s);
-				else this.turn(-s);
+			if (this.angle < 0) {
+				this.angle = this.angle + 360;
 			}
 
-			//if (Math.abs(this.angle - a) < s*2) this.setAngle(a);
+			if (a < 0) {
+				a += 360;
+			}
+
+			var aa = this.angle - a;
+
+			if (aa > 180) {
+				aa = aa - 360;
+			} else if (aa < -180) {
+				aa = aa + 360;
+			}
+
+			if (aa >= -s - 0.5 && aa <= s + 0.5) {
+				this.angle = a;
+			} else if (aa > s + 0.5) {
+				this.angle = this.angle - s
+			} else if (aa < -s - 0.5) {
+				this.angle = this.angle + s;
+			}
+		},
+
+		rotateForPoint : function (p, speed) {
+			var angle = getAngle2Points(this.getPositionC(), p);
+			this.rotateForAngle(angle, speed);
+		},
+
+		rotateForObject : function (obj, speed) {
+			var angle = getAngle2Points(this.getPositionC(), obj.getPositionC());
+			this.rotateForAngle(angle, speed);
 		},
 
 		moveTo : function (p, s) {
@@ -3462,12 +3484,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		setAngle : function (a) {
 			if (this.angle != a)
 				this.angle = a % 360;
-			if (this.children.length) {
-				var i, len;
-				for (i = 0, len = this.children.length; i < len; i += 1) {
-					this.children[i].turn(a);
-				}
-			}
 		},
 
 		getDistance : function (p) {
@@ -3502,9 +3518,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				point(offset.x + width, offset.y + height), point(offset.x, offset.y + height)
 			];
 			var i, len, count = 0;
-			for (i = 0, len = box.length; i < len; i++) {
+			for (i = 0, len = box.length; i < len; i+= 1) {
 				if (isPointIn(box[i], camera)) {
-					count++;
+					count+= 1;
 				}
 			}
 			return count > 0;
@@ -3516,7 +3532,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		onArrCollision : function (arr) {
 			var i, len;
-			for (i = 0, len = arr.length; i < len; i++) {
+			for (i = 0, len = arr.length; i < len; i+= 1) {
 				if (this.id == arr[i].id) continue;
 				this.onCollision(arr[i]);
 			}
@@ -3706,9 +3722,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var dx = -offset.x + this.x;
 		var dy = -offset.y + this.y;
 		var x, y;
-		for (y = 0; y < this.countY; y++) {
+		for (y = 0; y < this.countY; y+= 1) {
 			if (this.y + y * this.h + this.h < offset.y || this.y + y * this.h > offset.y + height) continue;
-			for (x = 0; x < this.countX; x++) {
+			for (x = 0; x < this.countX; x+= 1) {
 				if (this.x + x * this.w + this.w < offset.x || this.x + x * this.w > offset.x + width) continue;
 				context.drawImage(this.cnv, dx + x * this.w, dy + y * this.h, this.w, this.h);
 			}
@@ -3936,7 +3952,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	PolygonObject.prototype.delPoint = function (N) {
 		var i, len, p = this.getPoints();
 		this.clearPoints();
-		for (i = 0, len = p.length; i < len; i++) {
+		for (i = 0, len = p.length; i < len; i+= 1) {
 			if (i != N) {
 				this.addPoint(p[i]);
 			}
@@ -4062,7 +4078,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}
 	};
 
-	ImageObject.prototype.setImage = function (f, func) { // file, size
+	ImageObject.prototype.setImage = function (f, func) { // file, onload function
 		if (this.file == f) return;
 		if (!isDef(imageList[f])) {
 			this.loaded = false;
@@ -4072,12 +4088,30 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			addImage(f, this);
 		} else {
 			this.file = f;
-			func();
+			if (func) func();
 		}
 	};
 
 	ImageObject.prototype.getImage = function () {
 		return this.file;
+	};
+
+	ImageObject.prototype.resize = function (s) {
+
+		if (s.w !== false && s.h === false) {
+			var dh = s.w / this.w;
+			this.w = s.w;
+			this.h = this.h * dh;
+		} else if (s.h !== false && s.w === false) {
+			var dw = s.h / this.h;
+			this.h = s.h;
+			this.w = this.w * dw;
+		} else if (s.w !== false && s.h !== false) {
+			this.w = s.w;
+			this.h = s.h;
+		}
+
+
 	};
 
 	this.game.newImageObject = function (obj) {
@@ -4120,7 +4154,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			this.difStep = 0;
 		}
 		else {
-			this.difStep++;
+			this.difStep+= 1;
 		}
 		if (ctx) {
 			restoreContext();
@@ -4146,7 +4180,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			this.difStep = 0;
 		}
 		else {
-			this.difStep++;
+			this.difStep+= 1;
 		}
 		if (ctx) {
 			restoreContext();
@@ -4191,7 +4225,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			this.difStep = 0;
 		}
 		else {
-			this.difStep++;
+			this.difStep+= 1;
 		}
 	};
 
@@ -4213,7 +4247,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			this.difStep = 0;
 		}
 		else {
-			this.difStep++;
+			this.difStep+= 1;
 		}
 
 
@@ -4432,6 +4466,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var img = device.document.createElement('img');
 		img.onload = function () {
 			imageList[file] = {};
+			imageList[file].loaded = true;
 			imageList[file].img = this;
 			imageList[file].w = this.width;
 			imageList[file].h = this.height;
@@ -4454,6 +4489,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 					w = imageList[file].w;
 					h = imageList[file].h;
 				}
+
 				if (scale) {
 					w *= scale;
 					h *= scale;
@@ -4544,7 +4580,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		},
 
 		add : function (obj) {
-			this.count++;
+			this.count+= 1;
 			this.objs.push(obj);
 			obj.offsetMesh = obj.getPosition(1);
 			obj.turn(this.angle);
@@ -4716,6 +4752,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.motionPercentPointJS = this.motionPercentPointJS >= 360 ? s : this.motionPercentPointJS + sp;
 	};
 
+	this.camera.follow = function (obj) {
+		this.moveTimeC(obj.getPositionC(), 10);
+	};
+
 	this.camera.move = function (p) {
 		offset.x += p.x || 0;
 		offset.y += p.y || 0;
@@ -4734,14 +4774,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.camera.setPosition = function (p) {
-		var dx = p.x != 'none' ? p.x : offset.x;
-		var dy = p.y != 'none' ? p.y : offset.y;
+		var dx = p.x !== false ? p.x : offset.x;
+		var dy = p.y !== false ? p.y : offset.y;
 		setOffset(point(dx, dy));
 	};
 
 	this.camera.setPositionC = function (p) {
-		var dx = p.x != 'none' ? p.x - width2 : offset.x;
-		var dy = p.y != 'none' ? p.y - height2 : offset.y;
+		var dx = p.x !== false ? p.x - width2 : offset.x;
+		var dy = p.y !== false ? p.y - height2 : offset.y;
 		setOffset(point(dx, dy));
 	};
 
@@ -4899,7 +4939,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var i;
 		context.beginPath();
 		context.moveTo(dx + points[0].x, dy + points[0].y);
-		for (i = 1; i < points.length; i++) {
+		for (i = 1; i < points.length; i+= 1) {
 			context.lineTo(dx + points[i].x, dy + points[i].y);
 		}
 		context.closePath();
@@ -4914,7 +4954,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var i;
 		context.beginPath();
 		context.moveTo(dx + points[0].x, dy + points[0].y);
-		for (i = 1; i < points.length; i++) {
+		for (i = 1; i < points.length; i+= 1) {
 			context.lineTo(dx + points[i].x, dy + points[i].y);
 		}
 		context.closePath();
@@ -4927,7 +4967,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		if (fillColor) {
 			drawPolyXY(x, y, points, fillColor);
 		}
-		for (i = 0; i < points.length; i++) {
+		for (i = 0; i < points.length; i+= 1) {
 			j = (i + 1) < points.length ? (i + 1) : 0;
 			if (strokeColor) {
 				drawLine(pointPlus(points[i], point(x, y)), pointPlus(points[j], point(x, y)), strokeColor, strokeWidth);
@@ -4944,7 +4984,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		if (fillColor) {
 			drawPoly(points, fillColor);
 		}
-		for (i = 0; i < points.length; i++) {
+		for (i = 0; i < points.length; i+= 1) {
 			j = (i + 1) < points.length ? (i + 1) : 0;
 			if (strokeColor) {
 				drawLine(points[i], points[j], strokeColor, strokeWidth);
@@ -4982,7 +5022,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	this.brush.drawMultiText = function (obj) {
 		var i, lines = obj.text.split('\n');
-		for (i = 0; i < lines.length; i++) {
+		for (i = 0; i < lines.length; i+= 1) {
 			drawText(point(obj.x, obj.y + (obj.size * i)),
 				lines[i],
 				obj.color || contextSettings.fillStyle,
@@ -4998,7 +5038,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.brush.drawMultiTextS = function (obj) {
 		var i, lines = obj.text.split('\n');
 		var size = obj.size || 10;
-		for (i = 0; i < lines.length; i++) {
+		for (i = 0; i < lines.length; i+= 1) {
 			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
 				lines[i],
 				obj.color || contextSettings.fillStyle,
@@ -5038,7 +5078,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.brush.drawTextLines = function (obj) {
 		if (!obj.lines) return;
 		var i, size = obj.size || 10;
-		for (i = 0; i < obj.lines.length; i++) {
+		for (i = 0; i < obj.lines.length; i+= 1) {
 			drawText(point(obj.x, obj.y + (size * i)),
 				obj.lines[i],
 				obj.color || contextSettings.fillStyle,
@@ -5054,7 +5094,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.brush.drawTextLinesS = function (obj) {
 		if (!obj.lines) return;
 		var i, size = obj.size || 10;
-		for (i = 0; i < obj.lines.length; i++) {
+		for (i = 0; i < obj.lines.length; i+= 1) {
 			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
 				obj.lines[i],
 				obj.color || contextSettings.fillStyle,
@@ -5281,7 +5321,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	this.brush.drawImageS = function (obj) {
 		if (!obj.file) return;
-
 		if (isDef(imageList[obj.file])) {
 			if (!imageList[obj.file].loaded) return;
 			var x = obj.x || 0;
@@ -5310,8 +5349,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			return;
 		}
 
-		imageList[obj.file] = {};
-		imageList[obj.file].loaded = false;
+		imageList[obj.file] = {
+			loaded : false
+		};
 		var img = device.document.createElement('img');
 		img.onload = function () {
 			imageList[obj.file].loaded = true;
@@ -5632,7 +5672,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			source.src = f;
 			audio.appendChild(source);
 		} else {
-			for (i = 0, len = f.length; i < len; i++) {
+			for (i = 0, len = f.length; i < len; i+= 1) {
 				var source = device.document.createElement('source');
 				source.src = f[i];
 				audio.appendChild(source);
@@ -5934,6 +5974,21 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// levels ///////////////////////////////////////////
 
+	this.levels.newArrayFromString = function (obj) {
+		var offset = obj.offset || point(0, 0);
+		forArr(obj.source, function (string, Y) {
+			forArr(string, function (symbol, X) {
+				if (symbol == ' ') return;
+				var tmp = obj.onsymbol(symbol) || false;
+				if (tmp) {
+					tmp.setSize(obj.size);
+					tmp.setPosition(point(offset.x+X*tmp.w, offset.y+Y*tmp.h));
+					obj.oncreate(tmp, symbol);
+				}
+			});
+		});
+	};
+
 	var createObject = function (el) {
 		var f, tmp;
 
@@ -6025,7 +6080,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		this.getObjectByName = function (name) {
 			var i, len;
-			for (i = 0, len = lvl.length; i < len; i++) {
+			for (i = 0, len = lvl.length; i < len; i+= 1) {
 				if (lvl[i].name == name) {
 					return lvl[i];
 				}
@@ -6036,7 +6091,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		this.getObjectById = function (id) {
 			var i, len;
-			for (i = 0, len = lvl.length; i < len; i++) {
+			for (i = 0, len = lvl.length; i < len; i+= 1) {
 				if (lvl[i].id == id) {
 					return lvl[i];
 				}
@@ -6081,13 +6136,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				json+= '"box":'+JSON.stringify(el.box)+',';
 				if (el.pointColor) json+= '"pointColor":"'+el.pointColor+'",';
 				if (el.file) json+= '"file":"'+el.file+'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
-				// json+= '"name":"'++'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
+				// json+= '"name":"'+= 1'",';
 
 				json = json.substr(0, json.length - 1) + '},';
 			});
