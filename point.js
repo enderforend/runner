@@ -2,7 +2,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	'use strict';
 
 	this._logo = 'data:image/png;base64,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';
-	var version_of_engine = '0.0.7.4';
+	var version_of_engine = '0.0.7.5';
 
 	var device = window;
 	var _PointJS = this;
@@ -10,9 +10,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var noFunction = function () {
 		console.log('function is not supported in this object');
 	};
-
-
-	// Исправлена работа rotateForAngle
 
 
 
@@ -2385,10 +2382,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return str + ']';
 	};
 
+	var toJSON = function (obj, flag) {
+		return JSON.stringify(obj);
+	};
+
 	var forEach = function (arr, func) {
 		var i, res;
 		for (i in arr) {
-			if (typeof arr[i] === 'undefined') continue;
+			if (typeof arr[i] == 'undefined') continue;
 			res = func(arr[i], i, arr);
 			if (res) {
 				if (res == 'break') break;
@@ -2397,11 +2398,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var forArr = function (arr, func) { // only Array!
-		if (arr.length == 0) return;
+		if (!arr.length) return;
 		var i, len, res;
 		for (i = 0, len = arr.length; i < len; i+= 1) {
-			if (typeof arr[i] === 'undefined') continue;
-			res = func(arr[i], i, arr, i > 0 ? arr[i-1] : false) || false;
+			if (typeof arr[i] == 'undefined') continue;
+			res = func(arr[i], i, arr, i > 0 ? arr[i-1] : arr[arr.length-1]) || false;
 			if (res) {
 				if (res == 'break') break;
 			}
@@ -2480,7 +2481,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.OOP.drawArr = function (arr, func) {
 		var i, len;
 		for (i = 0, len = arr.length; i < len; i+= 1) {
-			if (!arr[i].isInCamera || !arr[i].draw) continue;
+			if (!arr[i] || !arr[i].draw) continue;
 			if (arr[i].isInCamera()) {
 				arr[i].draw();
 				if (func) func(arr[i], i);
@@ -2601,7 +2602,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var i, len;
 		for (i = 0, len = arr.length; i < len; i+= 1) {
 			if (arr[i].id == obj.id) {
-				return;
+				arr.splice(i, 1);
+				return true;
 			}
 		}
 	};
@@ -5042,7 +5044,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
 				lines[i],
 				obj.color || contextSettings.fillStyle,
-				size,
+				size      || 10,
 				obj.font  || contextSettings.font,
 				obj.style || false,
 				obj.align || 'left',
@@ -5974,15 +5976,19 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// levels ///////////////////////////////////////////
 
-	this.levels.newArrayFromString = function (obj) {
+	this.levels.forStringArray = function (obj) {
 		var offset = obj.offset || point(0, 0);
 		forArr(obj.source, function (string, Y) {
 			forArr(string, function (symbol, X) {
 				if (symbol == ' ') return;
-				var tmp = obj.onsymbol(symbol) || false;
+				var tmp = obj.onsymbol(symbol, point(obj.size.w*X, obj.size.h*Y)) || false;
 				if (tmp) {
 					tmp.setSize(obj.size);
-					tmp.setPosition(point(offset.x+X*tmp.w, offset.y+Y*tmp.h));
+					if (!obj.grid)
+						tmp.setPosition(point(offset.x+X*tmp.w, offset.y+Y*tmp.h));
+					else
+						tmp.setPosition(point(offset.x+X*obj.grid.w, offset.y+Y*obj.grid.h));
+
 					obj.oncreate(tmp, symbol);
 				}
 			});
