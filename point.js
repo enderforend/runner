@@ -2,7 +2,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	'use strict';
 
 	this._logo = 'data:image/png;base64,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';
-	var version_of_engine = '0.0.7.5';
+	var version_of_engine = '0.1.0';
 
 	var device = window;
 	var _PointJS = this;
@@ -38,6 +38,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			width2 = width / 2,
 			height2 = height / 2,
 
+			scale = 1,
 			offset = {x : 0, y : 0},
 			angle = 0,
 			centerCamera = {x : 0, y : 0},
@@ -63,7 +64,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		stack = stack.split(/\n/);
 		stack = (stack[2] == '' ? stack[0] : stack[1]).split('/');
 		stack = stack[stack.length - 1].split(':');
-		console.log('ERROR "' + e.toString() + '" \n in      ' + stack[0] + ' \n line :   ' + stack[1] + ' \n symbol : ' + stack[2]);
+		log('ERROR "' + e.toString() + '" \n in      ' + stack[0] + ' \n line :   ' + stack[1] + ' \n symbol : ' + stack[2]);
 	};
 
 	var DEPRECATED = function (f1, f2) {
@@ -440,8 +441,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	Point.prototype = {
-		abs : function () {return new Point(Math.abs(this.x), Math.abs(this.y));},
-
+		abs :    function () {return new Point(Math.abs(this.x), Math.abs(this.y));},
+		invert : function () {return new Point(-this.x, -this.y);},
+		plus :   function (p) {return new Point(this.x+p.x, this.y+p,y);},
+		minus :  function (p) {return new Point(this.x-p.x, this.y-p,y);},
+		inc :    function (p) {return new Point(this.x*p.x, this.y*p,y);},
+		div :    function (p) {return new Point(this.x/p.x, this.y/p,y);}
 	};
 
 	var point = function (x, y) {
@@ -616,6 +621,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// math /////////////////////////////////////////////
 
+	var uids = {};
+	var uid = function () {
+		var id = new Date().getTime();
+		if (uids[id]) {
+			id = uid();
+		}
+		uids[id] = true;
+		return id;
+	};
+
 	var toInt = function (n) { // number
 		return n >> 0;
 	};
@@ -644,6 +659,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.math.a2r = a2r;
 	this.math.random = random;
 	this.math.toInt = toInt;
+	this.math.uid = uid;
 
 	// end math /////////////////////////////////////////
 
@@ -830,6 +846,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				canvas.style[i] = s[i];
 			}
 		}
+	};
+
+	this.system.getCanvas = function () {
+		return canvas;
 	};
 
 	this.system.getContext = function () {
@@ -2372,6 +2392,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var toString = function (obj, flag) {
 		var i, j = 0, val, str = '[';
 		for (i in obj) {
+			if (!obj.hasOwnProperty(i)) continue;
 			val = obj[i];
 			if (typeof val == 'number' && flag) {
 				val = parseInt(val);
@@ -2478,8 +2499,20 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return el;
 	};
 
+	this.OOP.drawEach = function (arr, func) {
+		forEach(arr, function (el) {
+			if (!el || !el.draw) return;
+
+			if (el.isInCamera()) {
+				el.draw();
+				if (func) func(el);
+			}
+
+		});
+	};
+
 	this.OOP.drawArr = function (arr, func) {
-		var i, len;
+		var i, len, res;
 		for (i = 0, len = arr.length; i < len; i+= 1) {
 			if (!arr[i] || !arr[i].draw) continue;
 			if (arr[i].isInCamera()) {
@@ -2608,6 +2641,61 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}
 	};
 
+	var Listener = function (link, func) {
+		var link = link;
+		var func = func;
+		var active = false;
+		var session_id = uid();
+		var interval = false;
+
+		var getter = new XMLHttpRequest();
+
+		var update = function () {
+			getter.open('GET', link, true);
+			getter.send();
+		};
+
+		getter.onreadystatechange = function () {
+			if (getter.readyState == 4) {
+				func(getter.responseText);
+				if (active) {
+					if (!interval) {
+						update();
+					} else {
+						setTimeout(update, interval);
+					}
+				}
+			}
+		};
+
+		this.start = function () {
+			if (link.match(/\?/)) {
+				link += '&session_id='+session_id;
+			} else {
+				link += '?session_id='+session_id;
+			}
+
+			update();
+			active = true;
+		};
+
+		this.setSID = function (sid) {
+			session_id = sid;
+		};
+
+		this.setTime = function (i) {
+			interval = i;
+		};
+
+		this.stop = function () {
+			active = false;
+		};
+
+		this.isActive = function () {
+			return active;
+		};
+	};
+
 	this.OOP.readJSON = readJSON;
 	this.OOP.toString = toString;
 	this.OOP.sendGET = sendGET;
@@ -2627,6 +2715,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.OOP.readJSONSync = readJSONSync;
 	this.OOP.sendGETSync = sendGETSync;
 	this.OOP.sendPOSTSync = sendPOSTSync;
+
+	this.OOP.newAJAXListener = function (link, func) {
+		return new Listener(link, func);
+	};
 
 	this.OOP.runCode = function (code) {
 		var func = new Function('', code);
@@ -2690,6 +2782,26 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (func) func();
 		}
 	};
+
+
+	this.OOP.clone = function (orig, func) {
+		var cl = new BaseObject({});
+
+		forEach(orig, function (val, key) {
+			if (key == 'id') return;
+			cl[key] = val;
+		});
+
+		if (func) {
+			cl.onClone = func;
+			cl.onClone(cl);
+			delete cl.onClone;
+		}
+
+		return cl;
+	};
+
+
 
 
 
@@ -3552,6 +3664,46 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 
+
+	// TriangleObject
+	var TriangleObject = function (obj) {
+		BaseObject.call(this, obj);
+		this.type = 'TriangleObject';
+	};
+	inherit(BaseObject, TriangleObject);
+
+	TriangleObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
+		var ctx = false;
+		if (this.angle || this.alpha != 1 || this.shadowColor) {
+			editContext(this);
+			ctx = true;
+		}
+
+		drawPolygonXY(
+			this.x,
+			this.y,
+			[point(this.w/2, 0), point(this.w, this.h), point(0, this.h)],
+			this.fillColor,
+			this.strokeWidth ? this.strokeColor : false,
+			this.strokeWidth
+		);
+
+		if (this.ondraw) this.ondraw();
+
+		if (ctx) {
+			restoreContext();
+		}
+	};
+
+	this.game.newTriangleObject = function (obj) {
+		return new TriangleObject(obj);
+	};
+
+
+
+
 	// RectObject
 	var RectObject = function (obj) {
 		BaseObject.call(this, obj);
@@ -4276,6 +4428,20 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 
+	var newObjectFromType = function (obj) {
+		var cl = false;
+		if (obj.type == 'RectObject') cl = _PointJS.game.newRectObject({});
+		else if (obj.type == 'CircleObject') cl = _PointJS.game.newCircleObject({});
+		else if (obj.type == 'RoundRectObject') cl = _PointJS.game.newRoundRectObject({});
+		else if (obj.type == 'TextObject') cl = _PointJS.game.newTextObject({});
+		else if (obj.type == 'EllipsObject') cl = _PointJS.game.newEllipsObject({});
+		else if (obj.type == 'ImageObject') cl = _PointJS.game.newImageObject({file:obj.file});
+		else if (obj.type == 'TriangleObject') cl = _PointJS.game.newTriangleObject({});
+		else if (obj.type == 'AnimationObject') cl = _PointJS.game.newAnimationObject({});
+
+		return cl;
+	};
+
 	// end object manager ////////////////////////////////
 
 
@@ -4526,7 +4692,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		if (!img) return;
 		var dx = -offset.x;
 		var dy = -offset.y;
-		context.drawImage(imageList[img].img, 0, 0, imageList[img].w, imageList[img].h, p.x + dx, p.y + dy, s.w, s.h);
+		if (imageList[img]) context.drawImage(imageList[img].img, 0, 0, imageList[img].w, imageList[img].h, p.x + dx, p.y + dy, s.w, s.h);
 	};
 
 
@@ -4718,6 +4884,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	// camera /////////////////////////////////////////////
+
+	this.camera.setScale = function (s) { // scale
+		scale = s;
+	};
 
 	this.camera.circling = function (p, r, s) { // point, radius, speed
 		if (!isDef(this.circlingAnglePointJS)) {
@@ -5003,6 +5173,28 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			obj.strokeColor || false,
 			obj.strokeWidth || 1,
 			obj.pointColor || false
+		);
+	};
+
+	this.brush.drawTriangle = function (obj) {
+		drawPolygonXY(
+			obj.x || 0,
+			obj.y || 0,
+			[point(obj.w/2, 0), point(obj.w, obj.h), point(0, obj.h)],
+			obj.fillColor,
+			obj.strokeColor,
+			obj.strokeWidth
+		);
+	};
+
+	this.brush.drawTriangleS = function (obj) {
+		drawPolygonXY(
+			offset.x + (obj.x || 0),
+			offset.y + (obj.y || 0),
+			[point(obj.w/2, 0), point(obj.w, obj.h), point(0, obj.h)],
+			obj.fillColor,
+			obj.strokeColor,
+			obj.strokeWidth
 		);
 	};
 
@@ -5976,62 +6168,27 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// levels ///////////////////////////////////////////
 
-	this.levels.forStringArray = function (obj) {
+	this.levels.forStringArray = function (obj, onsymbol) {
 		var offset = obj.offset || point(0, 0);
 		forArr(obj.source, function (string, Y) {
 			forArr(string, function (symbol, X) {
 				if (symbol == ' ') return;
-				var tmp = obj.onsymbol(symbol, point(obj.size.w*X, obj.size.h*Y)) || false;
-				if (tmp) {
-					tmp.setSize(obj.size);
-					if (!obj.grid)
-						tmp.setPosition(point(offset.x+X*tmp.w, offset.y+Y*tmp.h));
-					else
-						tmp.setPosition(point(offset.x+X*obj.grid.w, offset.y+Y*obj.grid.h));
-
-					obj.oncreate(tmp, symbol);
-				}
+				onsymbol(symbol, offset.x+obj.w*X, offset.y+obj.h*Y, obj.w, obj.h);
 			});
 		});
 	};
 
 	var createObject = function (el) {
-		var f, tmp;
+		var cl = newObjectFromType(el);
 
-		if (el.type == 'RectObject') f = _PointJS.game.newRectObject;
-		else if (el.type == 'CircleObject') f = _PointJS.game.newCircleObject;
-		else if (el.type == 'RoundRectObject') f = _PointJS.game.newRoundRectObject;
-		else if (el.type == 'TextObject') f = _PointJS.game.newTextObject;
-		else if (el.type == 'EllipsObject') f = _PointJS.game.newEllipsObject;
-		else if (el.type == 'ImageObject') f = _PointJS.game.newImageObject;
+		cl.name = '';
 
-		tmp = f({
-			fillColor : el.fillColor,
-			x : el.position[0],
-			y : el.position[1],
-			w : isDef(el.size) ? el.size[0] : 0,
-			h : isDef(el.size) ? el.size[1] : 0,
-			angle : el.angle,
-			radius : isDef(el.radius) ? el.radius : 0,
-			text : isDef(el.text) ? el.text : '',
-			size : el.type == 'TextObject' && el.sizeText ? el.sizeText : 0,
-			color : isDef(el.color) ? el.color : 0,
-			file : isDef(el.file) ? el.file : '',
-			scale : isDef(el.scale) ? el.scale : 1,
-			strokeColor : isDef(el.strokeColor) ? el.strokeColor : '',
-			strokeWidth : isDef(el.strokeWidth) ? el.strokeWidth : 0,
-			strokeColorText : isDef(el.strokeColorText) ? el.strokeColorText : '',
-			strokeWidthText : isDef(el.strokeWidthText) ? el.strokeWidthText : 0,
-			alpha : isDef(el.alpha) ? el.alpha : 1,
-			padding : isDef(el.padding) ? el.padding : 0,
-			visible : isDef(el.visible) ? el.visible : true,
-			center : isDef(el.center) ? el.center : false,
-			box : isDef(el.box) ? el.box : false,
-			pointColor : isDef(el.pointColor) ? el.pointColor : false
+		forEach(el, function (val, key) {
+			if (key == 'id') return;
+			cl[key] = val;
 		});
 
-		return tmp;
-
+		return cl;
 	};
 
 	var loadLevelAsJSON = function (data) {
@@ -6106,8 +6263,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			return false;
 		};
 
-		this.draw = function () {
+		this.draw = function (ondrawFunction) {
 			forArr(lvl, function (el) {
+				if (ondrawFunction) {
+					ondrawFunction(el);
+				}
 				el.draw();
 			});
 		};
@@ -6118,38 +6278,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			var json = '[';
 
 			forArr(lvl, function (el, i) {
-				json+= '{';
-
-				json+= '"type":"'+el.type+'",';
-				json+= '"name":"'+(el.name || '')+'",';
-				json+= '"position":['+el.x+','+el.y+'],';
-				json+= '"size":['+el.w+','+el.h+'],';
-				json+= '"angle":'+el.angle+',';
-				if (el.fillColor) json+= '"fillColor":"'+el.fillColor+'",';
-				if (el.strokeColor) json+= '"strokeColor":"'+el.strokeColor+'",';
-				if (el.strokeWidth) json+= '"strokeWidth":'+el.strokeWidth+',';
-				if (el.radius) json+= '"radius":'+el.radius+',';
-				if (el.size) json+= '"sizeText":'+el.size+',';
-				if (el.color) json+= '"color":"'+el.color+'",';
-				if (el.strokeWidthText) json+= '"strokeWidthText":'+el.strokeWidthText+',';
-				if (el.strokeColorText) json+= '"strokeColorText":"'+el.strokeColorText+'",';
-				json+= '"alpha":'+el.alpha+',';
-				json+= '"visible":'+el.visible+',';
-				if (el.text) json+= '"text":"'+el.text+'",';
-				if (el.padding) json+= '"padding":'+el.padding+',';
-				if (el.points) json+= '"points":'+JSON.stringify(el.points)+',';
-				json+= '"center":'+JSON.stringify(el.center)+',';
-				json+= '"box":'+JSON.stringify(el.box)+',';
-				if (el.pointColor) json+= '"pointColor":"'+el.pointColor+'",';
-				if (el.file) json+= '"file":"'+el.file+'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-				// json+= '"name":"'+= 1'",';
-
+				json += '{';
+				forEach(el, function (val, key) {
+					if (typeof val == 'function') {
+						return;
+					}
+					json += '"'+key+'":'+JSON.stringify(val)+',';
+				});
 				json = json.substr(0, json.length - 1) + '},';
 			});
 
