@@ -1,8 +1,8 @@
-function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
+function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'data:image/png;base64,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';
-	var version_of_engine = '0.1.0';
+	var version_of_engine = '0.1.1.2';
 
 	var device = window;
 	var _PointJS = this;
@@ -24,32 +24,32 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// settings ///////////////////////////////////////
 
 	var isShowError = true,
-			isZBuffer = false,
-			isStopForError = true,
-			isAutoClear = false,
-			isRun = false,
-			isOnlyInt = false,
-			isSmooth = true,
+		isZBuffer = false,
+		isStopForError = true,
+		isAutoClear = false,
+		isRun = false,
+		isOnlyInt = false,
+		isSmooth = true,
 
-			width = w,
-			height = h,
-			origWidth = w,
-			origHeight = h,
-			width2 = width / 2,
-			height2 = height / 2,
+		width = w,
+		height = h,
+		origWidth = w,
+		origHeight = h,
+		width2 = width / 2,
+		height2 = height / 2,
 
-			scale = 1,
-			offset = {x : 0, y : 0},
-			angle = 0,
-			centerCamera = {x : 0, y : 0},
+		scale = 1,
+		offset = {x : 0, y : 0},
+		angle = 0,
+		centerCamera = {x : 0, y : 0},
 
-			contextSettings = {
-				fillStyle : 'black',
-				strokeStyle : 'black',
-				globalAlpha : 1,
-				font : 'sans-serif',
-				textBaseline : 'top',
-			};
+		contextSettings = {
+			fillStyle : 'black',
+			strokeStyle : 'black',
+			globalAlpha : 1,
+			font : 'sans-serif',
+			textBaseline : 'top',
+		};
 
 	var log = function (obj) {
 		console.log('[PointJS] : ', obj);
@@ -101,11 +101,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.brush =            {};
 	this.audio =            {};
 	this.wAudio =           {};
-	this.dialogs =          {};
 	this.resources =        {};
 	this.tiles =            {};
 	this.OOP =              {};
-	this.GUI =              {};
 	this.GL =               {};
 	this.memory =           {};
 
@@ -275,32 +273,32 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var initShaders = function () {
 		shader.vr =
-		'attribute vec2 aPosition; '+
-		'attribute vec2 aTextCoord; '+
-		'uniform vec2 uResolution; '+
-		'uniform int uMirrorX; '+
-		'varying vec2 vTextureCoord; '+
-		'void main() { '+
-		'   vec2 zeroToOne = aPosition / uResolution; '+
-		'   vec2 zeroToTwo = zeroToOne * 2.0; '+
-		'   vec2 clipSpace = zeroToTwo - 1.0; '+
-		'   gl_Position = vec4(clipSpace * vec2((uMirrorX == 1 ? -1 : 1), -1), 0, 1); '+
-		'   vTextureCoord = aTextCoord; '+
-		'}';
+			'attribute vec2 aPosition; '+
+			'attribute vec2 aTextCoord; '+
+			'uniform vec2 uResolution; '+
+			'uniform int uMirrorX; '+
+			'varying vec2 vTextureCoord; '+
+			'void main() { '+
+			'   vec2 zeroToOne = aPosition / uResolution; '+
+			'   vec2 zeroToTwo = zeroToOne * 2.0; '+
+			'   vec2 clipSpace = zeroToTwo - 1.0; '+
+			'   gl_Position = vec4(clipSpace * vec2((uMirrorX == 1 ? -1 : 1), -1), 0, 1); '+
+			'   vTextureCoord = aTextCoord; '+
+			'}';
 
 		shader.fr =
-		'precision mediump float; '+
-		'uniform sampler2D texture; '+
-		'varying vec2 vTextureCoord; '+
-		'uniform int uInversion; '+
-		'void main() { '+
-		'	vec4 texColor = texture2D(texture,vTextureCoord.xy); '+
-		'	vec4 finalColor; '+
-		'	finalColor = texColor; '+
-		'	if (uInversion == 1) '+
-		'		finalColor = 1.0 - finalColor; '+
-		'	gl_FragColor = finalColor; '+
-		'}';
+			'precision mediump float; '+
+			'uniform sampler2D texture; '+
+			'varying vec2 vTextureCoord; '+
+			'uniform int uInversion; '+
+			'void main() { '+
+			'	vec4 texColor = texture2D(texture,vTextureCoord.xy); '+
+			'	vec4 finalColor; '+
+			'	finalColor = texColor; '+
+			'	if (uInversion == 1) '+
+			'		finalColor = 1.0 - finalColor; '+
+			'	gl_FragColor = finalColor; '+
+			'}';
 
 		// получаем шейдеры
 		shaderProgram = gl.createProgram();
@@ -326,13 +324,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	var aTextCoord,
-					aPosition,
-					uResolution,
-					uColor,
-					itemSize,
-					texture,
-					uInversion,
-					uMirrorX;
+		aPosition,
+		uResolution,
+		uColor,
+		itemSize,
+		texture,
+		uInversion,
+		uMirrorX;
 
 	var initBuffer = function () {
 		itemSize = 2;
@@ -341,13 +339,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
 
 		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-			  0, 0,
-     width, 0,
-     0, height,
-     0, height,
-     width, 0,
-     width, height
-			]), gl.STATIC_DRAW);
+			0, 0,
+			width, 0,
+			0, height,
+			0, height,
+			width, 0,
+			width, height
+		]), gl.STATIC_DRAW);
 
 		aPosition = gl.getAttribLocation(shaderProgram, "aPosition");
 		uResolution = gl.getUniformLocation(shaderProgram, "uResolution");
@@ -397,8 +395,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var drawGL = function () {
 		if (!gl) return log('GL is not inited. Use a initGL() function.');
 
-  gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
-  gl.drawArrays(gl.TRIANGLES, 0, 6);
+		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
+		gl.drawArrays(gl.TRIANGLES, 0, 6);
 
 		gl.uniform1i(uInversion, 0);
 		gl.uniform1i(uMirrorX, 0);
@@ -578,7 +576,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.vector.point = point;
 	this.vector.v2d = point;
 	this.vector.size = size;
-	this.vector.w2h = size;
 	this.vector.getPointAngle = getPointAngle;
 	this.vector.isPointIn = isPointIn;
 	this.vector.pointMinus = pointMinus;
@@ -827,15 +824,15 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var nowStrokeStyle = 'black';
 	var setFillColor = function (color) {
 		// if (nowFillStyle != color) {
-			// nowFillStyle = color;
-			context.fillStyle = color;
+		// nowFillStyle = color;
+		context.fillStyle = color;
 		// }
 	};
 
 	var setStrokeColor = function (color) {
 		// if (nowStrokeStyle != color) {
-			// nowStrokeStyle = color;
-			context.strokeStyle = color;
+		// nowStrokeStyle = color;
+		context.strokeStyle = color;
 		// }
 	};
 
@@ -1016,7 +1013,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		dom.addEvent('gameResize', 'PointJS_initFullScale', function () {
 			var w = scaleWidth,
-					h = scaleHeight;
+				h = scaleHeight;
 
 			var screen = dom.getWH();
 
@@ -1094,243 +1091,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	// GUI //////////////////////////////////////////////
-	var guiList = [];
-	var guiCount = 0;
 
-	var GUIBase = function (tag, obj) { // tag, object
-		var dEl = device.document.createElement(tag);
-		dEl.style.position = 'fixed';
-		dEl.style.zIndex = canvas.style.zIndex + 1;
-		dEl.style.outline = 'none';
-		dEl.style.left = obj.x ? obj.x + 'px' : 0;
-		dEl.style.top = obj.y ? obj.y + 'px' : 0;
-		if (obj.w) dEl.style.width = obj.w + 'px';
-		if (obj.h) dEl.style.height = obj.h + 'px';
-
-		dEl.style.backgroundColor = obj.fillColor ? obj.fillColor : '';
-		dEl.style.color = obj.color ? obj.color : 'black';
-		dEl.style.border = (obj.strokeWidth || 0) + 'px solid ' + (obj.strokeColor || '');
-
-		dEl.onmousedown = dEl.onmouseup = dEl.onmousemove = dEl.onclick =
-			dEl.onkeydown = dEl.onkeypress = dEl.onkeyup =
-				function (e) {
-					e.stopPropagation();
-				};
-
-		dEl.oncontextmenu = dEl.onselectstart = dEl.ondragstart = function (e) {
-			e.stopPropagation();
-			return false;
-		};
-
-		this.w = obj.w || 0;
-		this.h = obj.h || 0;
-		this.el = dEl;
-		this.id = guiCount+= 1;
-		this.visible = true;
-
-		if (obj.events) {
-			this.onEvents(obj.events);
-		}
-
-		if (obj.style) {
-			this.setStyle(obj.style);
-		}
-
-		guiList.push(this);
-	};
-
-	GUIBase.prototype = {
-		// click, mousePress, mouseUp, mouseOver, mouseOut
-		onEvents : function (obj) { // function
-
-			if (typeof obj.keyPress == 'function') {
-				this.el.onkeypress = function (e) {
-					e.stopPropagation();
-					var char = false;
-					if (e.which != 0 && e.charCode != 0)
-						if (e.which >= 32) {
-							char = String.fromCharCode(e.which);
-						}
-					return obj.keyPress(char);
-				};
-			}
-
-			if (typeof obj.change == 'function') {
-				this.el.oninput = function (e) {
-					e.stopPropagation();
-					obj.change();
-				};
-			}
-
-			if (typeof obj.mouseOver == 'function') {
-				this.el.onmouseover = function (e) {
-					e.stopPropagation();
-					obj.mouseOver();
-				};
-			}
-
-			if (typeof obj.mouseOut == 'function') {
-				this.el.onmouseleave = function (e) {
-					e.stopPropagation();
-					obj.mouseOut();
-				};
-			}
-
-			if (typeof obj.click == 'function') {
-				this.el.onclick = function (e) {
-					e.stopPropagation();
-					obj.click();
-				};
-			}
-
-			if (typeof obj.mousePress == 'function') {
-				this.el.onmousedown = function (e) {
-					e.stopPropagation();
-					obj.mousePress();
-				};
-			}
-
-			if (typeof obj.mouseUp == 'function') {
-				this.el.onmouseup = function (e) {
-					e.stopPropagation();
-					obj.mouseUp();
-				};
-			}
-
-
-		},
-
-		getID : function () {
-			return this.id;
-		},
-
-		move : function (p) {
-			this.el.style.left = parseInt(this.el.style.left) + p.x + 'px';
-			this.el.style.top = parseInt(this.el.style.top) + p.y + 'px';
-		},
-
-		setPosition : function (p) {
-			this.el.style.left = p.x + 'px';
-			this.el.style.top = p.y + 'px';
-		},
-
-		setPositionC : function (p) {
-			this.el.style.left = p.x - this.w / 2 + 'px';
-			this.el.style.top = p.y - this.h / 2 + 'px';
-		},
-
-		getPosition : function () {
-			return point(parseInt(this.el.style.left), parseInt(this.el.style.top));
-		},
-
-		getPositionC : function () {
-			return point(parseInt(this.el.style.left) + this.w / 2, parseInt(this.el.style.top) + this.h / 2);
-		},
-
-		setSize : function (s) {
-			this.w = s.w;
-			this.h = s.h;
-			this.el.style.width = s.w + 'px';
-			this.el.style.height = s.h + 'px';
-		},
-
-		getSize : function () {
-			return size(this.w, this.h);
-		},
-
-		setStyle : function (obj) {
-			var i;
-			for (i in obj) {
-				this.el.style[i] = obj[i];
-			}
-		},
-
-		setVisible : function (bool) {
-			this.visible = bool;
-			if (bool) return this.el.style.display = 'block';
-			this.el.style.display = 'none';
-		},
-
-		isVisible : function () {
-			return this.visible;
-		},
-
-		setEnabled : function (bool) {
-			this.enabled = bool;
-			this.el.disabled = !bool;
-		},
-
-		setText : function (text) {
-			if (this.el.innerHTML) {
-				this.el.innerHTML = text;
-				this.w = parseInt(this.el.offsetWidth);
-				this.h = parseInt(this.el.offsetHeight);
-			}
-
-			if (this.el.value)
-				this.el.value = text;
-		},
-
-		getText : function () {
-			if (this.el.innerHTML)
-				return this.el.innerHTML;
-			if (this.el.value)
-				this.el.value = text;
-		}
-
-	};
-
-
-	this.GUI.newButton = function (obj) {
-		var object = new GUIBase('input', obj);
-		object.el.type = 'button';
-		object.el.value = obj.text ? obj.text : 'Button ' + object.id;
-
-		dom.attach(object.el);
-
-		return object;
-	};
-
-	this.GUI.newInput = function (obj) {
-		var object = new GUIBase('input', obj);
-		object.el.type = 'text';
-		object.el.value = obj.text ? obj.text : 'Button ' + object.id;
-		object.el.oncontextmenu = object.el.onselectstart = object.el.ondragstart = function (e) {
-		};
-		dom.attach(object.el);
-		return object;
-	};
-
-	this.GUI.newPanel = function (obj) {
-		var object = new GUIBase('div', obj);
-		object.el.innerHTML = obj.text ? obj.text : 'Panel ' + object.id;
-		dom.attach(object.el);
-		return object;
-	};
-
-	this.GUI.newImage = function (obj) {
-		var object = new GUIBase('img', obj);
-		if (!obj.file) return log('error in GUI.newImage : Where image file?');
-		object.el.src = obj.file;
-		dom.attach(object.el);
-		object.el.onload = function () {
-			if (!object.w) object.w = parseInt(this.width);
-			if (!object.h) object.h = parseInt(this.height);
-		};
-		return object;
-	};
-
-	this.GUI.newHTML = function (obj) {
-		var object = new GUIBase('div', obj);
-		object.el.innerHTML = obj.text ? obj.text.toString() : 'Your HTML Text';
-
-		dom.attach(object.el);
-		dom.addEvent('onload', 'getWH_HTMLPanel' + object.id, function () {
-			if (!object.w) object.w = parseInt(object.el.offsetWidth);
-			if (!object.h) object.h = parseInt(object.el.offsetHeight);
-		});
-		return object;
-	};
 
 
 	// end GUI //////////////////////////////////////////
@@ -1842,7 +1603,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var getMousePosition = function (abs) {
 		var dx = 0,
-						dy = 0;
+			dy = 0;
 		if (abs) {
 			dx = offset.x;
 			dy = offset.y;
@@ -2001,8 +1762,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				mouse.pos.x = e.pageX - canvasOffset.x;
 				mouse.pos.y = e.pageY - canvasOffset.y;
 				if (scaleScreen) {
-					 mouse.pos.x /=  scaleScreen.w;
-					 mouse.pos.y /= scaleScreen.h;
+					mouse.pos.x /=  scaleScreen.w;
+					mouse.pos.y /= scaleScreen.h;
 				}
 			}
 
@@ -2227,16 +1988,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	this.touchControl.getTouches = function () {
-		DEPRECATED('getTouches', 'isPress, isUp, isDown');
+
 	};
 
 
 	this.touchControl.initTouchControl = function () {
 
 		device.addEventListener('touchstart', function (e) {
-			e.preventDefault();
 			touch.x = e.targetTouches[0].pageX;
 			touch.y = e.targetTouches[0].pageY;
+			touch.contacts = e.targetTouches;
 
 			if (scaleScreen) {
 				touch.x /=  scaleScreen.w;
@@ -2251,9 +2012,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}, false);
 
 		device.addEventListener('touchmove', function (e) {
-			e.preventDefault();
 			touch.x = e.targetTouches[0].pageX;
 			touch.y = e.targetTouches[0].pageY;
+			touch.contacts = e.targetTouches;
 
 			if (scaleScreen) {
 				touch.x /=  scaleScreen.w;
@@ -2266,7 +2027,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}, false);
 
 		device.addEventListener('touchend', function (e) {
-			e.preventDefault();
 			touch.fix.x = 0;
 			touch.fix.y = 0;
 			touch.down = false;
@@ -2274,14 +2034,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			return false;
 		}, false);
 
-
 		_PointJS.touchControl.vibrate = function (t) { // t - time mls
 			if (device.navigator.vibrate)              return device.navigator.vibrate(t);
 			if (device.navigator.oVibrate)           return device.navigator.oVibrate(t);
 			if (device.navigator.mozVibrate)       return device.navigator.mozVibrate(t);
 			if (device.navigator.webkitVibrate)  return device.navigator.webkitVibrate(t);
 		};
-
 
 		dom.addEvent('postLoop', 'PointJS_touchStopPress', function () {
 			touchStopPress();
@@ -2785,10 +2543,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	this.OOP.clone = function (orig, func) {
-		var cl = new BaseObject({});
+		var cl = newObjectFromType(orig);
 
 		forEach(orig, function (val, key) {
-			if (key == 'id') return;
+			if (['id', 'type'].indexOf(key) !== -1) return;
 			cl[key] = val;
 		});
 
@@ -2921,27 +2679,27 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	this.game.newLoopFromClassObject = function (key, obj) {
 		if (!obj.update) return stop('error in newLoopFromClassObject : function "update" not found');
-			loops[key] = {
-				func : obj.update,
-				start : obj.entry || false,
-				end : obj.exit || false,
-				audio : false,
-				fps : false,
-				name : key
-			};
+		loops[key] = {
+			func : obj.update,
+			start : obj.entry || false,
+			end : obj.exit || false,
+			audio : false,
+			fps : false,
+			name : key
+		};
 	};
 
 	this.game.newLoopFromConstructor = function (key, Obj) {
 		var obj = new Obj();
 		if (!obj.update) return stop('error in newLoopFromConstructor : function "update" not found');
-			loops[key] = {
-				func : obj.update,
-				start : obj.entry || false,
-				end : obj.exit || false,
-				audio : false,
-				fps : false,
-				name : key
-			};
+		loops[key] = {
+			func : obj.update,
+			start : obj.entry || false,
+			end : obj.exit || false,
+			audio : false,
+			fps : false,
+			name : key
+		};
 	};
 
 	this.game.setLoopSound = function (key, arrAudio) { // key, array audios
@@ -3079,7 +2837,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var objectList = [];
 	var objectCount = 0;
-	var drawLoops = false;
 
 	var drawAllObjects = function () {
 		forArr(objectList, function (el) {
@@ -3100,8 +2857,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.id = objectCount+= 1;
 		this.x = obj.x || 0;
 		this.y = obj.y || 0;
-		this.w = obj.w || 1;
-		this.h = obj.h || 1;
+		this.w = obj.w || 0;
+		this.h = obj.h || 0;
 		this.ondraw = obj.ondraw ? obj.ondraw : false;
 		this.parent = false;
 		this.children = [];
@@ -3146,25 +2903,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		if (obj.positionC) {
 			this.setPositionC(obj.positionC);
-		}
-
-		if (obj.drawLoop) {
-			if (!drawLoops) {
-				drawLoops = {};
-				dom.addEvent('postLoop', 'drawFrames', function () {
-					if (drawLoops[engine.name]) {
-						forArr(drawLoops[engine.name], function (el) {
-							el.draw();
-						});
-					}
-				});
-			}
-
-			if (!drawLoops[obj.drawLoop]) {
-				drawLoops[obj.drawLoop] = [];
-			}
-
-			drawLoops[obj.drawLoop].push(this);
 		}
 
 		objectList.push(this);
@@ -3848,6 +3586,18 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.file = obj.file;
 		this.w = obj.w;
 		this.h = obj.h;
+		this.read = {
+			x : 0, y : 0,
+			w : 0, h : 0
+		};
+
+		if (obj.read) {
+			this.read.w = obj.read.w || 0;
+			this.read.h = obj.read.h || 0;
+			this.read.x = obj.read.x || 0;
+			this.read.y = obj.read.y || 0;
+		}
+
 		this.countX = obj.countX;
 		this.countY = obj.countY;
 		this.fullW = this.countX * this.w;
@@ -3863,7 +3613,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var img = device.document.createElement('img');
 		var that = this;
 		img.onload = function () {
-			that.ctx.drawImage(this, 0, 0, that.w, that.h);
+			that.ctx.drawImage(this, that.read.x ? that.read.x : 0, that.read.y ? that.read.y : 0, that.read.w ? that.read.w : this.width, that.read.h ? that.read.h : this.height, 0, 0, that.w, that.h);
 			that.loaded = true;
 			resources.load();
 		};
@@ -4190,12 +3940,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// ImageObject
 	var ImageObject = function (obj) {
 		BaseObject.call(this, obj);
+		// this.w = 0;
+		// this.h = 0;
 		this.type = 'ImageObject';
-		this.w = obj.w || 0;
-		this.h = obj.h || 0;
 		this.loaded = false;
 		this.file = '';
 		this.forOnLoad = obj.onload || false;
+
 		addImage(obj.file, this, obj.scale || 1);
 	};
 	inherit(BaseObject, ImageObject);
@@ -4213,7 +3964,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		drawImage(point(this.x, this.y), size(this.w, this.h), this.file);
 		if (this.ondraw) this.ondraw();
-
 		if (ctx) {
 			restoreContext();
 		}
@@ -4408,6 +4158,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	AnimationObject.prototype.setAnimation = function (t) { // tile
+		this.frame = 0;
 		this.anim = t;
 	};
 
@@ -4437,7 +4188,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		else if (obj.type == 'EllipsObject') cl = _PointJS.game.newEllipsObject({});
 		else if (obj.type == 'ImageObject') cl = _PointJS.game.newImageObject({file:obj.file});
 		else if (obj.type == 'TriangleObject') cl = _PointJS.game.newTriangleObject({});
-		else if (obj.type == 'AnimationObject') cl = _PointJS.game.newAnimationObject({});
+		else if (obj.type == 'AnimationObject') cl = _PointJS.game.newAnimationObject({animation:obj.animation});
 
 		return cl;
 	};
@@ -4462,7 +4213,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// tiles ///////////////////////////////////////////
 
-	var Image = function (f) { // file
+	var Image = function (f, onLoad) { // file
 		this.file = f;
 		this.loaded = false;
 		this.w = 0;
@@ -4483,6 +4234,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				forArr(that.toLoad, function (i) {
 					i.func(that.context, i.w, i.h, i.r);
 				});
+			if (onLoad) {
+				that.onLoad = onLoad;
+				that.onLoad();
+			}
 			resources.load();
 		};
 		img.src = f;
@@ -4502,6 +4257,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}
 	};
 
+	Image.prototype.getCanvas = function () {
+		return this.img;
+	};
 
 	Image.prototype.getAnimation = function (x, y, w, h, r) { // r - repeat
 
@@ -4512,6 +4270,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			this.w = w;
 			this.h = h;
 			this.r = r ? r - 1 : 0;
+			this.endFrame = this.r;
+			this.frameCount = this.r+1;
 		};
 
 		Animation.prototype = {
@@ -4556,8 +4316,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return new DrawImage(w, h);
 	};
 
-	this.tiles.newImage = function (f) {
-		return new Image(f);
+	this.tiles.newImage = function (f, onLoad) {
+		return new Image(f, onLoad);
 	};
 
 	this.tiles.newAnimation = function (f, w, h, r) {	// file, width-frame, height-frame, repeats (frames)
@@ -4565,10 +4325,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var drawAnimation = function (tile, p, s, f) { // tile, pos, size, frame
-		if (!tile.image.loaded) return;
+		if (!tile || !tile.image.loaded) return;
 		var dx = -offset.x;
 		var dy = -offset.y;
-		context.drawImage(tile.image.img, tile.x + (tile.w * f), tile.y, tile.w, tile.h, p.x + dx, p.y + dy, s.w, s.h);
+		if (tile.image.img)
+			context.drawImage(tile.image.img, tile.x + (tile.w * f), tile.y, tile.w, tile.h, p.x + dx, p.y + dy, s.w, s.h);
 	};
 
 
@@ -5085,7 +4846,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var clearContext = function (p, s) {
-			context.clearRect(p.x, p.y, s.x, s.y);
+		context.clearRect(p.x, p.y, s.x, s.y);
 	};
 
 	this.game.clear = function () {
@@ -5970,159 +5731,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
-	// dialogs //////////////////////////////////////////
-
-	var openTouchLine = function (obj, objB, func) { // настройки, обработка результата
-
-		_PointJS.game.stop();
-
-		_PointJS.touchControl.exitTouchControl();
-
-		var area = device.document.createElement('input');
-		area.type = 'text';
-		area.style.position = 'fixed';
-		area.style.border = 'none';
-		area.style.zIndex = canvas.style.zIndex + 1;
-		area.style.outline = 'none';
-		area.style.backgroundColor = obj.fillColor || 'white';
-		area.style.color = obj.color || 'black';
-		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
-		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
-		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
-		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
-
-
-		var button = device.document.createElement('div');
-		button.style.padding = (objB.padding || 10) + 'px';
-		button.align = 'center';
-		button.style.position = 'fixed';
-		button.style.border = 'none';
-		button.style.zIndex = canvas.style.zIndex + 1;
-		button.style.backgroundColor = objB.fillColor || 'white';
-		button.style.color = objB.color || 'black';
-		button.innerHTML = objB.text || 'OK';
-		button.style.top = (objB.y ? toInt(objB.y) : 0) + 'px';
-		button.style.left = (objB.x ? toInt(objB.x) : 0) + 'px';
-
-		if (objB.w) button.style.width = toInt(objB.w) + 'px';
-		if (objB.h) button.style.height = toInt(objB.h) + 'px';
-		button.style.fontSize = (objB.size ? toInt(objB.size) : 10) + 'px';
-
-		button.addEventListener('touchstart', function (e) {
-			e.preventDefault();
-			e.stopPropagation();
-			_PointJS.touchControl.initTouchControl();
-			var text = area.value.trim();
-			if (typeof func == 'function') {
-				func(text != '' ? text : false);
-			}
-			device.document.body.removeChild(area);
-			device.document.body.removeChild(button);
-			_PointJS.game.resume();
-		}, true);
-
-		dom.attach(area);
-		dom.attach(button);
-		area.focus();
-	};
-
-	var openLine = function (obj, func) { // настройки, обработка результата
-
-		_PointJS.game.stop();
-
-		var area = device.document.createElement('input');
-		area.type = 'text';
-		area.style.position = 'fixed';
-		area.style.border = 'none';
-		area.style.zIndex = canvas.style.zIndex + 1;
-		area.style.outline = 'none';
-		area.style.backgroundColor = obj.fillColor || 'white';
-		area.style.color = obj.color || 'black';
-		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
-		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
-		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
-		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
-
-		area.onclick = function (e) {
-			e.stopPropagation();
-		};
-
-		area.onkeydown = function (e) {
-			e.stopPropagation();
-			if (e.keyCode == 27 || e.keyCode == 13) {
-				var text = area.value.trim();
-				if (typeof func == 'function') {
-					func(text != '' ? text : false);
-				}
-				device.document.body.removeChild(area);
-				_PointJS.game.resume();
-			}
-		};
-
-		dom.attach(area);
-		area.focus();
-	};
-
-
-	var openArea = function (obj, func) { // настройки
-
-		_PointJS.game.stop();
-
-		var area = device.document.createElement('textarea');
-		area.style.position = 'fixed';
-		area.style.border = 'none';
-		area.style.zIndex = canvas.style.zIndex + 1;
-		area.style.overflowY = 'scroll';
-		area.style.outline = 'none';
-		area.style.backgroundColor = obj.fillColor || 'white';
-		area.style.color = obj.color || 'black';
-		area.style.top = (obj.y ? toInt(obj.y) : 0) + 'px';
-		area.style.left = (obj.x ? toInt(obj.x) : 0) + 'px';
-		area.style.width = (obj.w ? toInt(obj.w) : 0) + 'px';
-		area.style.height = (obj.h ? toInt(obj.h) : 0) + 'px';
-		area.style.fontSize = (obj.size ? toInt(obj.size) : 10) + 'px';
-		area.style.maxWidth = (obj.w ? toInt(obj.w) : 0) + 'px';
-		area.style.maxHeight = (obj.h ? toInt(obj.h) : 0) + 'px';
-
-		area.onclick = function (e) {
-			e.stopPropagation();
-		};
-
-		area.onkeydown = function (e) {
-			e.stopPropagation();
-			if (e.keyCode == 27) {
-				var text = area.value.trim();
-				if (typeof func == 'function') {
-					func(text != '' ? text : false);
-				}
-				device.document.body.removeChild(area);
-				_PointJS.game.resume();
-			}
-		};
-
-		dom.attach(area);
-		area.focus();
-	};
-
-	this.dialogs.openLine = openLine;
-	this.dialogs.openArea = openArea;
-	this.dialogs.openTouchLine = openTouchLine;
-
-
-	// end dialogs //////////////////////////////////////
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 	// resources ////////////////////////////////////////
@@ -6179,6 +5787,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var createObject = function (el) {
+
+		if (el.type == 'ImageObject' && typeof RESOURCES != 'undefined' && el.resFile) {
+			el.file = RESOURCES[el.resFile];
+		}
+
+		if (el.type == 'AnimationObject' && typeof ANIMATIONS != 'undefined' && el.animId) {
+			el.anim = ANIMATIONS[el.animId];
+		}
+
+
 		var cl = newObjectFromType(el);
 
 		cl.name = '';
@@ -6191,26 +5809,38 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return cl;
 	};
 
-	var loadLevelAsJSON = function (data) {
-		var lvl = [];
+	var loadLevelAsJSON = function (data, onCreate) {
+		var lvl = {
+			settings : {},
+			objects : []
+		};
 		data = JSON.parse(data);
-		forArr(data, function (el) {
+
+		lvl.settings = data.settings;
+
+		forArr(data.objects, function (el) {
 			var tmp = createObject(el);
 			tmp.name = el.name;
-			lvl.push(tmp);
+			if (onCreate) {
+				onCreate(tmp);
+			}
+			lvl.objects.push(tmp);
 		});
-
 		return lvl;
 	};
 
-	var Level = function (data, type) {
-		var lvl = [];
+	var Level = function (data, type, onCreate) {
+		var lvl = [], settings = {};
 		var origData;
 
 		if (data && type == 'json') {
-			lvl = loadLevelAsJSON(data);
+			var parseJSON = loadLevelAsJSON(data, onCreate);
+			lvl = parseJSON.objects;
+			settings = parseJSON.settings;
 			origData = data;
 		}
+
+		this.backgroundColor = settings.backgroundColor ? settings.backgroundColor : false;
 
 		this.reload = function () {
 			lvl = loadLevelAsJSON(origData);
@@ -6264,6 +5894,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		};
 
 		this.draw = function (ondrawFunction) {
+			if (this.backgroundColor) {
+				_PointJS.game.fill(this.backgroundColor);
+			}
 			forArr(lvl, function (el) {
 				if (ondrawFunction) {
 					ondrawFunction(el);
@@ -6272,12 +5905,21 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			});
 		};
 
-		this.getLevelAsJSON = function () {
-			if (!lvl.length) return '';
+		this.getLevelAsJSON = function (onGet, onSet) {
+			var settings = JSON.stringify({
+				backgroundColor : this.backgroundColor
+			});
 
-			var json = '[';
+			var json = '{"settings":'+settings+',"objects":[';
+
+			if (!lvl.length) {
+				return json+']}';
+			}
 
 			forArr(lvl, function (el, i) {
+				if (onGet) {
+					onGet(el);
+				}
 				json += '{';
 				forEach(el, function (val, key) {
 					if (typeof val == 'function') {
@@ -6286,18 +5928,21 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 					json += '"'+key+'":'+JSON.stringify(val)+',';
 				});
 				json = json.substr(0, json.length - 1) + '},';
+				if (onSet) {
+					onSet(el);
+				}
 			});
 
 			json = json.substr(0, json.length - 1);
 
-			return json + ']';
+			return json + ']}';
 
 		};
 
 	};
 
-	this.levels.newLevelFromJSON = function (json) {
-		var level = new Level(json, 'json');
+	this.levels.newLevelFromJSON = function (json, onCreate) {
+		var level = new Level(json, 'json', onCreate || false);
 
 		return level;
 	};
