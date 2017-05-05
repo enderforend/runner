@@ -1228,6 +1228,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// keyControl /////////////////////////////////////
 
+	var initedKey = false;
+
 	var keyList = {
 		'LEFT' : 37,
 		'RIGHT' : 39,
@@ -1489,9 +1491,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		inputPressChar = false;
 		inputPressKey = false;
 		inputMode = false;
+
+		initedKey = false;
+
 	};
 
 	this.keyControl.initKeyControl = function () {
+
+		if (initedKey) return this;
+
+		initedKey = true;
 
 		device.onkeydown = function (e) {
 			if (inputMode) {
@@ -1563,6 +1572,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	// mouseControl ///////////////////////////////////
+
+	var initedMouse = false;
 
 	var mouse = {
 		pos : point(0, 0),
@@ -1748,6 +1759,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.mouseControl.initMouseControl = function () {
+		if (initedMouse) return this;
+
+		initedMouse = true;
 
 		device.onmousemove = function (e) {
 			e.preventDefault();
@@ -1836,6 +1850,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 								};
 		dom.delEvent('postLoop', 'PointJS_clearAllMouseUp');
 		clearMouseAction();
+		initedMouse = false;
 	};
 
 	// end mouseControl ///////////////////////////////
@@ -1859,7 +1874,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	// touchControl ///////////////////////////////////
-
+	var initedTouch = false;
 	var touch = {
 		down : false,
 		press : 0,
@@ -1993,8 +2008,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	this.touchControl.initTouchControl = function () {
+		if (initedTouch) return this;
+
+		initedTouch = true;
 
 		device.addEventListener('touchstart', function (e) {
+			e.preventDefault();
 			touch.x = e.targetTouches[0].pageX;
 			touch.y = e.targetTouches[0].pageY;
 			touch.contacts = e.targetTouches;
@@ -2009,7 +2028,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			touch.down = true;
 			touch.press = 1;
 			return false;
-		}, false);
+		}, {passive : false});
 
 		device.addEventListener('touchmove', function (e) {
 			touch.x = e.targetTouches[0].pageX;
@@ -2035,10 +2054,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}, false);
 
 		_PointJS.touchControl.vibrate = function (t) { // t - time mls
-			if (device.navigator.vibrate)              return device.navigator.vibrate(t);
+			if (device.navigator.vibrate)             return device.navigator.vibrate(t);
 			if (device.navigator.oVibrate)           return device.navigator.oVibrate(t);
 			if (device.navigator.mozVibrate)       return device.navigator.mozVibrate(t);
-			if (device.navigator.webkitVibrate)  return device.navigator.webkitVibrate(t);
+			if (device.navigator.webkitVibrate) return device.navigator.webkitVibrate(t);
 		};
 
 		dom.addEvent('postLoop', 'PointJS_touchStopPress', function () {
@@ -2047,7 +2066,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			touch.prevPos.y = touch.y;
 			touch.speed = point(0, 0);
 		});
-
 
 		return this;
 
@@ -2061,6 +2079,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				};
 		dom.delEvent('postLoop', 'PointJS_touchStopPress');
 		clearTouchAction();
+		initedTouch = false;
 	};
 
 	// end touchControl ///////////////////////////////
@@ -4147,7 +4166,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			else if (this.frame >= max)
 				this.toFrameStep = -1;
 
-			this.frame = this.frame <= this.anim.r ? this.frame + this.toFrameStep : 0;
+			this.frame += this.toFrameStep;
 			this.difStep = 0;
 		}
 		else {
@@ -4158,6 +4177,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	AnimationObject.prototype.setAnimation = function (t) { // tile
+		if (t.id == this.anim.id) return;
 		this.frame = 0;
 		this.anim = t;
 	};
@@ -4213,11 +4233,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// tiles ///////////////////////////////////////////
 
+	var imageCount = 0;
 	var Image = function (f, onLoad) { // file
 		this.file = f;
 		this.loaded = false;
 		this.w = 0;
 		this.h = 0;
+		this.id = imageCount++;
 		this.toLoad = [];
 		var img = device.document.createElement('img');
 		var that = this;
@@ -4261,9 +4283,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return this.img;
 	};
 
+	var animCount = 0;
 	Image.prototype.getAnimation = function (x, y, w, h, r) { // r - repeat
 
 		var Animation = function (that, x, y, w, h, r) {
+			this.id = animCount++;
 			this.image = that;
 			this.x = x;
 			this.y = y;
@@ -6219,6 +6243,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		dom.runEvent('onload');
 		dom.loaded = true;
+
+		if (typeof POINTJS_USER_ONLOAD == 'function') {
+			POINTJS_USER_ONLOAD();
+		}
+
 		return false;
 	};
 
