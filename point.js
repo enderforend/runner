@@ -1,8 +1,8 @@
 function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject, NodeJS
 	'use strict';
 
-	this._logo = 'data:image/png;base64,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';
-	var version_of_engine = '0.1.1.2';
+	this._logo = 'http://pointjs.ru/PjsMin.png';
+	var version_of_engine = '0.1.1.3';
 
 	var device = window;
 	var _PointJS = this;
@@ -510,35 +510,45 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return Math.atan2(p2.y - p1.y, p2.x - p1.x) * (180 / Math.PI);
 	};
 
-	var isPointIn = function (point, points) {
-		if (points.length < 3) {
-			return false;
-		}
-		var intersections_num = 0;
-		var prev = points.length - 1;
-		var prev_under = points[prev].y < point.y;
-		var i, len;
-		for (i = 0, len = points.length; i < len; ++i) {
-			var cur_under = points[i].y < point.y;
-			var a = pointMinus(points[prev], point);
-			var b = pointMinus(points[i], point);
-			var t = (a.x * (b.y - a.y) - a.y * (b.x - a.x));
-			if (cur_under && !prev_under) {
-				if (t > 0) {
-					intersections_num += 1;
-				}
+	var isPointIn = function (p, points) {
+		var i, j, pip = 0;
+		for (i = 0, j = points.length - 1; i < points.length; j = i++) {
+			if (((points[i].y > p.y) != (points[j].y > p.y)) && (p.x < (points[j].x - points[i].x) * (p.y - points[i].y) / (points[j].y - points[i].y) + points[i].x)) {
+				pip = !pip;
 			}
-			if (!cur_under && prev_under) {
-				if (t < 0) {
-					intersections_num += 1;
-				}
-			}
-			prev = i;
-			prev_under = cur_under;
 		}
-
-		return (intersections_num & 1) != 0;
+		return pip;
 	};
+
+	// var isPointIn = function (point, points) {
+	// 	if (points.length < 3) {
+	// 		return false;
+	// 	}
+	// 	var intersections_num = 0;
+	// 	var prev = points.length - 1;
+	// 	var prev_under = points[prev].y < point.y;
+	// 	var i, len;
+	// 	for (i = 0, len = points.length; i < len; ++i) {
+	// 		var cur_under = points[i].y < point.y;
+	// 		var a = pointMinus(points[prev], point);
+	// 		var b = pointMinus(points[i], point);
+	// 		var t = (a.x * (b.y - a.y) - a.y * (b.x - a.x));
+	// 		if (cur_under && !prev_under) {
+	// 			if (t > 0) {
+	// 				intersections_num += 1;
+	// 			}
+	// 		}
+	// 		if (!cur_under && prev_under) {
+	// 			if (t < 0) {
+	// 				intersections_num += 1;
+	// 			}
+	// 		}
+	// 		prev = i;
+	// 		prev_under = cur_under;
+	// 	}
+
+	// 	return (intersections_num & 1) != 0;
+	// };
 
 	var getMidPoint = function (p1, p2) {
 		if (!isDef(p2)) return 0;
@@ -590,6 +600,94 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.vector.newStaticBox = newStaticBox;
 	this.vector.newDynamicBoxRect = newDynamicBoxRect;
 
+	this.vector.moveCollision = function (player, walls, speed, onCollision) {
+		var newSpeed = point(speed.x, speed.y);
+		var step = 10, i = 0, len = walls.length, wall;
+
+		for (; i < len; i+= 1) {
+			wall = walls[i];
+
+			if (player.getDistanceC(wall.getPositionC()) > (wall.w + wall.h) / 2 + (player.w + player.h) / 2 ) continue;
+
+			var boxWall = wall.getStaticBox();
+			if (player.isIntersect(wall)) {
+				var boxPlayer = player.getStaticBox();
+
+				var aSpeedX = Math.abs(speed.x);
+				var aSpeedY = Math.abs(speed.y);
+
+				if (boxPlayer.x+boxPlayer.w > boxWall.x + step + aSpeedX && boxPlayer.x < boxWall.x + boxWall.w - step - aSpeedX) {
+					if (speed.y > 0 && boxPlayer.y+boxPlayer.h < boxWall.y+boxWall.h/2+aSpeedY) {
+						newSpeed.y = 0;
+					} else if (speed.y < 0 && boxPlayer.y > boxWall.y+boxWall.h-boxWall.h/2-aSpeedY) {
+						newSpeed.y = 0;
+					}
+				}
+
+				if (boxPlayer.y+boxPlayer.h > boxWall.y + step + aSpeedY && boxPlayer.y < boxWall.y + boxWall.h - step - aSpeedY) {
+					if (speed.x > 0 && boxPlayer.x+boxPlayer.w < boxWall.x+boxWall.w/2+aSpeedX) {
+						newSpeed.x = 0;
+					} else if (speed.x < 0 && boxPlayer.x > boxWall.x+boxWall.w-boxWall.w/2-aSpeedX) {
+						newSpeed.x = 0;
+					}
+				}
+
+				if (onCollision) onCollision(player, wall);
+			}
+		}
+
+		player.move(newSpeed);
+
+		return newSpeed;
+
+	};
+
+	this.vector.moveCollisionAngle = function (player, walls, speed, onCollision, angle) {
+		var newSpeed = point();
+
+		angle = math.a2r(OOP.isDef(angle) ? angle : player.angle);
+		newSpeed.x = speed * Math.cos(angle);
+		newSpeed.y = speed * Math.sin(angle);
+
+		var step = 10, i = 0, len = walls.length, wall;
+
+		for (; i < len; i+= 1) {
+			wall = walls[i];
+
+			if (player.getDistanceC(wall.getPositionC()) > (wall.w + wall.h) / 2 + (player.w + player.h) / 2 ) continue;
+
+			var boxWall = wall.getStaticBox();
+			if (player.isIntersect(wall)) {
+				var boxPlayer = player.getStaticBox();
+
+				var aSpeedX = Math.abs(newSpeed.x);
+				var aSpeedY = Math.abs(newSpeed.y);
+
+				if (boxPlayer.x+boxPlayer.w > boxWall.x + step + aSpeedX && boxPlayer.x < boxWall.x + boxWall.w - step - aSpeedX) {
+					if (newSpeed.y > 0 && boxPlayer.y+boxPlayer.h < boxWall.y+boxWall.h/2+aSpeedY) {
+						newSpeed.y = 0;
+					} else if (newSpeed.y < 0 && boxPlayer.y > boxWall.y+boxWall.h-boxWall.h/2-aSpeedY) {
+						newSpeed.y = 0;
+					}
+				}
+
+				if (boxPlayer.y+boxPlayer.h > boxWall.y + step + aSpeedY && boxPlayer.y < boxWall.y + boxWall.h - step - aSpeedY) {
+					if (newSpeed.x > 0 && boxPlayer.x+boxPlayer.w < boxWall.x+boxWall.w/2+aSpeedX) {
+						newSpeed.x = 0;
+					} else if (newSpeed.x < 0 && boxPlayer.x > boxWall.x+boxWall.w-boxWall.w/2-aSpeedX) {
+						newSpeed.x = 0;
+					}
+				}
+
+				if (onCollision) onCollision(player, wall);
+			}
+		}
+
+		player.move(newSpeed);
+
+		return newSpeed;
+
+	};
 
 // end vector ///////////////////////////////////////
 
@@ -644,7 +742,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var limit = function (n, m) {
 		n = Math.abs(n);
 		m = Math.abs(m);
-		return n < m ? (n * sign(n)) : (m * sign(m));
+		var s = sign(n);
+		return n < m ? (n * s) : (m * s);
 	};
 
 	var sign = function (a) {
@@ -657,6 +756,23 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.math.random = random;
 	this.math.toInt = toInt;
 	this.math.uid = uid;
+
+	this.math.toZiro = function (num, step) {
+		if (num == 0) return 0;
+
+		var s = sign(num);
+		step = Math.abs(step);
+		num = Math.abs(num);
+
+		if (num > 0) {
+			num -= step;
+			if (num < step) {
+				return 0;
+			}
+		}
+
+		return num*s;
+	};
 
 	// end math /////////////////////////////////////////
 
@@ -1496,7 +1612,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	};
 
-	this.keyControl.initKeyControl = function () {
+	this.keyControl.initControl = this.keyControl.initKeyControl = function () {
 
 		if (initedKey) return this;
 
@@ -1631,9 +1747,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var setMouseImage = function (img) {
-		mouse.image = 'url("' + img + '"), auto';
+		img = 'url(\'' + img + '\'), auto';
+		if (mouse.image == img) return;
+		mouse.image = img;
 		device.document.body.style.cursor = mouse.image;
 	};
+
 	this.mouseControl.setCursorImage = setMouseImage;
 
 	this.mouseControl.setVisible = function (bool) {
@@ -1758,7 +1877,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return this.isInDynamic(obj.getDynamicBox());
 	};
 
-	this.mouseControl.initMouseControl = function () {
+	this.mouseControl.initControl = this.mouseControl.initMouseControl = function () {
 		if (initedMouse) return this;
 
 		initedMouse = true;
@@ -2003,11 +2122,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	this.touchControl.getTouches = function () {
-
+		return touch.contacts;
 	};
 
 
-	this.touchControl.initTouchControl = function () {
+	this.touchControl.initControl = this.touchControl.initTouchControl = function () {
 		if (initedTouch) return this;
 
 		initedTouch = true;
@@ -5446,6 +5565,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		context.putImageData(data, x, y);
 	};
 
+	this.brush.onContext = function (func) {
+		func(context);
+	};
+
 	this.brush.getPixelColor = getPixelColor;
 	this.brush.setPixelColor = setPixelColor;
 	this.brush.onPixel = onPixel;
@@ -6018,7 +6141,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		}
 	};
 
+	var initedFPSCheck = false;
 	this.system.initFPSCheck = function () {
+		if (initedFPSCheck) return;
+
+		initedFPSCheck = true;
+
 		dom.addEvent('postLoop', 'fpsCheckUpdate', function () {
 			fpsUpdate();
 		});
