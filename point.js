@@ -2,7 +2,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.1.1.3';
+	var version_of_engine = '0.1.2.0'; // 29 июня
 
 	var device = window;
 	var _PointJS = this;
@@ -106,6 +106,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.OOP =              {};
 	this.GL =               {};
 	this.memory =           {};
+	this.zList =            {};
 
 	// end reserved ///////////////////////////////////////
 
@@ -872,15 +873,41 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		dom.attach(element);
 	};
 
-	this.system.newDOM = function (tag) {
-		var element = device.document.createElement(tag);
-		element.style.position = 'fixed';
-		element.style.left = 0;
-		element.style.top = 0;
-		element.style.zIndex = canvas.style.zIndex + 1;
-		element.style.border = 'none';
-		dom.attach(element);
-		return element;
+	this.system.newDOM = function (tag, stopEvents) {
+		var el = device.document.createElement(tag);
+		el.style.position = 'fixed';
+		el.style.left = 0;
+		el.style.top = 0;
+		el.style.zIndex = canvas.style.zIndex + 1;
+		el.style.border = 'none';
+
+		if (stopEvents) {
+
+			var stop = function (e) {
+				e.stopPropagation();
+			};
+
+			el.addEventListener('touchstart',  stop, false);
+			el.addEventListener('touchend',    stop, false);
+			el.addEventListener('touchmove',   stop, false);
+			el.addEventListener('mousedown',   stop, false);
+			el.addEventListener('mousepress',  stop, false);
+			el.addEventListener('mouseup',     stop, false);
+			el.addEventListener('mousemove',   stop, false);
+			el.addEventListener('keypress',    stop, false);
+			el.addEventListener('keydown',     stop, false);
+			el.addEventListener('keyup',       stop, false);
+			el.addEventListener('click',       stop, false);
+			el.addEventListener('wheel',       stop, false);
+			el.addEventListener('mousewheel',  stop, false);
+			el.addEventListener('contextmenu', stop, false);
+			el.addEventListener('selectstart', stop, false);
+			el.addEventListener('dragstart', stop, false);
+			el.addEventListener('DOMMouseScroll', stop, false);
+		}
+
+		dom.attach(el);
+		return el;
 	};
 
 
@@ -1539,7 +1566,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		arrKeyPress = {},
 		inputPressChar = false,
 		inputPressKey = false,
-		inputMode = false;
+		inputMode = false,
+		lastKeyPress = false;
 
 	var setKeyDown = function (keyCode) {
 		arrKeyDown[keyCode] = true;
@@ -1565,6 +1593,28 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		arrKeyPress = {};
 		inputPressChar = false;
 		inputPressKey = false;
+	};
+
+	this.keyControl.getCountKeysDown = function () {
+		var count = 0;
+		forEach(arrKeyDown, function (val, key) {
+			if (val)
+				count++;
+		});
+		return count;
+	};
+
+	this.keyControl.getAllKeysDown = function () {
+		var keys = [];
+		forEach(arrKeyDown, function (val, key) {
+			if (val)
+				keys.push(codeList[key]);
+		});
+		return keys;
+	};
+
+	this.keyControl.getLastKeyPress = function () {
+		return lastKeyPress ? codeList[lastKeyPress] : false;
 	};
 
 	this.keyControl.isDown = function (keyName) {
@@ -1628,7 +1678,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				return true;
 			}
 			e.preventDefault();
-			if (arrKeyPress[e.keyCode] != 2) arrKeyPress[e.keyCode] = 1;
+			if (arrKeyPress[e.keyCode] != 2) {
+				arrKeyPress[e.keyCode] = 1;
+				lastKeyPress = e.keyCode;
+			}
 			setKeyDown(e.keyCode);
 			return false;
 		};
@@ -1657,6 +1710,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			stopKeyPress();
 			inputPressChar = false;
 			inputPressKey = false;
+			lastKeyPress = false;
 		});
 
 		return this;
@@ -3041,6 +3095,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		if (obj.positionC) {
 			this.setPositionC(obj.positionC);
+		}
+
+		if (typeof obj.oncreate == 'function') {
+			this.oncreate = obj.oncreate;
+			this.oncreate();
+			delete this.oncreate;
 		}
 
 		objectList.push(this);
@@ -5869,6 +5929,41 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
+
+
+
+
+
+
+	// zIndex ////////////////////////////////////////////
+
+	var zList = [];
+
+	this.zList.add = function (obj) {
+		zList.push(obj);
+	};
+
+	this.zList.init = function (arr) {
+		OOP.forArr(arr, function (el) {
+			_PointJS.zList.add(el);
+		});
+	};
+
+	this.zList.update = function () {
+		zList.sort(function (A, B) {
+			return (A.y + A.h) - (B.y + B.h);
+		});
+	};
+
+	this.zList.draw = function (onDraw) {
+		OOP.drawArr(zList, onDraw);
+	};
+
+	this.zList.del = function (obj) {
+		OOP.delObject(zList, obj);
+	};
+
+	// end zIndex ////////////////////////////////////////
 
 
 

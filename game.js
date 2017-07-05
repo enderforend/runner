@@ -1,5 +1,5 @@
-var pjs = new PointJS('2D', 1280 / 2, 720 / 2, { // 16:9
-	backgroundColor : '#53769A' // if need
+var pjs = new PointJS('2D', 640, 480, {
+	backgroundColor : '#53769A' // optional
 });
 // pjs.system.initFullPage(); // for Full Page mode
 // pjs.system.initFullScreen(); // for Full Screen mode (only Desctop)
@@ -9,7 +9,7 @@ var game   = pjs.game;           // Game Manager
 var point  = pjs.vector.point;   // Constructor for Point
 var camera = pjs.camera;         // Camera Manager
 var brush  = pjs.brush;          // Brush, used for simple drawing
-var OOP    = pjs.OOP;            // Object's manager
+var OOP    = pjs.OOP;            // Objects manager
 var math   = pjs.math;           // More Math-methods
 var levels = pjs.levels;         // Levels manager
 
@@ -46,41 +46,14 @@ game.newLoopFromConstructor('myGame', function () {
 
 	};
 
-	// this.entry = function () { // [optional]
-	// 	// Entry Function
-	// 	log('myGame is started');
-	// };
+	this.entry = function () { // optional
+		log('myGame is started');
+	};
 
-	// this.exit = function () { // [optional]
-	// 	// Exit function
-	// 	log('myGame is stopped');
-	// };
+	this.exit = function () { // optional
+		log('myGame is stopped');
+	};
 
 });
-
-// // Advanced Game Loop
-// var MyGame = function () {
-// 	// Constructor Game Loop
-
-// 	this.update = function () {
-// 		// Update function
-// 	};
-
-// 	this.entry = function () {
-// 		// Entry Function
-// 	};
-
-// 	this.exit = function () {
-// 		// Exit function
-// 	};
-
-// };
-// game.newLoopFromClassObject('myGame', new MyGame());
-
-
-// Simple Game Loop
-// game.newLoop('myGame', function () {
-// 	// Update function
-// });
 
 game.startLoop('myGame');
