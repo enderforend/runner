@@ -1,5 +1,5 @@
 var pjs = new PointJS(640, 480, {
-	backgroundColor : '#4b4843' // optional
+	backgroundColor : '#686663' // optional
 });
 // pjs.system.initFullPage(); // for Full Page mode
 // pjs.system.initFullScreen(); // for Full Screen mode (only Desctop)
@@ -11,6 +11,7 @@ var camera = pjs.camera;         // Camera Manager
 var brush  = pjs.brush;          // Brush, used for simple drawing
 var OOP    = pjs.OOP;            // Objects manager
 var math   = pjs.math;           // More Math-methods
+var levels = pjs.levels;         // Levels manager
 
 // var key   = pjs.keyControl.initKeyControl();
 // var mouse = pjs.mouseControl.initMouseControl();
@@ -32,7 +33,7 @@ game.newLoopFromConstructor('myGame', function () {
 		color : '#EAEAEA', // color text
 		text : 'Hello, World 2.0!', // label
 		alpha : 0, // alpha channel
-		font : 'Courier' // font family
+		font : 'Arial' // font family
 	});
 
 	this.update = function () {

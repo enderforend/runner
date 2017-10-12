@@ -1,8 +1,8 @@
-function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject, NodeJS
+function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.1.2.0'; // 29 июня
+	var version_of_engine = '0.2.2'; // 1 октября
 
 	var device = window;
 	var _PointJS = this;
@@ -11,24 +11,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		console.log('function is not supported in this object');
 	};
 
-
-
-
-
-
-
-
-
-
-
 	// settings ///////////////////////////////////////
 
 	var isShowError = true,
 		isZBuffer = false,
 		isStopForError = true,
-		isAutoClear = false,
+		isAutoClear = true,
 		isRun = false,
-		isOnlyInt = false,
 		isSmooth = true,
 
 		width = w,
@@ -43,12 +32,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		angle = 0,
 		centerCamera = {x : 0, y : 0},
 
+		pBuf = {},
+
 		contextSettings = {
 			fillStyle : 'black',
 			strokeStyle : 'black',
 			globalAlpha : 1,
 			font : 'sans-serif',
-			textBaseline : 'top',
+			textBaseline : 'top'
 		};
 
 	var log = function (obj) {
@@ -97,6 +88,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.system =           {};
 	this.vector =           {};
 	this.math =             {};
+	this.layers =           {};
 	this.colors =           {};
 	this.brush =            {};
 	this.audio =            {};
@@ -104,9 +96,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.resources =        {};
 	this.tiles =            {};
 	this.OOP =              {};
-	this.GL =               {};
 	this.memory =           {};
 	this.zList =            {};
+	this.filters =          {};
 
 	// end reserved ///////////////////////////////////////
 
@@ -151,7 +143,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.system.setDefaultSettings = function (obj) {
-		for (var i in obj) {
+		var i;
+		for (i in obj) {
 			contextSettings[i] = obj[i];
 		}
 		context.save();
@@ -185,7 +178,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var info = {
 		'name'    : 'PointJS',
-		'desc'    : 'HTML5 2D Game Engine for JavaScript',
+		'desc'    : 'HTML5 Game Engine for JavaScript',
 		'author'  : 'Skaner (skaner0@yandex.ru)',
 		'version' : version_of_engine
 	};
@@ -214,206 +207,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
-	// WebGL ///////////////////////////////////////////
-	// var webgl = false;
-
-
-	var shader = {
-		fr : '',
-		vr : ''
-	};
-
-	var getShader = function (type, text) {
-		var source = text;
-		var shader = gl.createShader(type);
-		gl.shaderSource(shader, source);
-		gl.compileShader(shader);
-
-		if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-			log('Error shader compilation : ' + gl.getShaderInfoLog(shader));
-			gl.deleteShader(shader);
-			return null;
-		}
-		return shader;
-	};
-
-	var shaderProgram;
-
-
-	var gl = false;
-	var glCanvas = false;
-	var initGL = function () {
-
-		glCanvas = device.document.createElement('canvas');
-		glCanvas.width = canvas.width;
-		glCanvas.height = canvas.height;
-		glCanvas.style.position = 'fixed';
-		glCanvas.style.left = 0;
-		glCanvas.style.top = 0;
-		glCanvas.style.zIndex = canvas.style.zIndex + 1;
-		glCanvas.id = 'PointJS-canvas_1';
-		glCanvas.style.backgroundColor = s.backgroundColor ? s.backgroundColor : 'black';
-
-		dom.attach(glCanvas);
-
-		dom.addEvent('onload', 'hideSourceCanvas', function () {
-			canvas.style.display = 'none';
-		});
-
-		gl = glCanvas.getContext('webgl') || glCanvas.getContext('experimental-webgl');
-
-		gl.viewport(0, 0, width, height);
-		gl.clearColor(0.0, 0.0, 0.0, 1.0);
-		gl.clear(gl.COLOR_BUFFER_BIT);
-	};
-
-	var reinitGL = function () {
-
-
-	};
-
-	var initShaders = function () {
-		shader.vr =
-			'attribute vec2 aPosition; '+
-			'attribute vec2 aTextCoord; '+
-			'uniform vec2 uResolution; '+
-			'uniform int uMirrorX; '+
-			'varying vec2 vTextureCoord; '+
-			'void main() { '+
-			'   vec2 zeroToOne = aPosition / uResolution; '+
-			'   vec2 zeroToTwo = zeroToOne * 2.0; '+
-			'   vec2 clipSpace = zeroToTwo - 1.0; '+
-			'   gl_Position = vec4(clipSpace * vec2((uMirrorX == 1 ? -1 : 1), -1), 0, 1); '+
-			'   vTextureCoord = aTextCoord; '+
-			'}';
-
-		shader.fr =
-			'precision mediump float; '+
-			'uniform sampler2D texture; '+
-			'varying vec2 vTextureCoord; '+
-			'uniform int uInversion; '+
-			'void main() { '+
-			'	vec4 texColor = texture2D(texture,vTextureCoord.xy); '+
-			'	vec4 finalColor; '+
-			'	finalColor = texColor; '+
-			'	if (uInversion == 1) '+
-			'		finalColor = 1.0 - finalColor; '+
-			'	gl_FragColor = finalColor; '+
-			'}';
-
-		// получаем шейдеры
-		shaderProgram = gl.createProgram();
-		gl.attachShader(shaderProgram, getShader(gl.VERTEX_SHADER, shader.vr));
-		gl.attachShader(shaderProgram, getShader(gl.FRAGMENT_SHADER, shader.fr));
-		gl.linkProgram(shaderProgram);
-
-		if (!gl.getProgramParameter(shaderProgram, gl.LINK_STATUS)) {
-			log('Can\'t install shader');
-		}
-
-		gl.useProgram(shaderProgram);
-	};
-
-	var initWebGL = function () {
-		initGL();
-		initShaders();
-		initBuffer();
-
-		glOn = true;
-
-	};
-
-
-	var aTextCoord,
-		aPosition,
-		uResolution,
-		uColor,
-		itemSize,
-		texture,
-		uInversion,
-		uMirrorX;
-
-	var initBuffer = function () {
-		itemSize = 2;
-
-		var buffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, buffer);
-
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-			0, 0,
-			width, 0,
-			0, height,
-			0, height,
-			width, 0,
-			width, height
-		]), gl.STATIC_DRAW);
-
-		aPosition = gl.getAttribLocation(shaderProgram, "aPosition");
-		uResolution = gl.getUniformLocation(shaderProgram, "uResolution");
-		aTextCoord = gl.getAttribLocation(shaderProgram, "aTextCoord");
-		uInversion = gl.getUniformLocation(shaderProgram, "uInversion");
-		uMirrorX = gl.getUniformLocation(shaderProgram, "uMirrorX");
-
-		gl.uniform2f(uResolution, width, height);
-
-		gl.enableVertexAttribArray(aPosition);
-		gl.vertexAttribPointer(aPosition, itemSize, gl.FLOAT, false, 0, 0);
-
-		var textureBuffer = gl.createBuffer();
-		gl.bindBuffer(gl.ARRAY_BUFFER, textureBuffer);
-
-		gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-			0.0,  0.0,
-			1.0,  0.0,
-			0.0,  1.0,
-			0.0,  1.0,
-			1.0,  0.0,
-			1.0,  1.0]), gl.STATIC_DRAW);
-
-		gl.enableVertexAttribArray(aTextCoord);
-		gl.vertexAttribPointer(aTextCoord, 2, gl.FLOAT, false, 0, 0);
-
-		texture = gl.createTexture();
-		gl.bindTexture(gl.TEXTURE_2D, texture);
-
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.NEAREST);
-		gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, gl.NEAREST);
-
-	};
-
-
-	// DRAW
-
-	this.GL.filter = function (type, obj) {
-		if (!gl) return log('GL is not inited. Use a initGL() function.');
-		if (type == 'inversion') gl.uniform1i(uInversion, 1);
-		if (type == 'mirror-x') gl.uniform1i(uMirrorX, 1);
-
-	};
-
-	var drawGL = function () {
-		if (!gl) return log('GL is not inited. Use a initGL() function.');
-
-		gl.texImage2D(gl.TEXTURE_2D, 0, gl.RGBA, gl.RGBA, gl.UNSIGNED_BYTE, canvas);
-		gl.drawArrays(gl.TRIANGLES, 0, 6);
-
-		gl.uniform1i(uInversion, 0);
-		gl.uniform1i(uMirrorX, 0);
-	};
-
-
-
-	// end WebGL ///////////////////////////////////////
-
-
-
-
-
-
-
-
 
 
 
@@ -434,63 +227,75 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 // vector ///////////////////////////////////////////
 
-	var Point = function (x, y) {
+	var inherit = function (Parent, Child) {
+		Child.prototype = Object.create(Parent.prototype);
+		Child.prototype.constructor = Child;
+	};
+
+	var Point = function (x, y, z) {
 		this.x = x || 0;
 		this.y = y || 0;
+		this.z = z || 0;
 	};
 
 	Point.prototype = {
-		abs :    function () {return new Point(Math.abs(this.x), Math.abs(this.y));},
-		invert : function () {return new Point(-this.x, -this.y);},
-		plus :   function (p) {return new Point(this.x+p.x, this.y+p,y);},
-		minus :  function (p) {return new Point(this.x-p.x, this.y-p,y);},
-		inc :    function (p) {return new Point(this.x*p.x, this.y*p,y);},
-		div :    function (p) {return new Point(this.x/p.x, this.y/p,y);}
+		abs :    function () {return new Point(Math.abs(this.x), Math.abs(this.y), Math.abs(this.z));},
+		invert : function () {return new Point(-this.x, -this.y, -this.z);},
+		plus :   function (p) {return new Point(this.x+p.x, this.y+p.y, this.z+p.z);},
+		minus :  function (p) {return new Point(this.x-p.x, this.y-p.y, this.z-p.z);},
+		inc :    function (p) {return new Point(this.x*p.x, this.y*p.y, this.z*p.z);},
+		div :    function (p) {return new Point(this.x/p.x, this.y/p.y, this.z/p.z);}
 	};
 
-	var point = function (x, y) {
-		return new Point(x, y);
+	var point = function (x, y, z) {
+		return new Point(x, y, z);
 	};
 
-	var size = function (w, h) {
+	var size = function (w, h, d) {
 		return {
 			w : w,
-			h : h
+			h : h,
+			d : d
 		};
 	};
 
 	var pointPlus = function (p1, p2) {
 		return {
 			x : p1.x + p2.x,
-			y : p1.y + p2.y
+			y : p1.y + p2.y,
+			z : p1.z + p2.z
 		};
 	};
 
 	var pointMinus = function (p1, p2) {
 		return {
 			x : p1.x - p2.x,
-			y : p1.y - p2.y
+			y : p1.y - p2.y,
+			z : p1.z - p2.z
 		};
 	};
 
 	var pointInc = function (p1, p2) {
 		return {
 			x : p1.x * p2.x,
-			y : p1.y * p2.y
+			y : p1.y * p2.y,
+			z : p1.z * p2.z
 		};
 	};
 
 	var pointDiv = function (p1, p2) {
 		return {
 			x : p1.x / (p2.x != 0 ? p2.x : 1),
-			y : p1.y / (p2.y != 0 ? p2.y : 1)
+			y : p1.y / (p2.y != 0 ? p2.y : 1),
+			z : p1.z / (p2.z != 0 ? p2.z : 1)
 		};
 	};
 
 	var pointAbs = function (p) {
 		return {
 			x : Math.abs(p.x),
-			y : Math.abs(p.y)
+			y : Math.abs(p.y),
+			z : Math.abs(p.z)
 		};
 	};
 
@@ -512,8 +317,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var isPointIn = function (p, points) {
-		var i, j, pip = 0;
-		for (i = 0, j = points.length - 1; i < points.length; j = i++) {
+		var i, j, pip = 0, len;
+		for (i = 0, len = points.length, j = points.length - 1; i < len; j = i++) {
 			if (((points[i].y > p.y) != (points[j].y > p.y)) && (p.x < (points[j].x - points[i].x) * (p.y - points[i].y) / (points[j].y - points[i].y) + points[i].x)) {
 				pip = !pip;
 			}
@@ -579,7 +384,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			point(x, y),
 			point(x + w, y),
 			point(x + w, y + h),
-			point(x, y + h),
+			point(x, y + h)
 		];
 	};
 
@@ -601,14 +406,76 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.vector.newStaticBox = newStaticBox;
 	this.vector.newDynamicBoxRect = newDynamicBoxRect;
 
-	this.vector.moveCollision = function (player, walls, speed, onCollision) {
+	this.vector.moveCollision = function (pl, walls, speed, onCls, isCam, minDist) {
+		if (!pl._MCPNT_) {
+			pl._MCPNT_ = game.newBaseObject({
+				w : pl.w, h : pl.h,
+				x : pl.x, y : pl.y
+			});
+		}
+
+		var clsX = false;
+		var clsY = false;
+		var as = speed.abs();
+
+		pl.moveTimeC(pl._MCPNT_.getPositionC(), 2);
+
+		var bp = pl._MCPNT_.getStaticBoxPosition();
+
+		var i = walls.length - 1, w, bw, dif = {};
+		for (; i >= 0; i--) {
+			w = walls[i];
+			if (isCam) if (!w.isInCameraStatic()) continue;
+			if (minDist) if (pl._MCPNT_.getDistanceC(w.getPositionC()) > minDist) continue;
+
+
+			if (pl._MCPNT_.isStaticIntersect(w.getStaticBox())) {
+				bw = w.getStaticBoxPosition();
+				dif.x = as.x + as.y + 1;
+				dif.y = as.y + as.x + 1;
+
+				if (bp.y < bw.h - dif.y && bp.h > bw.y + dif.y) {
+					if (bp.w > bw.x && bp.w < bw.x + dif.x && speed.x > 0) {
+						pl._MCPNT_.x = bw.x - pl.w;
+						speed.x = 0;
+						clsX = true;
+					} else if (bp.x < bw.w && bp.x > bw.w - dif.x && speed.x < 0) {
+						pl._MCPNT_.x = bw.w;
+						speed.x = 0;
+						clsX = true;
+					}
+				}
+
+				if (bp.x < bw.w - dif.x && bp.w > bw.x + dif.x) {
+					if (bp.h > bw.y && bp.h < bw.y + dif.y && speed.y > 0) {
+						pl._MCPNT_.y = bw.y - pl.h;
+						speed.y = 0;
+						clsY = true;
+					} else if (bp.y < bw.h && bp.y > bw.h - dif.y && speed.y < 0) {
+						pl._MCPNT_.y = bw.h;
+						speed.y = 0;
+						clsY = true;
+					}
+				}
+
+				if (onCls) onCls(pl, w, clsX, clsY);
+
+			}
+
+		}
+
+		pl._MCPNT_.move(speed);
+		// pl._MCPNT_.drawStaticBox();
+	};
+
+	this.vector.oldMoveCollision = function (player, walls, speed, onCollision, isInCamera, minDist) {
 		var newSpeed = point(speed.x, speed.y);
 		var step = 10, i = 0, len = walls.length, wall;
 
 		for (; i < len; i+= 1) {
 			wall = walls[i];
-
-			if (player.getDistanceC(wall.getPositionC()) > (wall.w + wall.h) / 2 + (player.w + player.h) / 2 ) continue;
+			if (isInCamera) if (!wall.isInCameraStatic()) continue;
+			if (minDist) if (player.getDistanceC(wall.getPositionC())) continue;
 
 			var boxWall = wall.getStaticBox();
 			if (player.isIntersect(wall)) {
@@ -643,7 +510,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	};
 
-	this.vector.moveCollisionAngle = function (player, walls, speed, onCollision, angle) {
+	this.vector.moveCollisionAngle = function (player, walls, speed, onCollision, angle, isInCamera, minDist) {
 		var newSpeed = point();
 
 		angle = math.a2r(OOP.isDef(angle) ? angle : player.angle);
@@ -655,7 +522,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		for (; i < len; i+= 1) {
 			wall = walls[i];
 
-			if (player.getDistanceC(wall.getPositionC()) > (wall.w + wall.h) / 2 + (player.w + player.h) / 2 ) continue;
+			if (isInCamera) if (!wall.isInCamera()) continue;
+			if (minDist) if (player.getDistanceC(wall.getPositionC())) continue;
 
 			var boxWall = wall.getStaticBox();
 			if (player.isIntersect(wall)) {
@@ -715,6 +583,32 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// math /////////////////////////////////////////////
 
 	var uids = {};
@@ -735,15 +629,19 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return a * (Math.PI / 180);
 	};
 
+	var r2a = function (r) {
+		return r * 180 / Math.PI;
+	};
+
 	var random = function (min, max, z) {
 		var rnd = Math.floor(Math.random() * (max - min + 1) + min);
 		return (z && rnd == 0) ? random(min, max, z) : rnd;
 	};
 
 	var limit = function (n, m) {
+		var s = sign(n);
 		n = Math.abs(n);
 		m = Math.abs(m);
-		var s = sign(n);
 		return n < m ? (n * s) : (m * s);
 	};
 
@@ -775,7 +673,106 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		return num*s;
 	};
 
+	var V = function (val, def) {
+		return val ? val : (def ? def : false);
+	};
+
 	// end math /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// layers /////////////////////////////////////////////
+	var layerList = [];
+
+	var Layer = function (z, obj) {
+
+		var c;
+		this.canvas = c = device.document.createElement('canvas');
+		var s = c.style;
+		var _s = canvas.style;
+
+		s.position = 'fixed';
+		s.top = _s.top;
+		s.left = _s.left;
+		c.width = canvas.width;
+		c.height = canvas.height;
+		s.width = _s.width;
+		s.height = _s.height;
+		s.zIndex = _s.zIndex+z;
+
+		if (obj) {
+			s.opacity = V(obj.alpha, 1);
+			s.backgroundColor = V(obj.backgroundColor, 'transparent');
+		}
+
+		dom.attach(c);
+
+		var ctx = this.context = c.getContext('2d');
+		ctx.textBaseline = contextSettings.textBaseline;
+
+		this.isAutoClear = true;
+
+		this.clear = function () {
+			this.context.clearRect(0, 0, width, height);
+		};
+
+		this.on = function (func) {
+			context = this.context;
+			if (this.isAutoClear) this.clear();
+			func(this);
+			context = origContext;
+		};
+
+		this.setVisible = function (bool) {
+			this.canvas.style = bool ? 'block' : 'none';
+		};
+
+		layerList.push(this);
+	};
+
+	var resizeAllLayers = function () {
+		forArr(layerList, function (layer) {
+			layer.canvas.width = width;
+			layer.canvas.height = height;
+			layer.canvas.style.width =  canvas.style.width;
+			layer.canvas.style.height = canvas.style.height;
+			layer.context.textBaseline = contextSettings.textBaseline;
+		});
+	};
+
+	this.layers.newLayer = function (z, obj) {
+		return new Layer(z, obj);
+	};
+
+	// ens layers //////////////////////////////////////////
+
+
+
+
 
 
 
@@ -852,6 +849,17 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			}
 		},
 
+		remove : function (element) {
+			var remove = function () {
+				device.document.body.removeChild(element);
+			};
+			if (dom.loaded) {
+				remove();
+			} else {
+				dom.addEvent('onload', 'attachElement_PointJS' + (eventCount+= 1), remove);
+			}
+		},
+
 		getWH : function () {
 			return {
 				w : parseInt(device.document.documentElement.clientWidth  || device.innerWidth  || device.document.body.clientWidth),
@@ -869,6 +877,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		dom.addEvent(evt, key, func);
 	};
 
+	this.system.removeDOM = function (element) {
+		dom.remove(element);
+	};
+
 	this.system.attachDOM = function (element) {
 		dom.attach(element);
 	};
@@ -878,7 +890,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		el.style.position = 'fixed';
 		el.style.left = 0;
 		el.style.top = 0;
-		el.style.zIndex = canvas.style.zIndex + 1;
+		el.style.zIndex = eventer.style.zIndex + 1;
 		el.style.border = 'none';
 
 		if (stopEvents) {
@@ -902,7 +914,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			el.addEventListener('mousewheel',  stop, false);
 			el.addEventListener('contextmenu', stop, false);
 			el.addEventListener('selectstart', stop, false);
-			el.addEventListener('dragstart', stop, false);
+			el.addEventListener('dragstart',   stop, false);
 			el.addEventListener('DOMMouseScroll', stop, false);
 		}
 
@@ -915,17 +927,23 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	// create canvas
-	var canvas = device.document.createElement('canvas');
+
+	var canvas;
+	var context = null,
+		origContext = null;
+
+	canvas = device.document.createElement('canvas');
+	origContext = context = canvas.getContext('2d');
+	context.textBaseline = contextSettings.textBaseline;
 	canvas.crossOrigin = 'anonymous';
 	canvas.width = parseInt(w);
 	canvas.height = parseInt(h);
 	canvas.style.position = 'fixed';
 	canvas.style.left = 0;
 	canvas.style.top = 0;
-	canvas.style.zIndex = 1000;
+	canvas.style.zIndex = 10000;
 	canvas.id = 'PointJS-canvas_0';
-	canvas.style.backgroundColor = 'black';
-
+	// canvas.style.backgroundColor = 'black';
 
 	if (typeof s == 'object') {
 		for (var i in s) {
@@ -942,26 +960,19 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		};
 	});
 
+	var eventer = device.document.createElement('div');
+	(function () {
+		var s = eventer.style;
+		s.position = 'fixed';
+		s.top = s.left = 0;
+		s.width = s.height = '100%';
+		s.zIndex = 20000;
+	})();
+	dom.attach(eventer);
+
 	var canvasOffset = point(0, 0);
 
-	var context = null;
-	var gl = null;
-	var glOn = false;
-
-	context = canvas.getContext('2d');
-
-	if (D == 'GL2D') {
-		initWebGL();
-
-		dom.addEvent('postLoop', 'drawGL', function () {
-			drawGL();
-		});
-
-	} else {
-		dom.attach(canvas);
-		context.textBaseline = contextSettings.textBaseline;
-	}
-
+	dom.attach(canvas);
 
 	var nowFillStyle = 'black';
 	var nowStrokeStyle = 'black';
@@ -1003,13 +1014,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
-
-		if (glOn) {
-			glCanvas.width = canvas.width;
-			glCanvas.height = canvas.height;
-			gl.viewport(0,0, width, height);
-		}
-
 	};
 
 	this.system.initFullPage = function () {
@@ -1020,14 +1024,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			height2 = height / 2;
 			canvas.width = width;
 			canvas.height = height;
-
-			if (glOn) {
-				glCanvas.width = canvas.width;
-				glCanvas.height = canvas.height;
-				gl.viewport(0,0, width, height);
-			}
-
 			context.textBaseline = contextSettings.textBaseline;
+			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_resizeGame');
 	};
@@ -1052,12 +1050,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
-		if (glOn) {
-			glCanvas.width = canvas.width;
-			glCanvas.height = canvas.height;
-			gl.viewport(0,0, width, height);
-		}
-
+		resizeAllLayers();
 	};
 
 	var cancelFullscreen = function () {
@@ -1077,7 +1070,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		var isFull = device.document.fullscreenElement ||
 			device.document.mozFullScreenElement || device.document.webkitFullscreenElement;
 		fullScreen = isSet(isFull);
-	}
+	};
 
 	// Событие об изменениии режима
 	device.document.addEventListener("webkitfullscreenchange", onfullscreenchange);
@@ -1095,13 +1088,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			height2 = height / 2;
 			canvas.width = width;
 			canvas.height = height;
-			if (glOn) {
-				glCanvas.width = canvas.width;
-				glCanvas.height = canvas.height;
-				gl.viewport(0,0, width, height);
-			}
-
 			context.textBaseline = contextSettings.textBaseline;
+			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_initFullScreen');
 	};
@@ -1116,11 +1104,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
-		if (glOn) {
-			glCanvas.width = canvas.width;
-			glCanvas.height = canvas.height;
-			gl.viewport(0,0, width, height);
-		}
+		resizeAllLayers();
 		device.document.documentElement.onclick = function () {};
 	};
 
@@ -1129,18 +1113,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.system.exitFullPage = function () {
+		dom.delEvent('gameResize', 'PointJS_resizeGame');
 		width = origWidth;
 		height = origHeight;
 		width2 = width / 2;
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
-		if (glOn) {
-			glCanvas.width = canvas.width;
-			glCanvas.height = canvas.height;
-			gl.viewport(0,0, width, height);
-		}
-
+		resizeAllLayers();
 	};
 
 
@@ -1185,11 +1165,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 			canvas.style.width = w + 'px';
 			canvas.style.height = h + 'px';
-			if (glOn) {
-				glCanvas.style.width = canvas.style.width;
-				glCanvas.style.height = canvas.style.height;
-				gl.viewport(0,0, width, height);
-			}
+			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_initFullScale');
 		fullScale = true;
@@ -1201,11 +1177,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		dom.delEvent('gameResize', 'PointJS_initFullScale');
 		canvas.style.width = origWidth + 'px';
 		canvas.style.height = origHeight + 'px';
-		if (glOn) {
-			glCanvas.style.width = canvas.style.width;
-			glCanvas.style.height = canvas.style.height;
-			gl.viewport(0,0, width, height);
-		}
 	};
 
 	this.system.getWH = function () {
@@ -1233,11 +1204,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
-	// GUI //////////////////////////////////////////////
 
 
 
-	// end GUI //////////////////////////////////////////
 
 
 
@@ -1650,7 +1619,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		device.onkeypress = function () {};
 		device.onkeyup = function () {};
 
+		globalEvents.clear('key:down');
+		globalEvents.clear('key:press');
+		globalEvents.clear('key:up');
 		dom.delEvent('postLoop', 'PointJS_clearAllKeyUp');
+		dom.delEvent('preLoop', 'PointJS_KeyDownEvent');
 		arrKeyDown = {};
 		arrKeyUp = {};
 		arrKeyPress = {};
@@ -1681,6 +1654,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (arrKeyPress[e.keyCode] != 2) {
 				arrKeyPress[e.keyCode] = 1;
 				lastKeyPress = e.keyCode;
+				globalEvents.run('key:press', codeList[e.keyCode]);
 			}
 			setKeyDown(e.keyCode);
 			return false;
@@ -1701,7 +1675,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				arrKeyUp[e.keyCode] = true;
 			}
 			clearKeyDown(e.keyCode);
+			globalEvents.run('key:up', codeList[e.keyCode]);
 			delete arrKeyPress[e.keyCode];
+			delete arrKeyDown[e.keyCode];
 			return false;
 		};
 
@@ -1711,6 +1687,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			inputPressChar = false;
 			inputPressKey = false;
 			lastKeyPress = false;
+		});
+
+		dom.addEvent('preLoop', 'PointJS_KeyDownEvent', function () {
+			if (globalEvents.isEvent('key:down')) {
+				forEach(arrKeyDown, function (val, key) {
+					if (val) globalEvents.run('key:down', codeList[key]);
+				});
+			}
 		});
 
 		return this;
@@ -1761,6 +1745,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		'RIGHT' : 3,
 		'MIDDLE' : 2
 	};
+
+	var mouseListKeys = {
+		1 : 'LEFT',
+		3 : 'RIGHT',
+		2 : 'MIDDLE'
+	};
+
+	var mousePressed = false;
 
 	var mouseDown = {},
 		mouseUp = {},
@@ -1860,6 +1852,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var onMouseWheel = function (e) {
 		e.preventDefault();
 		mouseWheel = ((e.wheelDelta) ? e.wheelDelta : -e.detail);
+		globalEvents.run('mouse:wheel', mouseWheel < 0 ? 'DOWN' : 'UP');
 		return false;
 	};
 
@@ -1880,7 +1873,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	this.mouseControl.initMouseLock = function () {
 		dom.addEvent('onload', 'initPointerLock', function () {
-			requestMouseLock = canvas.requestPointerLock || canvas.mozRequestPointerLock || false;
+			requestMouseLock = eventer.requestPointerLock || eventer.mozRequestPointerLock || false;
 			device.document.exitPointerLock = device.document.exitPointerLock || device.document.mozExitPointerLock || false;
 
 			if ('onpointerlockchange' in device.document) {
@@ -1891,15 +1884,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 			if (!requestMouseLock) return log('error in initMouseLock : not supported');
 			if (mouse.locked) return;
-			canvas.onclick = requestMouseLock;
+			eventer.onclick = requestMouseLock;
 
 		});
 	};
 
 	this.mouseControl.exitMouseLock = function () {
 		device.document.exitPointerLock();
-		canvas.onclick = function () {
-		};
+		eventer.onclick = function () { };
 		mouse.speed = point(0, 0);
 	};
 
@@ -1944,7 +1936,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				var movementY = e.movementY || e.mozMovementY || 0;
 				mouse.pos.x += movementX;
 				mouse.pos.y += movementY;
-				return false;
 			} else {
 				mouse.pos.x = e.pageX - canvasOffset.x;
 				mouse.pos.y = e.pageY - canvasOffset.y;
@@ -1958,6 +1949,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			mouse.speed.y = mouse.pos.y - mouse.prevPos.y;
 			mouse.prevPos.x = mouse.pos.x;
 			mouse.prevPos.y = mouse.pos.y;
+
+			globalEvents.run('mouse:move');
 
 			mouse.moving = true;
 			return false;
@@ -1973,6 +1966,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				else if (e.button & 2) e.which = 3;
 			}
 
+			globalEvents.run('mouse:press', mouseListKeys[e.which]);
+			mousePressed = mouseListKeys[e.which];
+
 			mouseDown[e.which] = true;
 			mousePress[e.which] = 1;
 		};
@@ -1987,6 +1983,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				else if (e.button & 2) e.which = 3;
 			}
 
+			globalEvents.run('mouse:up', mouseListKeys[e.which]);
+
+			mousePressed = false;
 			mouseDown[e.which] = false;
 			mouseUp[e.which] = true;
 			delete mousePress[e.which];
@@ -1999,6 +1998,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		device.onmousewheel = onMouseWheel;
 		device.addEventListener("DOMMouseScroll", onMouseWheel, false);
+
+		dom.addEvent('preLoop', 'PointJS_MouseEventDown', function () {
+			if (mousePressed) {
+				globalEvents.run('mouse:down', mousePressed);
+			}
+		});
 
 		dom.addEvent('postLoop', 'PointJS_clearAllMouseUp', function () {
 			clearAllMouseUp();
@@ -2013,6 +2018,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.mouseControl.exitMouseControl = function () {
+		globalEvents.clear('mouse:press');
+		globalEvents.clear('mouse:down');
+		globalEvents.clear('mouse:up');
+		globalEvents.clear('mouse:move');
+		globalEvents.clear('mouse:wheel');
 		device.onmousemove =
 			device.onmousedown =
 				device.onmouseup =
@@ -2022,6 +2032,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 								device.onmousewheel = function () {
 								};
 		dom.delEvent('postLoop', 'PointJS_clearAllMouseUp');
+		dom.delEvent('preLoop', 'PointJS_MouseEventDown');
 		clearMouseAction();
 		initedMouse = false;
 	};
@@ -2167,11 +2178,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	this.touchControl.isInObject = function (obj) {
 		if (!obj.visible) return false;
-		if (!obj.angle) {
+		if (!obj.angle)
 			return this.isInStatic(obj.getStaticBox());
-		} else {
+		else
 			return this.isInDynamic(obj.getDynamicBox());
-		}
 	};
 
 
@@ -2196,6 +2206,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				touch.y /= scaleScreen.h;
 			}
 
+			globalEvents.run('touch:press');
+
 			touch.fix.x = touch.x;
 			touch.fix.y = touch.y;
 			touch.down = true;
@@ -2215,6 +2227,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 			touch.speed.x = touch.x - touch.prevPos.x;
 			touch.speed.y = touch.y - touch.prevPos.y;
+			globalEvents.run('touch:move');
 			return false;
 		}, false);
 
@@ -2223,6 +2236,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			touch.fix.y = 0;
 			touch.down = false;
 			touch.up = 1;
+			globalEvents.run('touch:up');
 			return false;
 		}, false);
 
@@ -2232,6 +2246,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (device.navigator.mozVibrate)       return device.navigator.mozVibrate(t);
 			if (device.navigator.webkitVibrate) return device.navigator.webkitVibrate(t);
 		};
+
+		dom.addEvent('preLoop', 'PointJS_TouchDownEvent', function () {
+			if (touch.down)
+				globalEvents.run('touch:down');
+		});
 
 		dom.addEvent('postLoop', 'PointJS_touchStopPress', function () {
 			touchStopPress();
@@ -2246,11 +2265,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	this.touchControl.exitTouchControl = function () {
-		device.ontouchstart =
-			device.ontouchmove =
-				device.ontouchend = function (e) {
-				};
+		device.ontouchstart = device.ontouchmove = device.ontouchend = function (e) {};
 		dom.delEvent('postLoop', 'PointJS_touchStopPress');
+		dom.delEvent('preLoop', 'PointJS_TouchDownEvent');
 		clearTouchAction();
 		initedTouch = false;
 	};
@@ -2277,13 +2294,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// colors ///////////////////////////////////////////
 
 	var color = function (r, g, b, a) {
-		// if (webgl) return {
-		// 	r : r / 255,
-		// 	g : g / 255,
-		// 	b : b / 255,
-		// 	a : isDef(a) ? a : 1.0,
-		// };
-		return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + (a ? a : 1) + ')';
+		if (a) return 'rgba(' + r + ', ' + g + ', ' + b + ', ' + a + ')';
+		return 'rgb(' + r + ', ' + g + ', ' + b + ')';
 	};
 
 	var hex2rgb = function (hex, a) {
@@ -2295,20 +2307,26 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.colors.rgb = function (r, g, b) {
-		return color(r, g, b, 1);
+		return color(r, g, b);
 	};
+
 	this.colors.rgba = function (r, g, b, a) {
 		return color(r, g, b, a);
 	};
+
 	this.colors.hex2rgb = function (hex) {
-		return hex2rgb(hex, 1);
+		return hex2rgb(hex);
 	};
+
 	this.colors.hex2rgba = function (hex, a) {
 		return hex2rgb(hex, a);
 	};
+
 	this.colors.randomColor = function (min, max, a) {
 		return color(random(min, max), random(min, max), random(min, max), a || 1);
 	};
+
+
 
 
 	// end colors ///////////////////////////////////////
@@ -2370,12 +2388,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	var forArr = function (arr, func) { // only Array!
 		if (!arr.length) return;
-		var i, len, res;
-		for (i = 0, len = arr.length; i < len; i+= 1) {
-			if (typeof arr[i] == 'undefined') continue;
-			res = func(arr[i], i, arr, i > 0 ? arr[i-1] : arr[arr.length-1]) || false;
+		var i = arr.length - 1, res;
+		for (; i >= 0; i--) {
+			if (typeof arr[i] === 'undefined') continue;
+			res = func(arr[i], i, arr) || false;
 			if (res) {
-				if (res == 'break') break;
+				if (res === 'break') break;
 			}
 		}
 	};
@@ -2436,13 +2454,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		getter.send();
 	};
 
-	this.OOP.insertArrElement = function (arr, i) {
+	this.OOP.extractArrElement = function (arr, i) {
 		var el = arr[i];
 		arr.splice(i, 1);
 		return el;
 	};
 
-	this.OOP.insertRandArrElement = function (arr) {
+	this.OOP.extractRandArrElement = function (arr) {
 		var i = random(0, arr.length - 1);
 		var el = arr[i];
 		arr.splice(i, 1);
@@ -2566,7 +2584,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		getter.send(href);
 	};
 
-
 	var clearArr = function (arr) {
 		arr.length = 0;
 	};
@@ -2577,14 +2594,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		for (_i = 0; _i < i; _i+= 1) {
 			arr.push(func(_i, _i > 0 ? arr[_i-1] : false));
 		}
-
 		return arr;
 	};
 
 	var delObject = function (arr, obj) {
 		var i, len;
 		for (i = 0, len = arr.length; i < len; i+= 1) {
-			if (arr[i].id == obj.id) {
+			if (arr[i] == obj) {
 				arr.splice(i, 1);
 				return true;
 			}
@@ -2592,8 +2608,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var Listener = function (link, func) {
-		var link = link;
-		var func = func;
 		var active = false;
 		var session_id = uid();
 		var interval = false;
@@ -2769,6 +2783,84 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
+	// groups /////////////////////////////////////////////
+	var Group = function () {
+		var _Group = this;
+		var list = [];
+
+		this.fillFromArr = function (arr) {
+			list.length = 0;
+			forArr(arr, function (obj) {
+				list.push(obj);
+			});
+		};
+
+		this.fill = function (cnt, func) {
+			list.length = 0;
+			_PointJS.OOP.fillArr(list, cnt, func);
+		};
+
+		this.draw = function (ondraw) {
+			var i = list.length - 1;
+			for(;i >= 0; i--) {
+				if (!list[i].isInCamera()) continue;
+				list[i].draw();
+				if (ondraw) ondraw(list[i], i);
+			}
+		};
+
+		this.update = function (func, isCam) {
+			var i = list.length - 1;
+			for(;i >= 0; i--) {
+				if (isCam) if (!list[i].isInCamera()) continue;
+				func(list[i], i);
+			}
+		};
+
+		this.add = function (obj) {
+			list.push(obj);
+		};
+
+		this.del = function (obj) {
+			_PointJS.OOP.delObject(list, obj);
+		};
+
+
+
+
+	};
+
+	this.OOP.newGroup = function () {
+		return new Group();
+	};
+
+
+	// end groups /////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// game engine //////////////////////////////////////
 
 	var fps = 60,
@@ -2776,7 +2868,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		dt = 0,
 		startTime = -1,
 		endTime = time,
-		loops = {};
+		loops = {},
+		tick = 0;
 
 	var setFPS = function (newFps) {
 		fps = newFps;
@@ -2815,7 +2908,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	var preEngine = function () {
 		time = Date.now();
 		if (isAutoClear) {
-			clearContext(point(0, 0), point(width, height));
+			clearContext();
 		}
 		dom.runEvent('preLoop');
 	};
@@ -2834,6 +2927,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			next = function () {/* stop engine */
 			};
 		},
+		events : false,
 		start : false,
 		end : false,
 		audio : false,
@@ -2854,9 +2948,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		engine.audio[0].play();
 	};
 
-	this.game.newLoop = function (key, func, start, end) {
+	this.game.newLoop = function (key, func, start, end, events) {
 		if (typeof func == 'function') {
 			loops[key] = {
+				events : events || false,
 				func : func,
 				start : start || false,
 				end : end || false,
@@ -2872,6 +2967,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	this.game.newLoopFromClassObject = function (key, obj) {
 		if (!obj.update) return stop('error in newLoopFromClassObject : function "update" not found');
 		loops[key] = {
+			events : obj.events || false,
 			func : obj.update,
 			start : obj.entry || false,
 			end : obj.exit || false,
@@ -2882,16 +2978,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.game.newLoopFromConstructor = function (key, Obj) {
-		var obj = new Obj();
-		if (!obj.update) return stop('error in newLoopFromConstructor : function "update" not found');
-		loops[key] = {
-			func : obj.update,
-			start : obj.entry || false,
-			end : obj.exit || false,
-			audio : false,
-			fps : false,
-			name : key
-		};
+		_PointJS.game.newLoopFromClassObject(key, new Obj());
 	};
 
 	this.game.setLoopSound = function (key, arrAudio) { // key, array audios
@@ -2900,6 +2987,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			loops[key].audio = [];
 		}
 		for (i = 0; i < arrAudio.length; i+= 1) {
+			loops[key].audio.length = 0;
 			arrAudio[i].setNextPlay(arrAudio[i + 1 == arrAudio.length ? 0 : i + 1]);
 			loops[key].audio.push(arrAudio[i]);
 		}
@@ -2914,11 +3002,75 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		setOffset(point(0, 0));
 		if (engine.end) engine.end();
 		engine = loops[key];
+		globalEvents.loadFromEvents(engine.events);
 		if (engine.start) engine.start();
 		playLoopAudio();
 	};
 
+	var globalEvents = new function () {
+		var list = {
+			'mouse:click' : []
+		};
+
+		var _globalEvents = this;
+
+		this.add = function (key, evt) {
+			if (!list[key]) list[key] = [];
+			list[key].push(evt);
+		};
+
+		this.run = function (key, param) {
+			if (!list[key]) return;
+			forArr(list[key], function (e) {
+				return e(param);
+			});
+		};
+
+		this.clear = function (key) {
+			if (!list[key]) return;
+			list[key].length = 0;
+		};
+
+		this.clearAll = function () {
+			forEach(list, function (e) {
+				e.length = 0;
+			});
+		};
+
+		this.loadFromEvents = function (events) {
+			_globalEvents.clearAll();
+			if (!events) return;
+
+			forEach(events, function (e, key) {
+				_globalEvents.add(key, e);
+			});
+
+		};
+
+		this.isEvent = function (key) {
+			return !!list[key];
+		};
+
+	};
+
+	this.game.tick = function (t, f) { // tick, function
+		if (tick == t)
+			f();
+	};
+
+	var skiped = {};
+	this.game.skip = function (id, t, f) { // skip frames, function
+		if (!isDef(skiped[id])) skiped[id] = 0;
+		if (skiped[id]++ >= t) {
+			f();
+			skiped[id] = 0;
+		}
+	};
+
+
 	var loop = function () {
+		if (tick < 60) tick++;
+		else tick = 0;
 
 		if (fps < 60) {
 			var pauseTime = 1000/fps;
@@ -2938,7 +3090,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				}
 			}
 			next(loop);
-			return;
+			return false;
 		} else {
 			try {
 				preEngine();
@@ -2978,7 +3130,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		next = getRequestAnimationFrame();
 		startTime = -1;
 		start();
-		return;
+		return false;
 	};
 
 	this.game.getWH = function () {
@@ -3025,6 +3177,26 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	// object manager ////////////////////////////////////
 
 	var objectList = [];
@@ -3036,11 +3208,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				el.draw();
 			}
 		});
-	};
-
-	var inherit = function (Parent, Child) {
-		Child.prototype = Object.create(Parent.prototype);
-		Child.prototype.constructor = Child;
 	};
 
 	// BaseObject
@@ -3293,6 +3460,15 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		isStaticIntersect : function (box) {
 			return ((this.y + this.box.y + this.h + this.box.h >= box.y) && (this.x + this.box.x + this.w + this.box.w >= box.x)) && ((this.x + this.box.x < box.x + box.w) && (this.y + this.box.y < box.y + box.h));
+		},
+
+		getStaticBoxPosition : function () {
+			return {
+				x : this.x + this.box.x,
+				y : this.y + this.box.y,
+				w : this.x + this.box.x + this.w + this.box.w,
+				h : this.y + this.box.y + this.h + this.box.h
+			};
 		},
 
 		getStaticBox : function () {
@@ -3576,18 +3752,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			return count > 0;
 		},
 
-		onCollision : function (obj) {
-			DEPRECATED('onCollision, onArrCollision', 'isIntersect, isArrIntersect');
-		},
-
-		onArrCollision : function (arr) {
-			var i, len;
-			for (i = 0, len = arr.length; i < len; i+= 1) {
-				if (this.id == arr[i].id) continue;
-				this.onCollision(arr[i]);
-			}
-		},
-
 		draw : function () {
 			// 0-function
 		}
@@ -3607,6 +3771,22 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.type = 'TriangleObject';
 	};
 	inherit(BaseObject, TriangleObject);
+
+	TriangleObject.prototype.getDynamicBox = function () {
+		var center = this.getPositionC();
+		if (this.angle == 0) {
+			return [
+				point(this.x + this.w/2, this.y),
+				point(this.x + this.w, this.y + this.h),
+				point(this.x, this.y + this.h),
+			];
+		}
+		return [
+			getPointAngle(point(this.x + this.w/2, this.y), center, this.getAngle()),
+			getPointAngle(point(this.x + this.w, this.y + this.h), center, this.getAngle()),
+			getPointAngle(point(this.x, this.y + this.h), center, this.getAngle()),
+		];
+	};
 
 	TriangleObject.prototype.draw = function () {
 		if (!this.visible) return;
@@ -4079,7 +4259,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	PolygonObject.prototype.scale = function (s) {
-		return;
+		return false;
 	};
 
 	PolygonObject.prototype.drawDynamicBox = function (c) {
@@ -4563,13 +4743,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		if (isDef(imageList[file])) {
 			obj.loaded = true;
 			obj.file = file;
-			var w, h;
+			var w, h, dh;
 			if (obj.w && !obj.h) {
-				var dh = obj.w / imageList[file].w;
+				dh = obj.w / imageList[file].w;
 				w = obj.w;
 				h = imageList[file].h * dh;
 			} else if (!obj.w && obj.h) {
-				var dh = obj.h / imageList[file].h;
+				dh = obj.h / imageList[file].h;
 				h = obj.h;
 				w = imageList[file].w * dh;
 			} else if (obj.w && obj.h) {
@@ -4946,7 +5126,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			point(offset.x, offset.y),
 			point(offset.x + width, offset.y),
 			point(offset.x + width, offset.y + height),
-			point(offset.x, offset.y + height),
+			point(offset.x, offset.y + height)
 		];
 	};
 
@@ -4982,7 +5162,6 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var setSmooth = function () {
-		context.mozImageSmoothingEnabled = isSmooth;
 		context.msImageSmoothingEnabled = isSmooth;
 		context.imageSmoothingEnabled = isSmooth;
 	};
@@ -5049,11 +5228,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	var clearContext = function (p, s) {
-		context.clearRect(p.x, p.y, s.x, s.y);
+		context.clearRect(0, 0, width, height);
 	};
 
 	this.game.clear = function () {
-		clearContext(point(0, 0), point(width, height));
+		clearContext();
 	};
 
 
@@ -5130,6 +5309,14 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			}
 		}
 	};
+
+	var initXYHW = function (obj) {
+		if (!obj.x) obj.x = 0;
+		if (!obj.y) obj.y = 0;
+		if (!obj.w) obj.w = 0;
+		if (!obj.h) obj.h = 0;
+	};
+
 	this.brush.drawPolygon = function (obj) {
 		drawPolygon(
 			obj.points || [],
@@ -5141,9 +5328,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawTriangle = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y + obj.h < offset.y || obj.y > offset.y + height) return false;
 		drawPolygonXY(
-			obj.x || 0,
-			obj.y || 0,
+			obj.x,
+			obj.y,
 			[point(obj.w/2, 0), point(obj.w, obj.h), point(0, obj.h)],
 			obj.fillColor,
 			obj.strokeColor,
@@ -5152,9 +5342,12 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawTriangleS = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < 0 || obj.x > width) return false;
+		if (obj.y + obj.h < 0 || obj.y > height) return false;
 		drawPolygonXY(
-			offset.x + (obj.x || 0),
-			offset.y + (obj.y || 0),
+			offset.x + obj.x,
+			offset.y + obj.y,
 			[point(obj.w/2, 0), point(obj.w, obj.h), point(0, obj.h)],
 			obj.fillColor,
 			obj.strokeColor,
@@ -5285,6 +5478,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawRect = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y + obj.h < offset.y || obj.y > offset.y + height) return false;
 		drawRect(point(obj.x, obj.y),
 			size(obj.w, obj.h),
 			obj.fillColor || false,
@@ -5293,6 +5489,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawRectS = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < 0 || obj.x > width) return false;
+		if (obj.y + obj.h < 0 || obj.y > height) return false;
 		drawRect(point(obj.x + offset.x, obj.y + offset.y),
 			size(obj.w, obj.h),
 			obj.fillColor || false,
@@ -5308,11 +5507,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawPoint = function (obj) {
-		drawPoint(point(obj.x, obj.y),
-			obj.fillColor || false)
+		initXYHW(obj);
+		if (obj.x < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y < offset.y || obj.y > offset.y + height) return false;
+		drawPoint(point(obj.x, obj.y), obj.fillColor || false);
 	};
 
 	this.brush.drawPointS = function (obj) {
+		initXYHW(obj);
+		if (obj.x < 0 || obj.x > width) return false;
+		if (obj.y < 0 || obj.y > height) return false;
 		drawPoint(point(obj.x + offset.x, obj.y + offset.y),
 			obj.fillColor || false)
 	};
@@ -5346,6 +5550,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawRoundRect = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y + obj.h < offset.y || obj.y > offset.y + height) return false;
 		drawRoundRect(point(obj.x, obj.y),
 			size(obj.w, obj.h),
 			obj.radius || 2,
@@ -5355,6 +5562,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawRoundRectS = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < 0 || obj.x > width) return false;
+		if (obj.y + obj.h < 0 || obj.y > height) return false;
 		drawRoundRect(point(offset.x + obj.x, offset.y + obj.y),
 			size(obj.w, obj.h),
 			obj.radius || 2,
@@ -5381,6 +5591,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawCircle = function (obj) {
+		initXYHW(obj);
+		var r2 = obj.radius * 2;
+		if (obj.x + r2 < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y + r2 < offset.y || obj.y > offset.y + height) return false;
 		drawCircle(point(obj.x, obj.y),
 			obj.radius,
 			obj.fillColor || false,
@@ -5389,6 +5603,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawCircleS = function (obj) {
+		initXYHW(obj);
+		var r2 = obj.radius * 2;
+		if (obj.x + r2 < 0 || obj.x > width) return false;
+		if (obj.y + r2 < 0 || obj.y > height) return false;
+
 		drawCircle(point(obj.x + offset.x, obj.y + offset.y),
 			obj.radius,
 			obj.fillColor || false,
@@ -5448,6 +5667,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawEllips = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < offset.x || obj.x > offset.x + width) return false;
+		if (obj.y + obj.h < offset.y || obj.y > offset.y + height) return false;
 		var a = obj.w / 2,
 			b = obj.h / 2,
 			pos = point(-offset.x + obj.x, -offset.y + obj.y);
@@ -5463,6 +5685,9 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.brush.drawEllipsS = function (obj) {
+		initXYHW(obj);
+		if (obj.x + obj.w < 0 || obj.x > width) return false;
+		if (obj.y + obj.h < 0 || obj.y > height) return false;
 		var a = obj.w / 2,
 			b = obj.h / 2,
 			pos = point(obj.x, obj.y);
@@ -5483,13 +5708,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (!imageList[obj.file].loaded) return;
 			var x = obj.x || 0;
 			var y = obj.y || 0;
-			var w, h;
+			var w, h, dh;
 			if (obj.w && !obj.h) {
-				var dh = obj.w / imageList[obj.file].w;
+				dh = obj.w / imageList[obj.file].w;
 				w = obj.w;
 				h = imageList[obj.file].h * dh;
 			} else if (!obj.w && obj.h) {
-				var dh = obj.h / imageList[obj.file].h;
+				dh = obj.h / imageList[obj.file].h;
 				h = obj.h;
 				w = imageList[obj.file].w * dh;
 			} else if (obj.w && obj.h) {
@@ -5503,6 +5728,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				w *= obj.scale;
 				h *= obj.scale;
 			}
+
+			if (x + w < 0 || x > width) return false;
+			if (y + h < 0 || y > height) return false;
+
 			context.drawImage(imageList[obj.file].img, 0, 0, imageList[obj.file].w, imageList[obj.file].h, x, y, w, h);
 			return;
 		}
@@ -5517,7 +5746,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			imageList[obj.file].w = this.width;
 			imageList[obj.file].h = this.height;
 			resources.load();
-		}
+		};
 		img.src = obj.file;
 		resources.add();
 	};
@@ -5529,13 +5758,13 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			if (!imageList[obj.file].loaded) return;
 			var x = obj.x || 0;
 			var y = obj.y || 0;
-			var w, h;
+			var w, h, dh;
 			if (obj.w && !obj.h) {
-				var dh = obj.w / imageList[obj.file].w;
+				dh = obj.w / imageList[obj.file].w;
 				w = obj.w;
 				h = imageList[obj.file].h * dh;
 			} else if (!obj.w && obj.h) {
-				var dh = obj.h / imageList[obj.file].h;
+				dh = obj.h / imageList[obj.file].h;
 				h = obj.h;
 				w = imageList[obj.file].w * dh;
 			} else if (obj.w && obj.h) {
@@ -5550,6 +5779,10 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 				w *= obj.scale;
 				h *= obj.scale;
 			}
+
+			if (x + w < offset.x || x > offset.x + width) return false;
+			if (y + h < offset.y || y > offset.y + height) return false;
+
 			context.drawImage(imageList[obj.file].img, 0, 0, imageList[obj.file].w, imageList[obj.file].h, -offset.x + x, -offset.y + y, w, h);
 			return;
 		}
@@ -5563,7 +5796,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			imageList[obj.file].w = this.width;
 			imageList[obj.file].h = this.height;
 			resources.load();
-		}
+		};
 		img.src = obj.file;
 		resources.add();
 	};
@@ -5827,15 +6060,15 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 	var Audio = function (f, v) { // file, volume
-		var i, len;
+		var i, len, source;
 		var audio = device.document.createElement('audio');
 		if (typeof f == 'string') {
-			var source = device.document.createElement('source');
+			source = device.document.createElement('source');
 			source.src = f;
 			audio.appendChild(source);
 		} else {
 			for (i = 0, len = f.length; i < len; i+= 1) {
-				var source = device.document.createElement('source');
+				source = device.document.createElement('source');
 				source.src = f[i];
 				audio.appendChild(source);
 			}
@@ -5846,16 +6079,16 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 		this.loaded = false;
 		this.nextPlay = false;
 
-		this.audio.volume = this.vol;
+		audio.volume = this.vol;
 
 		var that = this;
 
-		this.audio.onloadeddata = function () {
+		audio.onloadeddata = function () {
 			that.loaded = true;
 			resources.load();
 		};
 
-		this.audio.onended = function () {
+		audio.onended = function () {
 			var i;
 			that.playing = false;
 			if (that.nextPlay) {
@@ -5863,7 +6096,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 			}
 		};
 
-		this.audio.load();
+		audio.load();
 		resources.add();
 	};
 
@@ -5938,30 +6171,51 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// zIndex ////////////////////////////////////////////
 
 	var zList = [];
+	var zDraw = [];
+
+	this.zList.useZValue = function () {
+		this.update = function () {
+			zDraw.length = 0;
+			forArr(zList, function (el) {
+				if (el.isInCamera()) zDraw.push(el);
+			});
+			zDraw.sort(function (A, B) {
+				return A.z - B.z;
+			});
+		};
+	};
+
+	this.zList.useYValue = function () {
+		this.update = function () {
+			zDraw.length = 0;
+			forArr(zList, function (el) {
+				if (el.isInCamera()) zDraw.push(el);
+			});
+			zDraw.sort(function (A, B) {
+				return (A.y + A.h) - (B.y + B.h);
+			});
+		};
+	};
 
 	this.zList.add = function (obj) {
 		zList.push(obj);
 	};
 
 	this.zList.init = function (arr) {
-		OOP.forArr(arr, function (el) {
+		forArr(arr, function (el) {
 			_PointJS.zList.add(el);
 		});
 	};
 
-	this.zList.update = function () {
-		zList.sort(function (A, B) {
-			return (A.y + A.h) - (B.y + B.h);
-		});
-	};
-
 	this.zList.draw = function (onDraw) {
-		OOP.drawArr(zList, onDraw);
+		_PointJS.OOP.drawArr(zDraw, onDraw);
 	};
 
 	this.zList.del = function (obj) {
-		OOP.delObject(zList, obj);
+		_PointJS.OOP.delObject(zList, obj);
 	};
+
+	this.zList.useYValue();
 
 	// end zIndex ////////////////////////////////////////
 
@@ -6184,15 +6438,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	this.levels.newLevelFromJSON = function (json, onCreate) {
-		var level = new Level(json, 'json', onCreate || false);
-
-		return level;
+		return new Level(json, 'json', onCreate || false);
 	};
 
 	this.levels.newEmptyLevel = function (json) {
-		var level = new Level(false);
-
-		return level;
+		return new Level(false);
 	};
 
 	// end levels ///////////////////////////////////////
@@ -6252,6 +6502,84 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	};
 
 	// end get FPS ////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// filters CSS ///////////////////////////////////////
+
+	var filters = this.filters;
+
+	filters.setCSSFilter = function (flt, layer) {
+		var _s = (layer ? layer.canvas : canvas).style;
+		var str = '';
+
+		forEach(flt, function (val, key) {
+			str += ' '+key+'('+val+')';
+		});
+
+		_s.OFilter = _s.MozFilter = _s.WebkitFilter = _s.filter = str;
+	};
+
+	filters.clearCSSFilter = function (layer) {
+		var _s = (layer ? layer.canvas : canvas).style;
+		_s.OFilter = _s.MozFilter = _s.WebkitFilter = _s.filter = 'none';
+	};
+
+
+
+	filters.setCSSTransform = function (flt, layer) {
+		var _s = (layer ? layer.canvas : canvas).style;
+		var str = 'perspective('+width+'px)';
+
+		forEach(flt, function (val, key) {
+			str += ' '+key+'('+val+')';
+		});
+
+		_s.transform = _s.MozTransform = _s.WebkitTransform = str;
+	};
+
+	filters.clearCSSTransform = function (layer) {
+		var _s = (layer ? layer.canvas : canvas).style;
+		_s.transform = _s.MozTransform = _s.WebkitTransform = 'none';
+	};
+
+	// end filters CSS ///////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -6383,6 +6711,11 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 
 
+
+
+
+
+
 	// memory ///////////////////////////////////////////////
 
 	this.memory.local = {
@@ -6411,7 +6744,7 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 		loadAsNumber : function (key) {
 			return parseFloat(this.storage.getItem(key));
-		},
+		}
 	};
 
 	this.memory.temp = {
@@ -6457,17 +6790,19 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	// system //////////////////////////////////////////////
 	device.onload = function () {
-		var i;
-		for (i in contextSettings) {
-			context[i] = contextSettings[i];
-		}
+		if (context) {
+			var i;
+			for (i in contextSettings) {
+				context[i] = contextSettings[i];
+			}
 
-		context.save();
+			context.save();
+		}
 
 		dom.runEvent('onload');
 		dom.loaded = true;
 
-		if (typeof POINTJS_USER_ONLOAD == 'function') {
+		if (typeof POINTJS_USER_ONLOAD === 'function') {
 			POINTJS_USER_ONLOAD();
 		}
 
@@ -6490,7 +6825,8 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 
 	device.onresize = function () {
 		dom.runEvent('gameResize');
-		context.textBaseline = contextSettings.textBaseline;
+		if (context)
+			context.textBaseline = contextSettings.textBaseline;
 		return false;
 	};
 
@@ -6508,4 +6844,4 @@ function PointJS(D, w, h, s, NodeJS) { // GL2D/2D/3D, width, height, styleObject
 	// end system //////////////////////////////////////////
 
 
-};
+}
