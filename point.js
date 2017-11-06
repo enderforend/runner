@@ -2,7 +2,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.2.2'; // 1 октября
+	var version_of_engine = '0.2.3'; // 26 октября
 
 	var device = window;
 	var _PointJS = this;
@@ -14,33 +14,33 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	// settings ///////////////////////////////////////
 
 	var isShowError = true,
-		isZBuffer = false,
-		isStopForError = true,
-		isAutoClear = true,
-		isRun = false,
-		isSmooth = true,
+			isZBuffer = false,
+			isStopForError = true,
+			isAutoClear = true,
+			isRun = false,
+			isSmooth = true,
 
-		width = w,
-		height = h,
-		origWidth = w,
-		origHeight = h,
-		width2 = width / 2,
-		height2 = height / 2,
+			width = w,
+			height = h,
+			origWidth = w,
+			origHeight = h,
+			width2 = width / 2,
+			height2 = height / 2,
 
-		scale = 1,
-		offset = {x : 0, y : 0},
-		angle = 0,
-		centerCamera = {x : 0, y : 0},
+			scale = { x : 1, y : 1 },
+			offset = {x : 0, y : 0},
+			angle = 0,
+			centerCamera = {x : 0, y : 0},
 
-		pBuf = {},
+			pBuf = {},
 
-		contextSettings = {
-			fillStyle : 'black',
-			strokeStyle : 'black',
-			globalAlpha : 1,
-			font : 'sans-serif',
-			textBaseline : 'top'
-		};
+			contextSettings = {
+				fillStyle : 'black',
+				strokeStyle : 'black',
+				globalAlpha : 1,
+				font : 'sans-serif',
+				textBaseline : 'top'
+			};
 
 	var log = function (obj) {
 		console.log('[PointJS] : ', obj);
@@ -101,7 +101,6 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.filters =          {};
 
 	// end reserved ///////////////////////////////////////
-
 
 
 
@@ -390,6 +389,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	this.vector.point = point;
+	this.vector.simplePoint = function (x,y,z) {
+		return {
+			x : x !== false ? x : false,
+			y : y !== false ? y : false,
+			z : z !== false ? z : false
+		};
+	};
 	this.vector.v2d = point;
 	this.vector.size = size;
 	this.vector.getPointAngle = getPointAngle;
@@ -407,56 +413,51 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.vector.newDynamicBoxRect = newDynamicBoxRect;
 
 	this.vector.moveCollision = function (pl, walls, speed, onCls, isCam, minDist) {
-		if (!pl._MCPNT_) {
-			pl._MCPNT_ = game.newBaseObject({
-				w : pl.w, h : pl.h,
-				x : pl.x, y : pl.y
-			});
-		}
-
 		var clsX = false;
 		var clsY = false;
 		var as = speed.abs();
 
-		pl.moveTimeC(pl._MCPNT_.getPositionC(), 2);
-
-		var bp = pl._MCPNT_.getStaticBoxPosition();
+		var bp = pl.getStaticBoxPosition();
 
 		var i = walls.length - 1, w, bw, dif = {};
 		for (; i >= 0; i--) {
 			w = walls[i];
+			if (pl === w) continue;
 			if (isCam) if (!w.isInCameraStatic()) continue;
-			if (minDist) if (pl._MCPNT_.getDistanceC(w.getPositionC()) > minDist) continue;
+			if (minDist) if (pl.getDistanceC(w.getPositionC()) > minDist) continue;
 
-
-			if (pl._MCPNT_.isStaticIntersect(w.getStaticBox())) {
+			if (pl.isStaticIntersect(w.getStaticBox())) {
 				bw = w.getStaticBoxPosition();
-				dif.x = as.x + as.y + 1;
-				dif.y = as.y + as.x + 1;
+				// dif.x = limit(as.x * 2, w.box.w);
+				// dif.y = limit(as.y * 2, w.box.h);
 
-				if (bp.y < bw.h - dif.y && bp.h > bw.y + dif.y) {
+				dif.x = 1 + as.x * 2;
+				dif.y = 1 + as.y * 2;
+
+				if (bp.h >= bw.y + dif.y && bp.y <= bw.h - dif.y) {
 					if (bp.w > bw.x && bp.w < bw.x + dif.x && speed.x > 0) {
-						pl._MCPNT_.x = bw.x - pl.w;
+						pl.x = bw.x - (pl.w + pl.box.w + pl.box.x) + 1;
 						speed.x = 0;
 						clsX = true;
 					} else if (bp.x < bw.w && bp.x > bw.w - dif.x && speed.x < 0) {
-						pl._MCPNT_.x = bw.w;
+						pl.x = bw.w - pl.box.x - 1;
 						speed.x = 0;
 						clsX = true;
 					}
 				}
 
-				if (bp.x < bw.w - dif.x && bp.w > bw.x + dif.x) {
+				if (bp.w >= bw.x + dif.x && bp.x <= bw.w - dif.x) {
 					if (bp.h > bw.y && bp.h < bw.y + dif.y && speed.y > 0) {
-						pl._MCPNT_.y = bw.y - pl.h;
+						pl.y = bw.y - (pl.h + pl.box.h + pl.box.y) + 1;
 						speed.y = 0;
 						clsY = true;
 					} else if (bp.y < bw.h && bp.y > bw.h - dif.y && speed.y < 0) {
-						pl._MCPNT_.y = bw.h;
+						pl.y = bw.h - pl.box.y - 1;
 						speed.y = 0;
 						clsY = true;
 					}
 				}
+
 
 				if (onCls) onCls(pl, w, clsX, clsY);
 
@@ -464,50 +465,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		}
 
-		pl._MCPNT_.move(speed);
-		// pl._MCPNT_.drawStaticBox();
-	};
-
-	this.vector.oldMoveCollision = function (player, walls, speed, onCollision, isInCamera, minDist) {
-		var newSpeed = point(speed.x, speed.y);
-		var step = 10, i = 0, len = walls.length, wall;
-
-		for (; i < len; i+= 1) {
-			wall = walls[i];
-			if (isInCamera) if (!wall.isInCameraStatic()) continue;
-			if (minDist) if (player.getDistanceC(wall.getPositionC())) continue;
-
-			var boxWall = wall.getStaticBox();
-			if (player.isIntersect(wall)) {
-				var boxPlayer = player.getStaticBox();
-
-				var aSpeedX = Math.abs(speed.x);
-				var aSpeedY = Math.abs(speed.y);
-
-				if (boxPlayer.x+boxPlayer.w > boxWall.x + step + aSpeedX && boxPlayer.x < boxWall.x + boxWall.w - step - aSpeedX) {
-					if (speed.y > 0 && boxPlayer.y+boxPlayer.h < boxWall.y+boxWall.h/2+aSpeedY) {
-						newSpeed.y = 0;
-					} else if (speed.y < 0 && boxPlayer.y > boxWall.y+boxWall.h-boxWall.h/2-aSpeedY) {
-						newSpeed.y = 0;
-					}
-				}
-
-				if (boxPlayer.y+boxPlayer.h > boxWall.y + step + aSpeedY && boxPlayer.y < boxWall.y + boxWall.h - step - aSpeedY) {
-					if (speed.x > 0 && boxPlayer.x+boxPlayer.w < boxWall.x+boxWall.w/2+aSpeedX) {
-						newSpeed.x = 0;
-					} else if (speed.x < 0 && boxPlayer.x > boxWall.x+boxWall.w-boxWall.w/2-aSpeedX) {
-						newSpeed.x = 0;
-					}
-				}
-
-				if (onCollision) onCollision(player, wall);
-			}
-		}
-
-		player.move(newSpeed);
-
-		return newSpeed;
-
+		pl.move(speed);
 	};
 
 	this.vector.moveCollisionAngle = function (player, walls, speed, onCollision, angle, isInCamera, minDist) {
@@ -1358,6 +1316,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		'CAPS_LOCK' : 20,
 		'BACKSPACE' : 8,
 		'TAB' : 9,
+		'DELETE' : 46,
 		'Q' : 81,
 		'W' : 87,
 		'E' : 69,
@@ -1437,6 +1396,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		'20' : 'CAPS_LOCK',
 		'8' : 'BACKSPACE',
 		'9' : 'TAB',
+		'46' : 'DELETE',
 		'81' : 'Q',
 		'87' : 'W',
 		'69' : 'E',
@@ -1775,8 +1735,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var getMousePosition = function (abs) {
-		var dx = 0,
-			dy = 0;
+		var dx = 0, dy = 0;
 		if (abs) {
 			dx = offset.x;
 			dy = offset.y;
@@ -1944,6 +1903,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 					mouse.pos.y /= scaleScreen.h;
 				}
 			}
+
+			mouse.pos.x /= scale.x;
+			mouse.pos.y /= scale.y;
 
 			mouse.speed.x = mouse.pos.x - mouse.prevPos.x;
 			mouse.speed.y = mouse.pos.y - mouse.prevPos.y;
@@ -2436,7 +2398,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return JSONObject;
 	};
 
-	var readJSON = function (f, func) { // file, callback
+	var readJSON = function (f, func, asText) { // file, callback
 		var JSONObject = {};
 		var getter = new XMLHttpRequest();
 		getter.open('GET', f, true);
@@ -2445,7 +2407,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		getter.onreadystatechange = function () {
 			if (getter.readyState == 4) {
 				JSONObject = getter.responseText;
-				JSONObject = JSON.parse(JSONObject);
+				if (!asText) JSONObject = JSON.parse(JSONObject);
 				resources.load();
 				func(JSONObject);
 			}
@@ -2489,6 +2451,28 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			}
 		}
 	};
+
+
+	this.OOP.getArrInCamera = function (arr) {
+		var tmp = [];
+		forArr(arr, function (el) {
+			if (el.isInCamera()) {
+				tmp.push(el);
+			}
+		});
+		return tmp;
+	};
+
+	this.OOP.getArrOutCamera = function (arr) {
+		var tmp = [];
+		forArr(arr, function (el) {
+			if (!el.isInCamera()) {
+				tmp.push(el);
+			}
+		});
+		return tmp;
+	};
+
 
 	var sendGET = function (f, p, func) { // file, params, callback
 		var JSONObject = {};
@@ -3059,7 +3043,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var skiped = {};
-	this.game.skip = function (id, t, f) { // skip frames, function
+	this.game.skip = function (id, t, f) { // id, skip frames, function
 		if (!isDef(skiped[id])) skiped[id] = 0;
 		if (skiped[id]++ >= t) {
 			f();
@@ -3233,6 +3217,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		};
 		this.visible = isDef(obj.visible) ? obj.visible : true;
 		this.flip = point(0, 0);
+		this.__dataset__ = {};
 
 		this.setShadow(obj);
 
@@ -3264,9 +3249,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			this.setPositionC(obj.positionC);
 		}
 
-		if (typeof obj.oncreate == 'function') {
+		if (typeof obj.oncreate === 'function') {
 			this.oncreate = obj.oncreate;
-			this.oncreate();
+			this.oncreate(this);
 			delete this.oncreate;
 		}
 
@@ -3281,6 +3266,22 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		getType : function () {
 			return this.type;
+		},
+
+		dataDel : function (key) {
+			delete this.__dataset__[key];
+		},
+
+		dataSet : function (key, val) {
+			this.__dataset__[key] = val;
+		},
+
+		dataGet : function (key, def) {
+			return typeof this.__dataset__[key] !== 'undefined' ? this.__dataset__[key] : (typeof def !== 'undefined' ? def : false);
+		},
+
+		data : function () {
+			return this.__dataset__;
 		},
 
 		getParent : function () {
@@ -4536,7 +4537,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	AnimationObject.prototype.setAnimation = function (t) { // tile
-		if (t.id == this.anim.id) return;
+		if (t === this.anim) return;
 		this.frame = 0;
 		this.anim = t;
 	};
@@ -4551,6 +4552,18 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	AnimationObject.prototype.getDelay = function () {
 		return this.step;
+	};
+
+	AnimationObject.prototype.getFrame = function () {
+		return this.frame;
+	};
+
+	AnimationObject.prototype.setFrame = function (f) {
+		this.frame = f;
+	};
+
+	AnimationObject.prototype.getLastFrame = function () {
+		return this.anim.endFrame;
 	};
 
 	this.game.newAnimationObject = function (obj) {
@@ -5029,8 +5042,44 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	// camera /////////////////////////////////////////////
 
-	this.camera.setScale = function (s) { // scale
-		scale = s;
+	this.camera.scale = function (s) { // scale
+		scale.x *= s.x;
+		scale.y *= s.y;
+		width   /= s.x;
+		height  /= s.y;
+		width2  = width / 2;
+		height2 = height / 2;
+		context.scale(s.x, s.y);
+		context.save();
+		if (initedMouse) {
+			mouse.pos.x /= s.x;
+			mouse.pos.y /= s.y;
+		}
+	};
+
+
+	this.camera.scaleC = function (s) { // scale
+		var old = {
+			w : width,
+			h : height
+		};
+
+		scale.x *= s.x;
+		scale.y *= s.y;
+		width   /= s.x;
+		height  /= s.y;
+		width2  = width / 2;
+		height2 = height / 2;
+		context.scale(s.x, s.y);
+		context.save();
+
+		offset.x += (old.w - width) / 2;
+		offset.y += (old.h - height) / 2;
+
+		if (initedMouse) {
+			mouse.pos.x /= s.x;
+			mouse.pos.y /= s.y;
+		}
 	};
 
 	this.camera.circling = function (p, r, s) { // point, radius, speed
@@ -5068,8 +5117,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.motionPercentPointJS = this.motionPercentPointJS >= 360 ? s : this.motionPercentPointJS + sp;
 	};
 
-	this.camera.follow = function (obj) {
-		this.moveTimeC(obj.getPositionC(), 10);
+	this.camera.follow = function (obj, s) {
+		this.moveTimeC(obj.getPositionC(), s || 10);
 	};
 
 	this.camera.move = function (p) {
@@ -5080,13 +5129,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.camera.moveTime = function (p, t) {
 		t = t || 1;
 		var pos = point(offset.x, offset.y);
-		this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+		this.move(point(scale.x * (p.x - pos.x) / t, scale.y * (p.y - pos.y) / t));
 	};
 
 	this.camera.moveTimeC = function (p, t) {
 		t = t || 1;
 		var pos = point(offset.x + width2, offset.y + height2);
-		this.move(point((p.x - pos.x) / t, (p.y - pos.y) / t));
+		this.move(point(scale.x * (p.x - pos.x) / t, scale.y * (p.y - pos.y) / t));
 	};
 
 	this.camera.setPosition = function (p) {
@@ -5430,7 +5479,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		if (!obj.lines) return;
 		var i, size = obj.size || 10;
 		for (i = 0; i < obj.lines.length; i+= 1) {
-			drawText(point(obj.x, obj.y + (size * i)),
+			drawText(point(obj.x || 0, (obj.y || 0) + (size * i)),
 				obj.lines[i],
 				obj.color || contextSettings.fillStyle,
 				size,
@@ -5446,7 +5495,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		if (!obj.lines) return;
 		var i, size = obj.size || 10;
 		for (i = 0; i < obj.lines.length; i+= 1) {
-			drawText(point(obj.x + offset.x, obj.y + offset.y + (size * i)),
+			drawText(point((obj.x || 0) + offset.x, (obj.y || 0) + offset.y + (size * i)),
 				obj.lines[i],
 				obj.color || contextSettings.fillStyle,
 				size,
@@ -6329,7 +6378,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		var lvl = [], settings = {};
 		var origData;
 
-		if (data && type == 'json') {
+		if (data && type === 'json') {
 			var parseJSON = loadLevelAsJSON(data, onCreate);
 			lvl = parseJSON.objects;
 			settings = parseJSON.settings;
@@ -6352,7 +6401,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		this.del = function (obj) {
 			forArr(lvl, function (el, i) {
-				if (obj.id == el.id) {
+				if (obj === el) {
 					lvl.splice(i, 1);
 					return 'break';
 				}
@@ -6397,8 +6446,20 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 				if (ondrawFunction) {
 					ondrawFunction(el);
 				}
-				el.draw();
+				if (el.isInCamera()) {
+					el.draw();
+				}
 			});
+		};
+
+		this.getObjectsInCamera = function () {
+			var tmp = [];
+			forArr(lvl, function (el) {
+				if (el.isInCamera()) {
+					tmp.push(el);
+				}
+			});
+			return tmp;
 		};
 
 		this.getLevelAsJSON = function (onGet, onSet) {
@@ -6735,7 +6796,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		loadAsObject : function (key) {
-			return JSON.parse(this.storage.getItem(key));
+			return JSON.parse(this.storage.getItem(key) || 'false');
 		},
 
 		load : function (key) {
@@ -6825,8 +6886,15 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	device.onresize = function () {
 		dom.runEvent('gameResize');
-		if (context)
+		if (context) {
 			context.textBaseline = contextSettings.textBaseline;
+			width   /= scale.x;
+			height  /= scale.y;
+			width2  = width / 2;
+			height2 = height / 2;
+			context.scale(scale.x, scale.y);
+		}
+
 		return false;
 	};
 
