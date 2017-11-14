@@ -2,7 +2,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.2.3'; // 26 октября
+	var version_of_engine = '0.3.1'; // 10 ноября
 
 	var device = window;
 	var _PointJS = this;
@@ -84,7 +84,6 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.keyControl =       {};
 	this.mouseControl =     {};
 	this.touchControl =     {};
-	this.actionControl =    {};
 	this.system =           {};
 	this.vector =           {};
 	this.math =             {};
@@ -97,6 +96,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.tiles =            {};
 	this.OOP =              {};
 	this.memory =           {};
+	this.modules =          {};
 	this.zList =            {};
 	this.filters =          {};
 
@@ -211,7 +211,41 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 
+	// modules ///////////////////////////////////////////
 
+	this.modules.import = function (file, func) {
+		resources.add();
+		var getter = new XMLHttpRequest();
+		getter.open('GET', file, true);
+		getter.onload = function () {
+			var Module = { constructor : function () {} };
+			var module = getter.responseText.toString().replace(/PointJS.Module/i, 'Module.constructor');
+			new Function('Module', module)(Module);
+			var m = new Module.constructor(_PointJS, device);
+			resources.load();
+			func(m);
+		};
+		getter.send();
+	};
+
+	this.modules.importSync = function (file) {
+		var getter;
+
+		try {
+			getter = new XMLHttpRequest();
+			getter.open('GET', file, false);
+			getter.send();
+		} catch (e) { return; }
+
+		var Module = {
+			constructor : function () {}
+		};
+		var module = getter.responseText.toString().replace(/PointJS.Module/i, 'Module.constructor');
+		new Function('Module', module)(Module);
+		return new Module.constructor(_PointJS, device);
+	};
+
+	// end modules ///////////////////////////////////////
 
 
 
@@ -325,6 +359,21 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return pip;
 	};
 
+	var isLineIntersect = function (x1, y1, x2, y2, x3, y3, x4, y4) {
+		var a_dx = x2 - x1;
+		var a_dy = y2 - y1;
+		var b_dx = x4 - x3;
+		var b_dy = y4 - y3;
+		var s = (-a_dy * (x1 - x3) + a_dx * (y1 - y3)) / (-b_dx * a_dy + a_dx * b_dy);
+		var t = (+b_dx * (y1 - y3) - b_dy * (x1 - x3)) / (-b_dx * a_dy + a_dx * b_dy);
+		return (s >= 0 && s <= 1 && t >= 0 && t <= 1);
+	};
+
+	var isNumInRange = function (num, a, b) {
+		if (num < a || num > b) return false;
+		return true;
+	};
+
 	// var isPointIn = function (point, points) {
 	// 	if (points.length < 3) {
 	// 		return false;
@@ -422,6 +471,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		var i = walls.length - 1, w, bw, dif = {};
 		for (; i >= 0; i--) {
 			w = walls[i];
+			if (!w.visible) continue;
 			if (pl === w) continue;
 			if (isCam) if (!w.isInCameraStatic()) continue;
 			if (minDist) if (pl.getDistanceC(w.getPositionC()) > minDist) continue;
@@ -431,8 +481,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 				// dif.x = limit(as.x * 2, w.box.w);
 				// dif.y = limit(as.y * 2, w.box.h);
 
-				dif.x = 1 + as.x * 2;
-				dif.y = 1 + as.y * 2;
+				dif.x = 2 + as.x * 2;
+				dif.y = 2 + as.y * 2;
 
 				if (bp.h >= bw.y + dif.y && bp.y <= bw.h - dif.y) {
 					if (bp.w > bw.x && bp.w < bw.x + dif.x && speed.x > 0) {
@@ -722,6 +772,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		});
 	};
 
+	var rePosAllLayers = function () {
+		forArr(layerList, function (layer) {
+			layer.canvas.style.left =  canvas.style.left;
+			layer.canvas.style.top = canvas.style.top;
+		});
+	};
+
 	this.layers.newLayer = function (z, obj) {
 		return new Layer(z, obj);
 	};
@@ -770,7 +827,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		addEvent : function (evt, key, func) {
-			if (evt == 'onload' && dom.loaded) {
+			if (evt === 'onload' && dom.loaded) {
 				func();
 			} else {
 				dom.events[evt].push({
@@ -903,19 +960,25 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	canvas.id = 'PointJS-canvas_0';
 	// canvas.style.backgroundColor = 'black';
 
-	if (typeof s == 'object') {
+	if (typeof s === 'object') {
 		for (var i in s) {
 			if (!i.match(/margin|padding|position/))
 				canvas.style[i] = s[i];
 		}
 	}
 
+	this.system.setOffset = function (x, y) {
+		canvas.style.left = x + 'px';
+		canvas.style.top = y + 'px';
+		canvasOffset = {
+			x : x,
+			y : y
+		};
+		rePosAllLayers();
+	};
+
 	dom.addEvent('onload', 'Window_Hide_Scroll', function () {
 		device.document.body.style.overflow = 'hidden';
-		canvasOffset = {
-			x : parseInt(canvas.style.left),
-			y : parseInt(canvas.style.top)
-		};
 	});
 
 	var eventer = device.document.createElement('div');
@@ -963,6 +1026,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	this.system.getContext = function () {
 		return context;
+	};
+
+	this.system.setContext = function (newCtx) {
+		if (newCtx) context = newCtx;
 	};
 
 	this.system.resize = function (w, h) {
@@ -1178,102 +1245,6 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 
-
-	// actionControl ////////////////////////////////////
-
-	var touchInited = false;
-	this.actionControl.initActionControl = function () {
-
-		if (_PointJS.touchControl.isTouchSupported()) {
-			touchInited = true;
-			_PointJS.touchControl.initTouchControl();
-		}
-
-		_PointJS.mouseControl.initMouseControl();
-
-		return this;
-	};
-
-	this.actionControl.isPress = function () {
-		if (touchInited) return _PointJS.touchControl.isPress();
-		return _PointJS.mouseControl.isPress('LEFT');
-	};
-
-	this.actionControl.isDown = function () {
-		if (touchInited) return _PointJS.touchControl.isDown();
-		return _PointJS.mouseControl.isDown('LEFT');
-	};
-
-	this.actionControl.isUp = function () {
-		if (touchInited) return _PointJS.touchControl.isUp();
-		return _PointJS.mouseControl.isUp('LEFT');
-	};
-
-	this.actionControl.isInObject = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isInObject(obj);
-		return _PointJS.mouseControl.isInObject(obj);
-	};
-
-	this.actionControl.isInStatic = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isInStatic(obj);
-		return _PointJS.mouseControl.isInStatic(obj);
-	};
-
-	this.actionControl.isInDynamic = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isInDynamic(obj);
-		return _PointJS.mouseControl.isInDynamic(obj);
-	};
-
-	this.actionControl.isPeekObject = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isPeekObject(obj);
-		return _PointJS.mouseControl.isPeekObject('LEFT', obj);
-	};
-
-	this.actionControl.isPeekStatic = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isPeekStatic(obj);
-		return _PointJS.mouseControl.isPeekStatic('LEFT', obj);
-	};
-
-	this.actionControl.isPeekDynamic = function (obj) {
-		if (touchInited) return _PointJS.touchControl.isPeekDynamic(obj);
-		return _PointJS.mouseControl.isPeekDynamic('LEFT', obj);
-	};
-
-	this.actionControl.getPosition = function (obj) {
-		if (touchInited) return _PointJS.touchControl.getPosition();
-		return _PointJS.mouseControl.getPosition();
-	};
-
-	this.actionControl.getPositionS = function (obj) {
-		if (touchInited) return _PointJS.touchControl.getPositionS();
-		return _PointJS.mouseControl.getPositionS();
-	};
-
-	this.actionControl.getMouse = function () {
-		return _PointJS.mouseControl;
-	};
-
-	this.actionControl.getTouch = function () {
-		if (touchInited)
-			return _PointJS.touchControl;
-		else
-			return false;
-	};
-
-	this.actionControl.getActiveControl = function () {
-		return touchInited ? _PointJS.touchControl : _PointJS.mouseControl;
-	};
-
-	this.actionControl.getActiveControlName = function () {
-		return touchInited ? 'touchControl' : 'mouseControl';
-	};
-
-	this.actionControl.getSpeed = function () {
-		if (touchInited) return ;
-		return _PointJS.mouseControl.getSpeed() || _PointJS.touchControl.getSpeed();
-	};
-
-	// end actionControl ////////////////////////////////
 
 
 
@@ -2712,7 +2683,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			getter.open('GET', file, true);
 
 			getter.onreadystatechange = function () {
-				if (getter.readyState == 4) {
+				if (getter.readyState === 4) {
 					var code = getter.responseText;
 					includes[file].code = new Function ('', code);
 					includes[file].loaded = true;
@@ -2899,7 +2870,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var postEngine = function () {
 		dom.runEvent('postLoop');
-		if (startTime != -1) {
+		if (startTime !== -1) {
 			dt = time - startTime;
 		}
 		startTime = time;
@@ -2933,7 +2904,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	this.game.newLoop = function (key, func, start, end, events) {
-		if (typeof func == 'function') {
+		if (typeof func === 'function') {
 			loops[key] = {
 				events : events || false,
 				func : func,
@@ -2972,7 +2943,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		}
 		for (i = 0; i < arrAudio.length; i+= 1) {
 			loops[key].audio.length = 0;
-			arrAudio[i].setNextPlay(arrAudio[i + 1 == arrAudio.length ? 0 : i + 1]);
+			arrAudio[i].setNextPlay(arrAudio[i + 1 === arrAudio.length ? 0 : i + 1]);
 			loops[key].audio.push(arrAudio[i]);
 		}
 	};
@@ -3038,7 +3009,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	this.game.tick = function (t, f) { // tick, function
-		if (tick == t)
+		if (tick === t)
 			f();
 	};
 
@@ -3099,22 +3070,25 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var stop = function (msg) {
-		if (!isRun) return log(isDef(msg) ? msg : 'game is stop');
+		if (!isRun) return;
 		isRun = false;
 		stopLoopAudio();
 		next = function () {
-			log(isDef(msg) ? msg : 'game is stop');
+			if (typeof msg !== 'undefined') log(msg);
 		};
 	};
 
-	var resume = function (msg) {
+	var resume = function () {
 		if (isRun) return;
 		playLoopAudio();
-		log(msg || 'game is run');
 		next = getRequestAnimationFrame();
 		startTime = -1;
 		start();
 		return false;
+	};
+
+	this.game.isStopped = function () {
+		return !isRun;
 	};
 
 	this.game.getWH = function () {
@@ -3128,8 +3102,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	this.game.getWH2 = function () {
 		return {
-			w : width / 2,
-			h : height / 2
+			w : width2,
+			h : height2
 		};
 	};
 
@@ -3410,14 +3384,15 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		isDynamicIntersect : function (box2) {
 			if (box2.length < 3) return false;
-			var box1 = this.getDynamicBox();
-			var i, len;
-			for (i = 0, len = box1.length; i < len; i+= 1) {
+			var box1 = this.getDynamicBox(), i;
+			i = box1.length - 1;
+			for (; i>=0; i--) {
 				if (isPointIn(box1[i], box2)) {
 					return true;
 				}
 			}
-			for (i = 0, len = box2.length; i < len; i+= 1) {
+			i = box1.length - 1;
+			for (; i>=0; i--) {
 				if (isPointIn(box2[i], box1)) {
 					return true;
 				}
@@ -4187,64 +4162,31 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		BaseObject.call(this, obj);
 		this.type = 'PolygonObject';
 		this.points = [];
-		this.dY = 0;
-		this.dX = 0;
-		var i;
+		this.pointColor = obj.pointColor || false;
+		this.w = this.h = 0;
 		var that = this;
-		if (obj.points) {
-			forArr(obj.points, function (el) {
-				that.addPoint(el);
+
+		if (typeof obj.points !== 'undefined') {
+			forArr(obj.points, function (p) {
+				that.addPoint(p);
 			});
 		}
 
-		this.pointColor = obj.pointColor || false;
 	};
 	inherit(BaseObject, PolygonObject);
 
 	PolygonObject.prototype.addPoint = function (p) {
-		this.dX = 0;
-		this.dY = 0;
-		var i;
-		var that = this;
-		if (this.y + p.y < this.y) {
-			this.dY = Math.abs(this.y + p.y - this.y);
-			forArr(this.points, function (el) {
-				el.y += that.dY;
-			})
-		}
-
-		if (this.x + p.x < this.x) {
-			this.dX = Math.abs(this.x + p.x - this.x);
-			var that = this;
-			forArr(this.points, function (el) {
-				el.x += that.dX;
-			});
-		}
-
-		this.points.push(point(p.x + this.dX, p.y + this.dY));
-
-		this.w = 0;
-		this.h = 0;
-		var that = this;
-		forArr(this.points, function (el) {
-			that.h += that.y + el.y > that.y + that.h ? el.y - that.h : 0;
-			that.w += that.x + el.x > that.x + that.w ? el.x - that.w : 0;
-		});
+		this.points.push(p);
+		if (p.x > this.w) this.w = p.x;
+		if (p.x > this.h) this.h = p.x;
 	};
 
 	PolygonObject.prototype.delPoint = function (N) {
-		var i, len, p = this.getPoints();
-		this.clearPoints();
-		for (i = 0, len = p.length; i < len; i+= 1) {
-			if (i != N) {
-				this.addPoint(p[i]);
-			}
-		}
+		this.points.splice(N, 1);
 	};
 
 	PolygonObject.prototype.clearPoints = function () {
-		this.points = [];
-		this.count = 0;
+		this.points.length = 0;
 	};
 
 	PolygonObject.prototype.getPoints = function () {
@@ -4259,57 +4201,39 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return this.points[N];
 	};
 
-	PolygonObject.prototype.scale = function (s) {
-		return false;
+	PolygonObject.prototype.isIntersect = function (obj) {
+		if (!obj.visible) return false;
+		return this.isDynamicIntersect(obj.getDynamicBox());
 	};
 
 	PolygonObject.prototype.drawDynamicBox = function (c) {
+		drawPolygonXY(this.x, this.y, this.points, false, 'yellow', 1, 'red');
+	};
+
+	PolygonObject.prototype.getDynamicBox = function () {
+		var p = [], i = this.points.length - 1;
+		for (; i >= 0; i--) {
+			p.push(getPointAngle(this.points[i], point(this.w/2+this.center.x, this.h/2+this.center.y), this.angle).plus(point(this.x, this.y)));
+		}
+		return p;
+	};
+
+	PolygonObject.prototype.draw = function () {
+		if (!this.visible) return;
+		if (!this.alpha) return;
 		var ctx = false;
 		if (this.angle || this.alpha != 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
-		drawPolygonXY(this.x, this.y, this.points, this.fillColor, c || 'yellow', 2, 'red');
+
+		drawPolygonXY(this.x, this.y, this.points, this.fillColor, this.strokeColor, this.strokeWidth, this.pointColor);
+		if (this.ondraw) this.ondraw();
+
 		if (ctx) {
 			restoreContext();
 		}
 	};
-
-	PolygonObject.prototype.getDynamicBox = function () {
-		var points = [], i;
-		if (!this.angle) {
-			var that = this;
-			forArr(this.points, function (el) {
-				points.push(pointPlus(el, point(that.x, that.y)));
-			});
-		} else {
-			var center = this.getPosition(1);
-			var that = this;
-			forArr(this.points, function (el) {
-				points.push(
-					getPointAngle(pointPlus(el, point(that.x, that.y)), center, that.getAngle())
-				);
-			});
-		}
-		return points;
-	},
-
-		PolygonObject.prototype.draw = function () {
-			if (!this.visible) return;
-			if (!this.alpha) return;
-			var ctx = false;
-			if (this.angle || this.alpha != 1 || this.shadowColor) {
-				editContext(this);
-				ctx = true;
-			}
-
-			drawPolygonXY(this.x, this.y, this.points, this.fillColor, this.strokeColor, this.strokeWidth, this.pointColor);
-			if (this.ondraw) this.ondraw();
-
-			if (ctx) {
-				restoreContext();
-			}
-		};
 
 	this.game.newPolygonObject = function (obj) {
 		return new PolygonObject(obj);
