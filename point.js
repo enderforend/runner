@@ -2,7 +2,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.3.1'; // 10 ноября
+	var version_of_engine = '0.4.1'; // 25 ноября
 
 	var device = window;
 	var _PointJS = this;
@@ -46,14 +46,14 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		console.log('[PointJS] : ', obj);
 	};
 
-	if (typeof POINTJS_USER_LOG != 'undefined') {
+	if (typeof POINTJS_USER_LOG !== 'undefined') {
 		log = POINTJS_USER_LOG;
 	}
 
 	var errorLog = function (e) {
 		var stack = decodeURI(e.stack.toString().replace(/(@|[\(\)]|[\w]+:\/\/)/g, ''));
 		stack = stack.split(/\n/);
-		stack = (stack[2] == '' ? stack[0] : stack[1]).split('/');
+		stack = (stack[2] === '' ? stack[0] : stack[1]).split('/');
 		stack = stack[stack.length - 1].split(':');
 		log('ERROR "' + e.toString() + '" \n in      ' + stack[0] + ' \n line :   ' + stack[1] + ' \n symbol : ' + stack[2]);
 	};
@@ -152,6 +152,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	this.system.setSmoothing = function (bool) {
 		isSmooth = bool;
 		setSmooth();
+	};
+
+	this.system.restart = function () {
+		device.location.reload(true);
 	};
 
 	// end settings ///////////////////////////////////
@@ -277,7 +281,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		plus :   function (p) {return new Point(this.x+p.x, this.y+p.y, this.z+p.z);},
 		minus :  function (p) {return new Point(this.x-p.x, this.y-p.y, this.z-p.z);},
 		inc :    function (p) {return new Point(this.x*p.x, this.y*p.y, this.z*p.z);},
-		div :    function (p) {return new Point(this.x/p.x, this.y/p.y, this.z/p.z);}
+		div :    function (p) {return new Point(this.x/p.x, this.y/p.y, this.z/p.z);},
+		int :    function () {return new Point(toInt(this.x), toInt(this.y), toInt(this.z));}
 	};
 
 	var point = function (x, y, z) {
@@ -318,9 +323,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var pointDiv = function (p1, p2) {
 		return {
-			x : p1.x / (p2.x != 0 ? p2.x : 1),
-			y : p1.y / (p2.y != 0 ? p2.y : 1),
-			z : p1.z / (p2.z != 0 ? p2.z : 1)
+			x : p1.x / (p2.x !== 0 ? p2.x : 1),
+			y : p1.y / (p2.y !== 0 ? p2.y : 1),
+			z : p1.z / (p2.z !== 0 ? p2.z : 1)
 		};
 	};
 
@@ -333,7 +338,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var getPointAngle = function (p, c, a) {
-		if (a != 0) {
+		if (a) {
 			var r = a2r(a);
 			var dx = p.x - c.x;
 			var dy = p.y - c.y;
@@ -352,7 +357,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	var isPointIn = function (p, points) {
 		var i, j, pip = 0, len;
 		for (i = 0, len = points.length, j = points.length - 1; i < len; j = i++) {
-			if (((points[i].y > p.y) != (points[j].y > p.y)) && (p.x < (points[j].x - points[i].x) * (p.y - points[i].y) / (points[j].y - points[i].y) + points[i].x)) {
+			if (((points[i].y > p.y) !== (points[j].y > p.y)) && (p.x < (points[j].x - points[i].x) * (p.y - points[i].y) / (points[j].y - points[i].y) + points[i].x)) {
 				pip = !pip;
 			}
 		}
@@ -370,8 +375,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var isNumInRange = function (num, a, b) {
-		if (num < a || num > b) return false;
-		return true;
+		return !(num < a || num > b);
 	};
 
 	// var isPointIn = function (point, points) {
@@ -415,15 +419,15 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var isSame = function (p1, p2) {
 		if (!isDef(p2)) return false;
-		return (p1.x == p2.x && p1.y == p2.y);
+		return (p1.x === p2.x && p1.y === p2.y);
 	};
 
 	var newStaticBox = function (x, y, w, h) {
 		return {
 			x : x,
 			y : y,
-			w : x + w,
-			h : y + h
+			w : w,
+			h : h
 		};
 	};
 
@@ -437,8 +441,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 
+	this.vector.isNumInRange = isNumInRange;
 	this.vector.point = point;
-	this.vector.simplePoint = function (x,y,z) {
+	var simplePoint = this.vector.simplePoint = function (x,y,z) {
 		return {
 			x : x !== false ? x : false,
 			y : y !== false ? y : false,
@@ -465,10 +470,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		var clsX = false;
 		var clsY = false;
 		var as = speed.abs();
-
 		var bp = pl.getStaticBoxPosition();
-
 		var i = walls.length - 1, w, bw, dif = {};
+
+		dif.x = 2 + as.x;
+		dif.y = 2 + as.y;
+
 		for (; i >= 0; i--) {
 			w = walls[i];
 			if (!w.visible) continue;
@@ -477,37 +484,40 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			if (minDist) if (pl.getDistanceC(w.getPositionC()) > minDist) continue;
 
 			if (pl.isStaticIntersect(w.getStaticBox())) {
-				bw = w.getStaticBoxPosition();
-				// dif.x = limit(as.x * 2, w.box.w);
-				// dif.y = limit(as.y * 2, w.box.h);
 
-				dif.x = 2 + as.x * 2;
-				dif.y = 2 + as.y * 2;
+				bw = w.getStaticBoxPosition();
 
 				if (bp.h >= bw.y + dif.y && bp.y <= bw.h - dif.y) {
-					if (bp.w > bw.x && bp.w < bw.x + dif.x && speed.x > 0) {
-						pl.x = bw.x - (pl.w + pl.box.w + pl.box.x) + 1;
-						speed.x = 0;
-						clsX = true;
-					} else if (bp.x < bw.w && bp.x > bw.w - dif.x && speed.x < 0) {
-						pl.x = bw.w - pl.box.x - 1;
-						speed.x = 0;
-						clsX = true;
+					if (speed.x >= 0) {
+						if (isNumInRange(bp.w, bw.x, bw.w)) {
+							pl.x = bw.x - (pl.w + pl.box.w + pl.box.x) + 1;
+							speed.x = 0;
+							clsX = true;
+						}
+					} else if (speed.x < 0) {
+						if (isNumInRange(bp.x, bw.x, bw.w)) {
+							pl.x = bw.w - pl.box.x - 1;
+							speed.x = 0;
+							clsX = true;
+						}
 					}
 				}
 
 				if (bp.w >= bw.x + dif.x && bp.x <= bw.w - dif.x) {
-					if (bp.h > bw.y && bp.h < bw.y + dif.y && speed.y > 0) {
-						pl.y = bw.y - (pl.h + pl.box.h + pl.box.y) + 1;
-						speed.y = 0;
-						clsY = true;
-					} else if (bp.y < bw.h && bp.y > bw.h - dif.y && speed.y < 0) {
-						pl.y = bw.h - pl.box.y - 1;
-						speed.y = 0;
-						clsY = true;
+					if (speed.y > 0) {
+						if (isNumInRange(bp.h, bw.y, bw.h)) {
+							pl.y = bw.y - (pl.h + pl.box.h + pl.box.y) + 1;
+							speed.y = 0;
+							clsY = true;
+						}
+					} else if (speed.y < 0) {
+						if (isNumInRange(bp.y, bw.y, bw.h)) {
+							pl.y = bw.h - pl.box.y - 1;
+							speed.y = 0;
+							clsY = true;
+						}
 					}
 				}
-
 
 				if (onCls) onCls(pl, w, clsX, clsY);
 
@@ -818,12 +828,16 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		loaded : false,
 
 		events : {
-			'onload' : [],         // загрузка DOM
-			'preLoop' : [],								// перед Engine
-			'postLoop' : [],							// после Engine
-			'gameBlur' : [],							// при покидании окна игры, расфокусировке
-			'gameFocus' : [],						// при фокусировке
-			'gameResize' : []						// при изменении размеров окна
+			'onload' : [],
+			'preLoop' : [],
+			'postLoop' : [],
+			'entryLoop' : [],
+			'exitLoop' : [],
+			'gameBlur' : [],
+			'gameFocus' : [],
+			'gameResize' : [],
+			'gameStop' : [],
+			'gameStart' : []
 		},
 
 		addEvent : function (evt, key, func) {
@@ -839,7 +853,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		delEvent : function (evt, key) {
 			forArr(dom.events[evt], function (el, i, arr) {
-				if (el.id == key) {
+				if (el.id === key) {
 					arr.splice(i, 1);
 				}
 			});
@@ -847,7 +861,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		runEvent : function (evt) {
 			forArr(dom.events[evt], function (el) {
-				if (typeof el.func == 'function') {
+				if (typeof el.func === 'function') {
 					el.func();
 				}
 			});
@@ -877,8 +891,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		getWH : function () {
 			return {
-				w : parseInt(device.document.documentElement.clientWidth  || device.innerWidth  || device.document.body.clientWidth),
-				h : parseInt(device.document.documentElement.clientHeight || device.innerHeight || device.document.body.clientHeight)
+				w : parseInt(device.innerWidth  || device.document.body.clientWidth),
+				h : parseInt(device.innerHeight || device.document.body.clientHeight)
 			};
 		}
 
@@ -2232,7 +2246,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	var hex2rgb = function (hex, a) {
-		hex = hex[0] == '#' ? hex.substr(1, 6) : hex;
+		hex = hex[0] === '#' ? hex.substr(1, 6) : hex;
 		var r = parseInt(hex.substr(0, 2), 16);
 		var g = parseInt(hex.substr(2, 2), 16);
 		var b = parseInt(hex.substr(4, 2), 16);
@@ -2259,6 +2273,22 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return color(random(min, max), random(min, max), random(min, max), a || 1);
 	};
 
+	this.colors.fromImage = function (b64, onload) {
+		var base = {
+			img : device.document.createElement('img'),
+			color : null,
+		};
+		base.img.onload = function () {
+			base.color = context.createPattern(this,'repeat');
+			if (typeof onload === 'function') {
+				base.onload = onload;
+				base.onload();
+				delete base.onload;
+			}
+		};
+		base.img.src = b64;
+		return base;
+	};
 
 
 
@@ -2308,13 +2338,14 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return JSON.stringify(obj);
 	};
 
-	var forEach = function (arr, func) {
+	var forEach = function (arr, func, onlyProp) {
 		var i, res;
 		for (i in arr) {
-			if (typeof arr[i] == 'undefined') continue;
+			if (onlyProp) if (!arr.hasOwnProperty(i)) continue;
+			if (typeof arr[i] === 'undefined') continue;
 			res = func(arr[i], i, arr);
 			if (res) {
-				if (res == 'break') break;
+				if (res === 'break') break;
 			}
 		}
 	};
@@ -2834,9 +2865,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		setFPS(newFps > 0 ? newFps : 60);
 	};
 
-	this.game.getFPS = function () {
-		return fps;
-	};
+	// this.game.getFPS = function () {
+	// 	return fps;
+	// };
 
 	this.game.getDT = function (delta) {
 		if (!delta) delta = 1000;
@@ -2956,9 +2987,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		clearTouchAction();
 		setOffset(point(0, 0));
 		if (engine.end) engine.end();
+		dom.runEvent('exitLoop');
 		engine = loops[key];
 		globalEvents.loadFromEvents(engine.events);
 		if (engine.start) engine.start();
+		dom.runEvent('entryLoop');
 		playLoopAudio();
 	};
 
@@ -3067,6 +3100,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		isRun = true;
 		setFPS(fps || 60);
 		next(loop);
+		dom.runEvent('gameStart');
 	};
 
 	var stop = function (msg) {
@@ -3076,6 +3110,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		next = function () {
 			if (typeof msg !== 'undefined') log(msg);
 		};
+		dom.runEvent('gameStop');
 	};
 
 	var resume = function () {
@@ -3157,16 +3192,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	// object manager ////////////////////////////////////
 
-	var objectList = [];
 	var objectCount = 0;
-
-	var drawAllObjects = function () {
-		forArr(objectList, function (el) {
-			if (typeof el.draw == 'function') {
-				el.draw();
-			}
-		});
-	};
 
 	// BaseObject
 	var BaseObject = function (obj) {
@@ -3177,6 +3203,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.w = obj.w || 0;
 		this.h = obj.h || 0;
 		this.ondraw = obj.ondraw ? obj.ondraw : false;
+		if (typeof obj.predraw === 'function')
+			this.predraw = obj.predraw;
 		this.parent = false;
 		this.children = [];
 		this.fillColor = obj.fillColor || false;
@@ -3194,6 +3222,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.__dataset__ = {};
 
 		this.setShadow(obj);
+
+		if (typeof obj.data === 'object') {
+			forEach(obj.data, function (val, key) {
+				this.dataSet(key, val);
+			}, true);
+		}
 
 		if (obj.userData) {
 			this.setUserData(obj.userData);
@@ -3229,10 +3263,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			delete this.oncreate;
 		}
 
-		objectList.push(this);
 	};
 
 	BaseObject.prototype = {
+
+		predraw : function () {
+
+		},
 
 		getID : function () {
 			return this.id;
@@ -3300,7 +3337,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		isArrIntersect : function (arr) { // array of Objects
 			var i, len;
 			for (i = 0, len = arr.length; i < len; i+= 1) {
-				if (arr[i].id != this.id)
+				if (arr[i].id !== this.id)
 					if (this.isIntersect(arr[i])) {
 						return arr[i];
 					}
@@ -3324,7 +3361,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 				min = false,
 				len = 0;
 			for (i = 0, len = arr.length; i < len; i+= 1) {
-				if (this.id != arr[i].id) {
+				if (this.id !== arr[i].id) {
 					if (min === false) {
 						min = this.getDistanceC(arr[i].getPositionC());
 						id = i;
@@ -3340,11 +3377,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		setFlip : function (x, y) {
-			if (isDef(x) && this.flip.x != x) {
+			if (isDef(x) && this.flip.x !== x) {
 				this.flip.x = x;
 			}
 
-			if (isDef(y) && this.flip.y != y) {
+			if (isDef(y) && this.flip.y !== y) {
 				this.flip.y = y;
 			}
 		},
@@ -3366,7 +3403,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		getDynamicBox : function () {
 			var center = this.getPosition(1);
-			if (this.angle == 0) {
+			if (this.angle === 0) {
 				return [
 					point(this.x + this.box.x, this.y + this.box.y),
 					point(this.x + this.box.x + this.w + this.box.w, this.y + this.box.y),
@@ -3414,7 +3451,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 					count+= 1;
 				}
 			}
-			if (count == box1.length) {
+			if (count === box1.length) {
 				return true;
 			}
 			return false;
@@ -3457,7 +3494,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		setAlpha : function (a) {
-			if (this.alpha != a)
+			if (this.alpha !== a)
 				this.alpha = a >= 0 ? (a <= 1 ? a : 1) : 0;
 		},
 
@@ -3491,7 +3528,6 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		move : function (p) {
-			this.prevPosition = this.getPosition();
 			this.x += p.x;
 			this.y += p.y;
 		},
@@ -3542,9 +3578,9 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		getPosition : function (fmt) {
-			if (fmt == 1) {
+			if (fmt === 1) {
 				return point(this.x + (this.w / 2 + this.center.x), this.y + (this.h / 2 + this.center.y));
-			} else if (fmt == 2) {
+			} else if (fmt === 2) {
 				var p = point(this.x + (this.w / 2), this.y + (this.h / 2));
 				if (this.angle) {
 					p = getPointAngle(p, this.getPosition(1), this.angle);
@@ -3568,25 +3604,21 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		setPosition : function (p) {
-			var pPos = this.getPosition();
 			if (p.x !== false) this.x = p.x;
 			if (p.y !== false) this.y = p.y;
 		},
 
 		setPositionS : function (p) {
-			var pPos = this.getPosition();
 			if (p.x !== false) this.x = p.x + offset.x;
 			if (p.y !== false) this.y = p.y + offset.y;
 		},
 
 		setPositionC : function (p) {
-			var pPos = this.getPosition();
 			if (p.x !== false) this.x = (-(this.w / 2 + this.center.x) + p.x);
 			if (p.y !== false) this.y = (-(this.h / 2 + this.center.y) + p.y);
 		},
 
 		setPositionCS : function (p) {
-			var pPos = this.getPosition();
 			if (p.x !== false) this.x = (-(this.w / 2 + this.center.x) + p.x) + offset.x;
 			if (p.y !== false) this.y = (-(this.h / 2 + this.center.y) + p.y) + offset.y;
 		},
@@ -3648,21 +3680,18 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		moveTo : function (p, s) {
 			var a = a2r(getAngle2Points(this.getPosition(), p));
-			this.prevPosition = this.getPosition();
 			this.x += s * Math.cos(a);
 			this.y += s * Math.sin(a);
 		},
 
 		moveToC : function (p, s) {
 			var a = a2r(getAngle2Points(this.getPositionC(), p));
-			this.prevPosition = this.getPosition();
 			this.x += s * Math.cos(a);
 			this.y += s * Math.sin(a);
 		},
 
 		moveAngle : function (s, a) {
 			a = a2r(isDef(a) ? a : this.angle);
-			this.prevPosition = this.getPosition();
 			this.x += s * Math.cos(a);
 			this.y += s * Math.sin(a);
 		},
@@ -3684,7 +3713,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		setAngle : function (a) {
-			if (this.angle != a)
+			if (this.angle !== a)
 				this.angle = a % 360;
 		},
 
@@ -3697,7 +3726,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		},
 
 		setVisible : function (bool) {
-			this.visible = bool == true;
+			this.visible = bool === true;
 		},
 
 		isVisible : function () {
@@ -3750,7 +3779,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	TriangleObject.prototype.getDynamicBox = function () {
 		var center = this.getPositionC();
-		if (this.angle == 0) {
+		if (this.angle === 0) {
 			return [
 				point(this.x + this.w/2, this.y),
 				point(this.x + this.w, this.y + this.h),
@@ -3765,10 +3794,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	TriangleObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -3804,10 +3834,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	inherit(BaseObject, RectObject);
 
 	RectObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -3836,10 +3867,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	inherit(BaseObject, RoundRectObject);
 
 	RoundRectObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -3889,10 +3921,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	inherit(BaseObject, CircleObject);
 
 	CircleObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
-		if (!this.alpha) return;
+		if (!this.alpha) return this.ondraw ? this.ondraw() : null;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -3924,7 +3957,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	CircleObject.prototype.setRadius = function (r) {
-		if (!r || this.radius == r) return;
+		if (!r || this.radius === r) return;
 		this.radius = r;
 		this.w = r * 2;
 		this.h = r * 2;
@@ -4007,6 +4040,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	inherit(BaseObject, EllipsObject);
 
 	EllipsObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		editContext(this);
@@ -4070,7 +4104,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	TextObject.prototype.setText = function (t) { // text
-		if (this.text == t) return;
+		if (this.text === t) return;
 		this.reStyle({
 			text : t
 		});
@@ -4081,10 +4115,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	TextObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4125,7 +4160,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	TextObject.prototype.setSize = function (s) { // size number
-		if (this.size == s) return;
+		if (this.size === s) return;
 		this.reStyle({
 			size : s
 		});
@@ -4133,7 +4168,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	TextObject.prototype.setSizeC = function (s) { // size number
-		if (this.size == s) return;
+		if (this.size === s) return;
 		this.reStyle({
 			size : s
 		});
@@ -4219,10 +4254,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	PolygonObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4255,12 +4291,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	inherit(BaseObject, ImageObject);
 
 	ImageObject.prototype.draw = function () {
+		this.predraw();
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		if (!this.loaded) return;
 
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor || this.flip.x || this.flip.y) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor || this.flip.x || this.flip.y) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4273,9 +4310,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	ImageObject.prototype.simpleDraw = function (p) {
+		this.predraw();
 		if (!this.loaded) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4286,7 +4324,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	ImageObject.prototype.setImage = function (f, func) { // file, onload function
-		if (this.file == f) return;
+		if (this.file === f) return;
 		if (!isDef(imageList[f])) {
 			this.loaded = false;
 			this.origWidth = 0;
@@ -4348,7 +4386,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.flip.x || this.flip.y || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4374,7 +4412,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		if (!this.alpha) return;
 		if (this.frame < min || this.frame > max) this.frame = min;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.flip.x || this.flip.y || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4398,7 +4436,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		if (!this.visible) return;
 		if (!this.alpha) return;
 		var ctx = false;
-		if (this.angle || this.alpha != 1 || this.flip.x || this.flip.y || this.shadowColor) {
+		if (this.angle || this.alpha !== 1 || this.flip.x || this.flip.y || this.shadowColor) {
 			editContext(this);
 			ctx = true;
 		}
@@ -4497,15 +4535,15 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var newObjectFromType = function (obj) {
 		var cl = false;
-		if (obj.type == 'RectObject') cl = _PointJS.game.newRectObject({});
-		else if (obj.type == 'CircleObject') cl = _PointJS.game.newCircleObject({});
-		else if (obj.type == 'RoundRectObject') cl = _PointJS.game.newRoundRectObject({});
-		else if (obj.type == 'TextObject') cl = _PointJS.game.newTextObject({});
-		else if (obj.type == 'EllipsObject') cl = _PointJS.game.newEllipsObject({});
-		else if (obj.type == 'ImageObject') cl = _PointJS.game.newImageObject({file:obj.file});
-		else if (obj.type == 'TriangleObject') cl = _PointJS.game.newTriangleObject({});
-		else if (obj.type == 'AnimationObject') cl = _PointJS.game.newAnimationObject({animation:obj.animation});
-
+		if (obj.type === 'RectObject') cl = _PointJS.game.newRectObject({});
+		else if (obj.type === 'CircleObject') cl = _PointJS.game.newCircleObject({});
+		else if (obj.type === 'RoundRectObject') cl = _PointJS.game.newRoundRectObject({});
+		else if (obj.type === 'TextObject') cl = _PointJS.game.newTextObject({});
+		else if (obj.type === 'EllipsObject') cl = _PointJS.game.newEllipsObject({});
+		else if (obj.type === 'ImageObject') cl = _PointJS.game.newImageObject({file:obj.file});
+		else if (obj.type === 'TriangleObject') cl = _PointJS.game.newTriangleObject({});
+		else if (obj.type === 'PolygonObject') cl = _PointJS.game.newTriangleObject({points:obj.points});
+		else if (obj.type === 'AnimationObject') cl = _PointJS.game.newAnimationObject({animation:obj.animation});
 		return cl;
 	};
 
@@ -5089,8 +5127,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return {
 			x : offset.x,
 			y : offset.y,
-			w : offset.x + width,
-			h : offset.y + height
+			w : width,
+			h : height
 		};
 	};
 
