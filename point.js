@@ -2,10 +2,47 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	'use strict';
 
 	this._logo = 'http://pointjs.ru/PjsMin.png';
-	var version_of_engine = '0.4.1'; // 25 ноября
+	var version_of_engine = '0.4.1'; // 17 декабря
 
 	var device = window;
 	var _PointJS = this;
+
+	var initCanvas = false;
+	var stylePosition = 'fixed';
+	var initPosition = {x : 0, y : 0};
+	var initZIndex = 100;
+
+	var getElemPos = function (elem) {
+		var box = elem.getBoundingClientRect();
+		return {
+			y : box.top + device.pageYOffset,
+			x : box.left + device.pageXOffset
+		};
+	};
+
+	var getElemZIndex = function (elem) {
+		var i = 1;
+		while (elem) {
+			i += elem.style.zIndex;
+			elem = elem.offsetParent;
+		}
+		return i;
+	};
+
+	if (arguments.length === 1) {
+		initCanvas = arguments[0];
+
+		var t = getElemPos(initCanvas);
+
+		initPosition.x = t.x;
+		initPosition.y = t.y;
+
+		w = initCanvas.offsetWidth;
+		h = initCanvas.offsetHeight;
+
+		stylePosition = 'absolute';
+		initZIndex = getElemZIndex(initCanvas);
+	}
 
 	var noFunction = function () {
 		console.log('function is not supported in this object');
@@ -30,15 +67,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			scale = { x : 1, y : 1 },
 			offset = {x : 0, y : 0},
 			angle = 0,
-			centerCamera = {x : 0, y : 0},
-
-			pBuf = {},
 
 			contextSettings = {
 				fillStyle : 'black',
 				strokeStyle : 'black',
 				globalAlpha : 1,
-				font : 'sans-serif',
+				font : 'serif',
 				textBaseline : 'top'
 			};
 
@@ -154,8 +188,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		setSmooth();
 	};
 
-	this.system.restart = function () {
-		device.location.reload(true);
+	this.system.restart = function (b) {
+		device.location.reload(b);
 	};
 
 	// end settings ///////////////////////////////////
@@ -733,7 +767,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		var s = c.style;
 		var _s = canvas.style;
 
-		s.position = 'fixed';
+		s.position = stylePosition;
 		s.top = _s.top;
 		s.left = _s.left;
 		c.width = canvas.width;
@@ -916,11 +950,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	this.system.newDOM = function (tag, stopEvents) {
 		var el = device.document.createElement(tag);
-		el.style.position = 'fixed';
+		el.style.position = stylePosition;
 		el.style.left = 0;
 		el.style.top = 0;
 		el.style.zIndex = eventer.style.zIndex + 1;
-		el.style.border = 'none';
 
 		if (stopEvents) {
 
@@ -961,16 +994,32 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	var context = null,
 		origContext = null;
 
+	var canvasOffset = point(initPosition.x, initPosition.y);
+
 	canvas = device.document.createElement('canvas');
 	origContext = context = canvas.getContext('2d');
 	context.textBaseline = contextSettings.textBaseline;
 	canvas.crossOrigin = 'anonymous';
 	canvas.width = parseInt(w);
 	canvas.height = parseInt(h);
-	canvas.style.position = 'fixed';
-	canvas.style.left = 0;
-	canvas.style.top = 0;
-	canvas.style.zIndex = 10000;
+	canvas.style.position = stylePosition;
+
+	if (initCanvas) {
+		canvas.style.left = canvasOffset.x + 'px';
+		canvas.style.top = canvasOffset.y + 'px';
+
+		dom.addEvent('gameResize', 'initedCanvasResize', function () {
+			var t = getElemPos(initCanvas);
+			_PointJS.system.setOffset(t.x, t.y);
+			_PointJS.system.resize(initCanvas.offsetWidth, initCanvas.offsetHeight);
+		});
+
+	} else {
+		canvas.style.left = 0;
+		canvas.style.top = 0;
+	}
+
+	canvas.style.zIndex = initZIndex;
 	canvas.id = 'PointJS-canvas_0';
 	// canvas.style.backgroundColor = 'black';
 
@@ -982,8 +1031,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	}
 
 	this.system.setOffset = function (x, y) {
-		canvas.style.left = x + 'px';
-		canvas.style.top = y + 'px';
+		eventer.style.left = canvas.style.left = x + 'px';
+		eventer.style.top = canvas.style.top = y + 'px';
 		canvasOffset = {
 			x : x,
 			y : y
@@ -991,21 +1040,17 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		rePosAllLayers();
 	};
 
-	dom.addEvent('onload', 'Window_Hide_Scroll', function () {
-		device.document.body.style.overflow = 'hidden';
-	});
-
 	var eventer = device.document.createElement('div');
 	(function () {
 		var s = eventer.style;
-		s.position = 'fixed';
-		s.top = s.left = 0;
-		s.width = s.height = '100%';
-		s.zIndex = 20000;
+		s.position = stylePosition;
+		s.left = canvas.style.left;
+		s.top = canvas.style.top;
+		s.width =  canvas.width + 'px';
+		s.height = canvas.height + 'px';
+		s.zIndex = initZIndex + 100;
 	})();
 	dom.attach(eventer);
-
-	var canvasOffset = point(0, 0);
 
 	dom.attach(canvas);
 
@@ -1027,7 +1072,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	this.system.setStyle = function (s) {
-		if (typeof s == 'object') {
+		if (typeof s === 'object') {
 			for (var i in s) {
 				canvas.style[i] = s[i];
 			}
@@ -1053,9 +1098,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
+		eventer.style.width = width + 'px';
+		eventer.style.height = height + 'px';
+		resizeAllLayers();
 	};
 
 	this.system.initFullPage = function () {
+		if (initCanvas) return;
 		dom.addEvent('gameResize', 'PointJS_resizeGame', function () {
 			width = dom.getWH().w;
 			height = dom.getWH().h;
@@ -1064,6 +1113,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			canvas.width = width;
 			canvas.height = height;
 			context.textBaseline = contextSettings.textBaseline;
+			eventer.style.width = width + 'px';
+			eventer.style.height = height + 'px';
 			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_resizeGame');
@@ -1089,6 +1140,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
+		eventer.style.width = width + 'px';
+		eventer.style.height = height + 'px';
 		resizeAllLayers();
 	};
 
@@ -1117,6 +1170,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	device.document.addEventListener("fullscreenchange", onfullscreenchange);
 
 	this.system.initFullScreen = function () {
+		if (initCanvas) return;
 		if (fullScreen) return;
 		device.document.documentElement.onclick = launchFullScreen;
 		if (fullScale) return;
@@ -1128,6 +1182,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			canvas.width = width;
 			canvas.height = height;
 			context.textBaseline = contextSettings.textBaseline;
+			eventer.style.width = width + 'px';
+			eventer.style.height = height + 'px';
 			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_initFullScreen');
@@ -1143,6 +1199,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
+		eventer.style.width = width + 'px';
+		eventer.style.height = height + 'px';
 		resizeAllLayers();
 		device.document.documentElement.onclick = function () {};
 	};
@@ -1159,6 +1217,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		height2 = height / 2;
 		canvas.width = width;
 		canvas.height = height;
+		eventer.style.width = width + 'px';
+		eventer.style.height = height + 'px';
 		resizeAllLayers();
 	};
 
@@ -1168,6 +1228,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	var scaleWidth = origWidth, scaleHeight = origHeight;
 	var scaleNoProp = false;
 	this.system.initFullScale = function (no_pr) { // no proportional
+		if (initCanvas) return;
 		if (fullScale) return;
 
 		if (no_pr)
@@ -1204,6 +1265,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 			canvas.style.width = w + 'px';
 			canvas.style.height = h + 'px';
+			eventer.style.width = w + 'px';
+			eventer.style.height = h + 'px';
 			resizeAllLayers();
 		});
 		dom.runEvent('gameResize', 'PointJS_initFullScale');
@@ -1216,6 +1279,8 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		dom.delEvent('gameResize', 'PointJS_initFullScale');
 		canvas.style.width = origWidth + 'px';
 		canvas.style.height = origHeight + 'px';
+		eventer.style.width = origWidth + 'px';
+		eventer.style.height = origHeight + 'px';
 	};
 
 	this.system.getWH = function () {
@@ -1736,14 +1801,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return getMousePosition();
 	};
 
-	var setMouseImage = function (img) {
+	this.mouseControl.setCursorImage = function (img) {
 		img = 'url(\'' + img + '\'), auto';
-		if (mouse.image == img) return;
+		if (mouse.image === img) return;
 		mouse.image = img;
-		device.document.body.style.cursor = mouse.image;
+		return device.document.body.style.cursor = mouse.image;
 	};
-
-	this.mouseControl.setCursorImage = setMouseImage;
 
 	this.mouseControl.setVisible = function (bool) {
 		if ((!mouse.visible && !bool) || mouse.visible && bool) return;
@@ -1790,7 +1853,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	this.mouseControl.isWheel = function (key) {
-		return (key == 'UP' && mouseWheel > 0) || (key == 'DOWN' && mouseWheel < 0)
+		return (key === 'UP' && mouseWheel > 0) || (key === 'DOWN' && mouseWheel < 0)
 	};
 
 	var onMouseWheel = function (e) {
@@ -1872,7 +1935,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		initedMouse = true;
 
-		device.onmousemove = function (e) {
+		eventer.onmousemove = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 			if (mouse.locked) {
@@ -1903,7 +1966,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			return false;
 		};
 
-		device.onmousedown = function (e) {
+		eventer.onmousedown = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -1920,7 +1983,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			mousePress[e.which] = 1;
 		};
 
-		device.onmouseup = function (e) {
+		eventer.onmouseup = function (e) {
 			e.preventDefault();
 			e.stopPropagation();
 
@@ -1939,12 +2002,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 		};
 
-		device.oncontextmenu = device.onselectstart = device.ondragstart = function () {
+		eventer.oncontextmenu = eventer.onselectstart = eventer.ondragstart = function () {
 			return false;
 		};
 
-		device.onmousewheel = onMouseWheel;
-		device.addEventListener("DOMMouseScroll", onMouseWheel, false);
+		eventer.onmousewheel = onMouseWheel;
+		eventer.addEventListener("DOMMouseScroll", onMouseWheel, false);
 
 		dom.addEvent('preLoop', 'PointJS_MouseEventDown', function () {
 			if (mousePressed) {
@@ -1970,14 +2033,13 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		globalEvents.clear('mouse:up');
 		globalEvents.clear('mouse:move');
 		globalEvents.clear('mouse:wheel');
-		device.onmousemove =
-			device.onmousedown =
-				device.onmouseup =
-					device.oncontextmenu =
-						device.onselectstart =
-							device.ondragstart =
-								device.onmousewheel = function () {
-								};
+		eventer.onmousemove =
+			eventer.onmousedown =
+				eventer.onmouseup =
+					eventer.oncontextmenu =
+						eventer.onselectstart =
+							eventer.ondragstart =
+								eventer.onmousewheel = function () {};
 		dom.delEvent('postLoop', 'PointJS_clearAllMouseUp');
 		dom.delEvent('preLoop', 'PointJS_MouseEventDown');
 		clearMouseAction();
@@ -2273,13 +2335,17 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		return color(random(min, max), random(min, max), random(min, max), a || 1);
 	};
 
-	this.colors.fromImage = function (b64, onload) {
+	this.colors.fromImage = function (b64, repeat, onload, _W, _H) {
 		var base = {
 			img : device.document.createElement('img'),
 			color : null,
 		};
 		base.img.onload = function () {
-			base.color = context.createPattern(this,'repeat');
+			var c = device.document.createElement('canvas');
+			c.width = _W ? _W : this.width;
+			c.height = _H ? _H : this.height;
+			c.getContext('2d').drawImage(this, 0,0, c.width, c.height);
+			base.color = context.createPattern(c,repeat);
 			if (typeof onload === 'function') {
 				base.onload = onload;
 				base.onload();
@@ -2738,7 +2804,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		var cl = newObjectFromType(orig);
 
 		forEach(orig, function (val, key) {
-			if (['id', 'type'].indexOf(key) !== -1) return;
+			if (['id', 'type', 'anim'].indexOf(key) !== -1) return;
 			cl[key] = val;
 		});
 
@@ -4062,22 +4128,23 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.type = 'TextObject';
 		this.text = obj.text || 'TextObject';
 		this.color = obj.color || '';
-		this.size = obj.size || 10;
+		this.size = obj.size > 0 ? obj.size : 10;
 
 		if (obj.scale) {
 			this.size *= obj.scale;
 		}
 
-		this.font = obj.font || 'sans-serif';
+		this.font = obj.font || 'serif';
 		this.style = obj.style || '';
 		this.align = 'left';
-		this.padding = obj.padding || 2;
+		this.valign = 'top';
+		this.radius = obj.radius || 0;
+		this.padding = obj.padding || 0;
 		this.w = getTextWidth(this.text, this.style, this.size, this.font) + this.padding * 2;
 		this.h = this.size + this.padding * 2;
 		this.strokeColorText = obj.strokeColorText || false;
 		this.strokeWidthText = obj.strokeWidthText || false;
-		this.textDY = -this.size / 7;
-
+		this.textDY = -this.size / 11;
 
 		if (obj.positionC) {
 			this.setPositionC(obj.positionC);
@@ -4100,7 +4167,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.strokeColor = obj.strokeColor || this.strokeColor;
 		this.strokeWidth = obj.strokeWidth || this.strokeWidth;
 		this.fillColor = obj.fillColor || this.fillColor;
-		this.textDY = -this.size / 7;
+		this.textDY = -this.size / 11;
 	};
 
 	TextObject.prototype.setText = function (t) { // text
@@ -4124,8 +4191,12 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			ctx = true;
 		}
 
-		if (this.fillColor || this.strokeColor)
-			drawRect(point(this.x, this.y), size(this.w, this.h), this.fillColor, this.strokeColor, this.strokeWidth);
+		if (this.fillColor || this.strokeColor) {
+			if (!this.radius)
+				drawRect(point(this.x, this.y), size(this.w, this.h), this.fillColor, this.strokeColor, this.strokeWidth);
+			else
+				drawRoundRect(point(this.x, this.y), size(this.w, this.h), this.radius, this.fillColor, this.strokeColor, this.strokeWidth);
+		}
 
 
 		drawText(point(this.x + this.padding, this.textDY + this.y + this.padding),
@@ -4178,19 +4249,18 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var getTextWidth = function (text, style, size, font) { // text
 		var ctx = device.document.createElement('canvas').getContext('2d');
-		ctx.font = style + size + 'px ' + font;
+		ctx.font = (style ? style + ' ' : '') + size + 'px ' + font;
 		return ctx.measureText(text).width;
 	};
 
 	this.OOP.getTextWidth = function (obj) {
-		return getTextWidth(obj.text, obj.style || '', obj.size || 10, obj.font || 'sans-serif');
+		return getTextWidth(obj.text, obj.style || '', obj.size || 10, obj.font || 'serif');
 	};
 
 
 	this.game.newTextObject = function (obj) {
 		return new TextObject(obj);
 	};
-
 
 	// PolygonObject
 	var PolygonObject = function (obj) {
@@ -4543,7 +4613,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		else if (obj.type === 'ImageObject') cl = _PointJS.game.newImageObject({file:obj.file});
 		else if (obj.type === 'TriangleObject') cl = _PointJS.game.newTriangleObject({});
 		else if (obj.type === 'PolygonObject') cl = _PointJS.game.newTriangleObject({points:obj.points});
-		else if (obj.type === 'AnimationObject') cl = _PointJS.game.newAnimationObject({animation:obj.animation});
+		else if (obj.type === 'AnimationObject') {
+			cl = _PointJS.game.newAnimationObject({animation:obj.anim})
+		}
+
 		return cl;
 	};
 
@@ -4566,7 +4639,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	// tiles ///////////////////////////////////////////
-
+	var tiles = {};
 	var imageCount = 0;
 	var Image = function (f, onLoad) { // file
 		this.file = f;
@@ -4577,6 +4650,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		this.toLoad = [];
 		var img = device.document.createElement('img');
 		var that = this;
+		tiles[f] = that;
 		img.onload = function () {
 			that.loaded = true;
 			that.w = this.width;
@@ -4675,6 +4749,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	};
 
 	this.tiles.newImage = function (f, onLoad) {
+		if (tiles[f]) return tiles[f];
 		return new Image(f, onLoad);
 	};
 
@@ -5004,6 +5079,16 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	// camera /////////////////////////////////////////////
 
+	this.camera.shake = function (p, r) { // pos, radiusWH, speed
+		offset.x = p.x+random(-1, 1, true)*r.w;
+		offset.y = p.y+random(-1, 1, true)*r.h;
+	};
+
+	this.camera.shakeC = function (p, r) { // pos, radiusWH, speed
+		offset.x = -width2+p.x+random(-1, 1, true)*r.w;
+		offset.y = -height2+ p.y+random(-1, 1, true)*r.h;
+	};
+	
 	this.camera.scale = function (s) { // scale
 		scale.x *= s.x;
 		scale.y *= s.y;
@@ -5198,7 +5283,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			context.translate(-p.x + offset.x, -p.y + offset.y);
 		}
 
-		if (obj.alpha != 1) {
+		if (obj.alpha !== 1) {
 			context.globalAlpha = obj.alpha;
 		}
 
@@ -5215,7 +5300,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 			context.shadowOffsetY = obj.shadowY;
 		}
 
-		if (obj.type == 'EllipsObject' && !box) {
+		if (obj.type === 'EllipsObject' && !box) {
 			var a = obj.w / 2,
 				b = obj.h / 2,
 				pos = point(-offset.x + obj.x, -offset.y + obj.y);
@@ -5477,14 +5562,15 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 	var drawRect = function (p, s, fillColor, strokeColor, strokeWidth) {
 		setFillColor(fillColor);
 		setStrokeColor(strokeColor);
-		context.lineWidth = strokeWidth;
-		var dx = -offset.x + (strokeWidth ? strokeWidth / 2 : 0);
-		var dy = -offset.y + (strokeWidth ? strokeWidth / 2 : 0);
+		var dx = -offset.x;
+		var dy = -offset.y;
 		if (fillColor) {
 			context.fillRect(p.x + dx, p.y + dy, s.w, s.h);
 		}
 		if (strokeWidth) {
-			context.strokeRect(p.x + dx, p.y + dy, s.w, s.h);
+			context.lineWidth = strokeWidth;
+			var sw2 = strokeWidth / 2;
+			context.strokeRect(p.x + dx + sw2, p.y + dy + sw2, s.w - strokeWidth, s.h - strokeWidth);
 		}
 	};
 
@@ -5536,8 +5622,10 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		setFillColor(fillColor);
 		setStrokeColor(strokeColor);
 		context.lineWidth = strokeWidth;
-		var x = -offset.x + p.x + (strokeWidth ? strokeWidth / 2 : 0);
-		var y = -offset.y + p.y + (strokeWidth ? strokeWidth / 2 : 0);
+		var x = -offset.x + p.x + strokeWidth / 2;
+		var y = -offset.y + p.y + strokeWidth / 2;
+		s.w -=  + strokeWidth;
+		s.h -=  + strokeWidth;
 
 		context.beginPath();
 		context.moveTo(x+r, y);
@@ -6282,12 +6370,11 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	// levels ///////////////////////////////////////////
-
 	this.levels.forStringArray = function (obj, onsymbol) {
 		var offset = obj.offset || point(0, 0);
 		forArr(obj.source, function (string, Y) {
 			forArr(string, function (symbol, X) {
-				if (symbol == ' ') return;
+				if (symbol === ' ') return;
 				onsymbol(symbol, offset.x+obj.w*X, offset.y+obj.h*Y, obj.w, obj.h);
 			});
 		});
@@ -6295,21 +6382,17 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 	var createObject = function (el) {
 
-		if (el.type == 'ImageObject' && typeof RESOURCES != 'undefined' && el.resFile) {
-			el.file = RESOURCES[el.resFile];
+		if (el.type === 'AnimationObject' && typeof __LVL_ANIMATIONS !== 'undefined' && el.__realAnim) {
+			var anim = __LVL_ANIMATIONS[el.__realAnim];
+			el.anim = _PointJS.tiles.newImage(anim.file).getAnimation(anim.x, anim.y, anim.w, anim.h, anim.frames);
 		}
-
-		if (el.type == 'AnimationObject' && typeof ANIMATIONS != 'undefined' && el.animId) {
-			el.anim = ANIMATIONS[el.animId];
-		}
-
 
 		var cl = newObjectFromType(el);
 
 		cl.name = '';
 
 		forEach(el, function (val, key) {
-			if (key == 'id') return;
+			if (key === 'id' || key === 'anim') return;
 			cl[key] = val;
 		});
 
@@ -6812,7 +6895,7 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 
 
 	// system //////////////////////////////////////////////
-	device.onload = function () {
+	device.addEventListener('load', function () {
 		if (context) {
 			var i;
 			for (i in contextSettings) {
@@ -6825,28 +6908,32 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		dom.runEvent('onload');
 		dom.loaded = true;
 
+		if (!initCanvas) {
+			device.document.body.style.overflow = 'hidden';
+		}
+
 		if (typeof POINTJS_USER_ONLOAD === 'function') {
 			POINTJS_USER_ONLOAD();
 		}
 
 		return false;
-	};
+	});
 
-	device.onblur = function () {
+	device.addEventListener('blur', function () {
 		if (!isRun) return;
 		dom.runEvent('gameBlur');
 		return false;
-	};
+	});
 
-	device.onfocus = function () {
+	device.addEventListener('focus', function () {
 		if (isRun) return;
 		device.document.activeElement.blur();
 		device.focus();
 		dom.runEvent('gameFocus');
 		return false;
-	};
+	});
 
-	device.onresize = function () {
+	device.addEventListener('resize', function () {
 		dom.runEvent('gameResize');
 		if (context) {
 			context.textBaseline = contextSettings.textBaseline;
@@ -6858,20 +6945,24 @@ function PointJS(w, h, s, NodeJS) { // width, height, styleObject, NodeJS
 		}
 
 		return false;
-	};
+	});
 
-	device.onclick = function () {
-		device.document.activeElement.blur();
+	(initCanvas ? eventer : device).addEventListener('click', function () {
+		if (device.document.activeElement) {
+			device.document.activeElement.blur();
+		}
 		device.focus();
-	};
-
+	});
 
 	if (typeof POINTJS_LOADED_DOM_IGNORE !== 'undefined') {
 		device.onload();
 	}
 
+	if (typeof POINTJS_ENGINE_CREATED_EVENT !== 'undefined') {
+		POINTJS_ENGINE_CREATED_EVENT(this);
+	}
 
 	// end system //////////////////////////////////////////
 
-
+	device._GLOGAL_POINT_JS = this;
 }
